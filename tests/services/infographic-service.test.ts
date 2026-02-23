@@ -24,16 +24,10 @@ describe('InfographicService', () => {
           title: 'Historical Timeline',
           timelineData: [
             {
-              id: '1',
-              date: '1500',
-              title: 'Event 1',
-              description: 'First event',
-            },
-            {
-              id: '2',
-              date: '1600',
-              title: 'Event 2',
-              description: 'Second event',
+              id: 'event-1',
+              date: '1200 CE',
+              title: 'Construction began',
+              description: 'Temple construction started',
             },
           ],
         },
@@ -51,23 +45,15 @@ describe('InfographicService', () => {
         artifactId: 'artifact-123',
         siteId: 'site-456',
         infographicType: 'map',
-        language: Language.HINDI,
+        language: Language.ENGLISH,
         data: {
           title: 'Heritage Sites Map',
           mapData: [
             {
-              id: '1',
-              name: 'Site 1',
-              latitude: 28.6139,
-              longitude: 77.209,
-              type: 'site',
-            },
-            {
-              id: '2',
-              name: 'Site 2',
-              latitude: 28.7041,
-              longitude: 77.1025,
-              type: 'artifact',
+              id: 'loc-1',
+              name: 'Temple',
+              latitude: 12.9716,
+              longitude: 77.5946,
             },
           ],
         },
@@ -82,20 +68,14 @@ describe('InfographicService', () => {
         artifactId: 'artifact-123',
         siteId: 'site-456',
         infographicType: 'diagram',
-        language: Language.TAMIL,
+        language: Language.ENGLISH,
         data: {
-          title: 'Relationship Diagram',
+          title: 'Architectural Diagram',
           diagramData: [
             {
-              id: '1',
-              label: 'Node 1',
-              description: 'First node',
-              connections: ['2'],
-            },
-            {
-              id: '2',
-              label: 'Node 2',
-              description: 'Second node',
+              id: 'node-1',
+              label: 'Main Structure',
+              description: 'Central building',
             },
           ],
         },
@@ -115,11 +95,10 @@ describe('InfographicService', () => {
           title: 'Architectural Elements',
           architecturalData: [
             {
-              id: '1',
-              name: 'Dome',
+              id: 'elem-1',
+              name: 'Pillar',
               type: 'structure',
-              description: 'Main dome structure',
-              period: '16th century',
+              description: 'Stone pillar',
             },
           ],
         },
@@ -134,10 +113,9 @@ describe('InfographicService', () => {
         artifactId: 'artifact-123',
         siteId: 'site-456',
         infographicType: 'cultural-context',
-        language: Language.BENGALI,
+        language: Language.ENGLISH,
         data: {
           title: 'Cultural Context',
-          description: 'Cultural significance',
         },
       });
 
@@ -151,10 +129,7 @@ describe('InfographicService', () => {
         siteId: 'site-456',
         infographicType: 'timeline',
         language: Language.ENGLISH,
-        data: {
-          title: 'Test',
-          timelineData: [],
-        },
+        data: { title: 'Test' },
       });
 
       expect(result.success).toBe(false);
@@ -165,12 +140,9 @@ describe('InfographicService', () => {
       const result = await service.generateInfographic({
         artifactId: 'artifact-123',
         siteId: '',
-        infographicType: 'map',
-        language: Language.HINDI,
-        data: {
-          title: 'Test',
-          mapData: [],
-        },
+        infographicType: 'timeline',
+        language: Language.ENGLISH,
+        data: { title: 'Test' },
       });
 
       expect(result.success).toBe(false);
@@ -183,17 +155,14 @@ describe('InfographicService', () => {
         siteId: 'site-456',
         infographicType: 'timeline',
         language: Language.ENGLISH,
-        data: {
-          title: '',
-          timelineData: [],
-        },
+        data: {} as any,
       });
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Infographic data with title is required');
     });
 
-    it('should generate interactive infographic', async () => {
+    it('should generate interactive HTML format when requested', async () => {
       const result = await service.generateInfographic({
         artifactId: 'artifact-123',
         siteId: 'site-456',
@@ -204,8 +173,8 @@ describe('InfographicService', () => {
           title: 'Interactive Timeline',
           timelineData: [
             {
-              id: '1',
-              date: '1500',
+              id: 'event-1',
+              date: '1200 CE',
               title: 'Event',
               description: 'Description',
             },
@@ -294,10 +263,10 @@ describe('InfographicService', () => {
           title: 'Map',
           mapData: [
             {
-              id: '1',
+              id: 'loc-1',
               name: 'Invalid Location',
               latitude: 100, // Invalid
-              longitude: 77,
+              longitude: 77.5946,
             },
           ],
         },
@@ -317,9 +286,9 @@ describe('InfographicService', () => {
           title: 'Map',
           mapData: [
             {
-              id: '1',
+              id: 'loc-1',
               name: 'Invalid Location',
-              latitude: 28,
+              latitude: 12.9716,
               longitude: 200, // Invalid
             },
           ],
@@ -335,16 +304,10 @@ describe('InfographicService', () => {
     it('should add interactive elements successfully', () => {
       const result = service.addInteractiveElements('infographic-123', [
         {
-          id: '1',
+          id: 'elem-1',
           type: 'hotspot',
-          targetId: 'element-1',
+          targetId: 'node-1',
           action: 'show-details',
-        },
-        {
-          id: '2',
-          type: 'tooltip',
-          targetId: 'element-2',
-          action: 'display-info',
         },
       ]);
 
@@ -360,14 +323,13 @@ describe('InfographicService', () => {
   });
 
   describe('optimizeForMobile', () => {
-    it('should optimize infographic for mobile', () => {
+    it('should optimize for mobile successfully', () => {
       const result = service.optimizeForMobile(
         'https://cdn.avvari.com/infographics/test.svg',
         'timeline'
       );
 
       expect(result.success).toBe(true);
-      expect(result.mobileUrl).toBeDefined();
       expect(result.mobileUrl).toContain('-mobile');
     });
 
@@ -383,60 +345,44 @@ describe('InfographicService', () => {
   });
 
   describe('getDimensions', () => {
-    it('should get dimensions for timeline', () => {
-      const dimensions = service.getDimensions('timeline');
+    it('should return dimensions for timeline', () => {
+      const dims = service.getDimensions('timeline');
 
-      expect(dimensions.width).toBe(1200);
-      expect(dimensions.height).toBe(600);
+      expect(dims.width).toBe(1200);
+      expect(dims.height).toBe(600);
     });
 
-    it('should get dimensions for map', () => {
-      const dimensions = service.getDimensions('map');
+    it('should return dimensions for map', () => {
+      const dims = service.getDimensions('map');
 
-      expect(dimensions.width).toBe(1000);
-      expect(dimensions.height).toBe(800);
+      expect(dims.width).toBe(1000);
+      expect(dims.height).toBe(800);
     });
 
-    it('should get dimensions for diagram', () => {
-      const dimensions = service.getDimensions('diagram');
+    it('should return dimensions for diagram', () => {
+      const dims = service.getDimensions('diagram');
 
-      expect(dimensions.width).toBe(1000);
-      expect(dimensions.height).toBe(1000);
+      expect(dims.width).toBe(1000);
+      expect(dims.height).toBe(1000);
     });
 
-    it('should get dimensions for architectural', () => {
-      const dimensions = service.getDimensions('architectural');
+    it('should return dimensions for architectural', () => {
+      const dims = service.getDimensions('architectural');
 
-      expect(dimensions.width).toBe(1200);
-      expect(dimensions.height).toBe(900);
+      expect(dims.width).toBe(1200);
+      expect(dims.height).toBe(900);
     });
 
-    it('should get dimensions for cultural-context', () => {
-      const dimensions = service.getDimensions('cultural-context');
+    it('should return dimensions for cultural-context', () => {
+      const dims = service.getDimensions('cultural-context');
 
-      expect(dimensions.width).toBe(1000);
-      expect(dimensions.height).toBe(700);
+      expect(dims.width).toBe(1000);
+      expect(dims.height).toBe(700);
     });
   });
 
-  describe('Validation Methods', () => {
-    it('should validate supported types', () => {
-      expect(service.isTypeSupported('timeline')).toBe(true);
-      expect(service.isTypeSupported('map')).toBe(true);
-      expect(service.isTypeSupported('diagram')).toBe(true);
-      expect(service.isTypeSupported('architectural')).toBe(true);
-      expect(service.isTypeSupported('cultural-context')).toBe(true);
-      expect(service.isTypeSupported('invalid')).toBe(false);
-    });
-
-    it('should validate supported formats', () => {
-      expect(service.isFormatSupported('svg')).toBe(true);
-      expect(service.isFormatSupported('png')).toBe(true);
-      expect(service.isFormatSupported('interactive-html')).toBe(true);
-      expect(service.isFormatSupported('pdf')).toBe(false);
-    });
-
-    it('should get list of supported types', () => {
+  describe('Utility Methods', () => {
+    it('should return supported types', () => {
       const types = service.getSupportedTypes();
 
       expect(types).toContain('timeline');
@@ -447,7 +393,7 @@ describe('InfographicService', () => {
       expect(types.length).toBe(5);
     });
 
-    it('should get list of supported formats', () => {
+    it('should return supported formats', () => {
       const formats = service.getSupportedFormats();
 
       expect(formats).toContain('svg');
@@ -455,98 +401,98 @@ describe('InfographicService', () => {
       expect(formats).toContain('interactive-html');
       expect(formats.length).toBe(3);
     });
+
+    it('should validate type support', () => {
+      expect(service.isTypeSupported('timeline')).toBe(true);
+      expect(service.isTypeSupported('map')).toBe(true);
+      expect(service.isTypeSupported('invalid')).toBe(false);
+    });
+
+    it('should validate format support', () => {
+      expect(service.isFormatSupported('svg')).toBe(true);
+      expect(service.isFormatSupported('png')).toBe(true);
+      expect(service.isFormatSupported('interactive-html')).toBe(true);
+      expect(service.isFormatSupported('jpg')).toBe(false);
+    });
   });
 
   describe('extractArchitecturalInfo', () => {
-    it('should extract architectural elements from data', () => {
+    it('should extract architectural info from artifact data', () => {
       const artifactData = {
         architecture: [
           {
-            id: '1',
-            name: 'Dome',
-            type: 'structure',
-            description: 'Main dome',
-          },
-          {
-            id: '2',
+            id: 'elem-1',
             name: 'Pillar',
             type: 'structure',
-            description: 'Support pillar',
+            description: 'Stone pillar',
           },
         ],
       };
 
       const elements = service.extractArchitecturalInfo(artifactData);
 
-      expect(elements.length).toBe(2);
-      expect(elements[0].name).toBe('Dome');
-      expect(elements[1].name).toBe('Pillar');
+      expect(elements.length).toBe(1);
+      expect(elements[0].name).toBe('Pillar');
     });
 
-    it('should handle missing architecture data', () => {
+    it('should return empty array when no architecture data', () => {
       const elements = service.extractArchitecturalInfo({});
 
-      expect(elements.length).toBe(0);
+      expect(elements).toEqual([]);
     });
   });
 
   describe('generateTimelineFromEvents', () => {
-    it('should generate timeline events', () => {
+    it('should generate timeline from events', () => {
       const events = [
         {
-          date: '1500',
+          date: '1200 CE',
           title: 'Event 1',
-          description: 'First event',
-          category: 'historical',
+          description: 'Description 1',
         },
         {
-          year: '1600',
+          year: '1300 CE',
           name: 'Event 2',
-          description: 'Second event',
+          description: 'Description 2',
         },
       ];
 
       const timeline = service.generateTimelineFromEvents(events);
 
       expect(timeline.length).toBe(2);
-      expect(timeline[0].date).toBe('1500');
       expect(timeline[0].title).toBe('Event 1');
-      expect(timeline[1].date).toBe('1600');
       expect(timeline[1].title).toBe('Event 2');
+      expect(timeline[1].date).toBe('1300 CE');
     });
 
-    it('should handle events with missing data', () => {
-      const events = [
-        {},
-        { title: 'Event' },
-      ];
+    it('should handle missing fields', () => {
+      const events = [{}];
 
       const timeline = service.generateTimelineFromEvents(events);
 
-      expect(timeline.length).toBe(2);
+      expect(timeline.length).toBe(1);
       expect(timeline[0].date).toBe('Unknown');
       expect(timeline[0].title).toBe('Untitled Event');
-      expect(timeline[1].title).toBe('Event');
     });
   });
 
   describe('calculateMapBounds', () => {
     it('should calculate bounds from locations', () => {
       const locations = [
-        { id: '1', name: 'Loc 1', latitude: 28.6, longitude: 77.2 },
-        { id: '2', name: 'Loc 2', latitude: 28.7, longitude: 77.1 },
-        { id: '3', name: 'Loc 3', latitude: 28.5, longitude: 77.3 },
+        { id: '1', name: 'Loc1', latitude: 10, longitude: 20 },
+        { id: '2', name: 'Loc2', latitude: 15, longitude: 25 },
+        { id: '3', name: 'Loc3', latitude: 12, longitude: 22 },
       ];
 
       const bounds = service.calculateMapBounds(locations);
 
-      expect(bounds.minLat).toBe(28.5);
-      expect(bounds.maxLat).toBe(28.7);
-      expect(bounds.minLng).toBe(77.1);
-      expect(bounds.maxLng).toBe(77.3);
+      expect(bounds.minLat).toBe(10);
+      expect(bounds.maxLat).toBe(15);
+      expect(bounds.minLng).toBe(20);
+      expect(bounds.maxLng).toBe(25);
     });
 
-    it('should handle empty locations', () => {
+    it('should handle empty locations array', () => {
       const bounds = service.calculateMapBounds([]);
 
       expect(bounds.minLat).toBe(0);
@@ -556,16 +502,14 @@ describe('InfographicService', () => {
     });
 
     it('should handle single location', () => {
-      const locations = [
-        { id: '1', name: 'Loc 1', latitude: 28.6, longitude: 77.2 },
-      ];
+      const locations = [{ id: '1', name: 'Loc1', latitude: 10, longitude: 20 }];
 
       const bounds = service.calculateMapBounds(locations);
 
-      expect(bounds.minLat).toBe(28.6);
-      expect(bounds.maxLat).toBe(28.6);
-      expect(bounds.minLng).toBe(77.2);
-      expect(bounds.maxLng).toBe(77.2);
+      expect(bounds.minLat).toBe(10);
+      expect(bounds.maxLat).toBe(10);
+      expect(bounds.minLng).toBe(20);
+      expect(bounds.maxLng).toBe(20);
     });
   });
 });

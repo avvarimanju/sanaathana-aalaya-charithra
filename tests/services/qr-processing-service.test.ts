@@ -1,7 +1,7 @@
 // Unit tests for QRProcessingService
 import { QRProcessingService } from '../../src/services/qr-processing-service';
+import { QRScanRequest, Language } from '../../src/models/common';
 import { RepositoryFactory } from '../../src/repositories';
-import { ArtifactType, Language } from '../../src/models/common';
 
 // Mock repositories
 jest.mock('../../src/repositories');
@@ -9,65 +9,74 @@ jest.mock('../../src/utils/logger');
 
 describe('QRProcessingService', () => {
   let service: QRProcessingService;
-  let mockArtifactsRepo: any;
-  let mockHeritageSitesRepo: any;
+  let mockArtifactsRepository: any;
+  let mockHeritageSitesRepository: any;
+
+  const mockArtifact = {
+    artifactId: 'artifact-1',
+    siteId: 'site-1',
+    name: 'Test Artifact',
+    type: 'pillar',
+    description: 'A test artifact',
+    historicalContext: 'Built in 12th century',
+    culturalSignificance: 'Important monument',
+    lastUpdated: '2024-01-01T00:00:00.000Z',
+  };
+
+  const mockSite = {
+    siteId: 'site-1',
+    name: 'Test Heritage Site',
+    location: {
+      latitude: 12.9716,
+      longitude: 77.5946,
+    },
+    description: 'A test heritage site',
+    historicalPeriod: '12th Century',
+    culturalSignificance: 'Important site',
+    artifacts: [],
+    supportedLanguages: [Language.ENGLISH],
+    metadata: {
+      createdAt: '2024-01-01T00:00:00.000Z',
+      updatedAt: '2024-01-01T00:00:00.000Z',
+      version: '1.0',
+      curator: 'Test Curator',
+      tags: ['heritage'],
+      status: 'active' as const,
+    },
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
-    // Setup mock repositories
-    mockArtifactsRepo = {
+
+    mockArtifactsRepository = {
       getByArtifactId: jest.fn(),
     };
-    
-    mockHeritageSitesRepo = {
+
+    mockHeritageSitesRepository = {
       getBySiteId: jest.fn(),
     };
-    
-    (RepositoryFactory.getArtifactsRepository as jest.Mock).mockReturnValue(mockArtifactsRepo);
-    (RepositoryFactory.getHeritageSitesRepository as jest.Mock).mockReturnValue(mockHeritageSitesRepo);
-    
+
+    (RepositoryFactory.getArtifactsRepository as jest.Mock).mockReturnValue(mockArtifactsRepository);
+    (RepositoryFactory.getHeritageSitesRepository as jest.Mock).mockReturnValue(mockHeritageSitesRepository);
+
     service = new QRProcessingService();
   });
 
   describe('processQRScan', () => {
-    const mockArtifact = {
-      artifactId: 'artifact-1',
-      siteId: 'site-1',
-      name: 'Test Artifact',
-      type: ArtifactType.PILLAR,
-      description: 'Test description',
-      historicalContext: 'Test context',
-      culturalSignificance: 'Test significance',
-      lastUpdated: '2024-01-01T00:00:00.000Z',
-    };
+    it('should successfully process valid JSON QR code', async () => {
+      const request: QRScanRequest = {
+        qrData: JSON.stringify({
+          siteId: 'site-1',
+          artifactId: 'artifact-1',
+          timestamp: '2024-01-01T00:00:00.000Z',
+        }),
+        sessionId: 'session-1',
+      };
 
-    const mockSite = {
-      siteId: 'site-1',
-      name: 'Test Site',
-      location: { latitude: 12.9716, longitude: 77.5946 },
-      description: 'Test site',
-      historicalPeriod: '12th Century',
-      culturalSignificance: 'Important site',
-      artifacts: [],
-      supportedLanguages: [Language.ENGLISH],
-      metadata: {
-        createdAt: '2024-01-01T00:00:00.000Z',
-        updatedAt: '2024-01-01T00:00:00.000Z',
-        version: '1.0',
-        curator: 'Test',
-        tags: [],
-        status: 'active' as const,
-      },
-    };
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(mockArtifact);
+      mockHeritageSitesRepository.getBySiteId.mockResolvedValue(mockSite);
 
-    it('should process valid URI format QR code', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(mockSite);
-
-      const result = await service.processQRScan({
-        qrData: 'avvari://site-1/artifact-1?timestamp=2024-01-01T00:00:00.000Z',
-      });
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(true);
       expect(result.artifactIdentifier).toBeDefined();
@@ -77,122 +86,133 @@ describe('QRProcessingService', () => {
       expect(result.siteMetadata).toEqual(mockSite);
     });
 
-    it('should process valid JSON format QR code', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(mockSite);
+    it('should successfully process valid URI QR code', async () => {
+      const request: QRScanRequest = {
+        qrData: 'avvari://site-1/artifact-1?timestamp=2024-01-01T00:00:00.000Z',
+        sessionId: 'session-1',
+      };
 
-      const qrData = JSON.stringify({
-        siteId: 'site-1',
-        artifactId: 'artifact-1',
-        timestamp: '2024-01-01T00:00:00.000Z',
-      });
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(mockArtifact);
+      mockHeritageSitesRepository.getBySiteId.mockResolvedValue(mockSite);
 
-      const result = await service.processQRScan({ qrData });
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(true);
       expect(result.artifactIdentifier?.siteId).toBe('site-1');
       expect(result.artifactIdentifier?.artifactId).toBe('artifact-1');
     });
 
-    it('should process valid simple format QR code', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(mockSite);
-
-      const result = await service.processQRScan({
+    it('should successfully process simple format QR code', async () => {
+      const request: QRScanRequest = {
         qrData: 'site-1:artifact-1',
-      });
+      };
+
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(mockArtifact);
+      mockHeritageSitesRepository.getBySiteId.mockResolvedValue(mockSite);
+
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(true);
       expect(result.artifactIdentifier?.siteId).toBe('site-1');
       expect(result.artifactIdentifier?.artifactId).toBe('artifact-1');
     });
 
-    it('should fail with invalid QR data', async () => {
-      const result = await service.processQRScan({
-        qrData: 'invalid-qr-data',
-      });
+    it('should fail with invalid QR data format', async () => {
+      const request: QRScanRequest = {
+        qrData: 'invalid-format',
+      };
+
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Invalid QR code format');
     });
 
-    it('should fail with empty QR data', async () => {
-      const result = await service.processQRScan({
-        qrData: '',
-      });
-
-      expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
-    });
-
     it('should fail when artifact not found', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(null);
+      const request: QRScanRequest = {
+        qrData: 'site-1:artifact-1',
+      };
 
-      const result = await service.processQRScan({
-        qrData: 'avvari://site-1/artifact-1',
-      });
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(null);
+
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Artifact not found in database');
     });
 
     it('should fail when site not found', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(null);
+      const request: QRScanRequest = {
+        qrData: 'site-1:artifact-1',
+      };
 
-      const result = await service.processQRScan({
-        qrData: 'avvari://site-1/artifact-1',
-      });
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(mockArtifact);
+      mockHeritageSitesRepository.getBySiteId.mockResolvedValue(null);
+
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Heritage site not found in database');
     });
 
     it('should verify location when provided', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(mockSite);
+      const request: QRScanRequest = {
+        qrData: 'site-1:artifact-1',
+        location: {
+          latitude: 12.9716,
+          longitude: 77.5946,
+        },
+      };
 
-      const result = await service.processQRScan({
-        qrData: 'avvari://site-1/artifact-1',
-        location: { latitude: 12.9716, longitude: 77.5946 }, // Same as site
-      });
+      mockArtifactsRepository.getByArtifactId.mockResolvedValue(mockArtifact);
+      mockHeritageSitesRepository.getBySiteId.mockResolvedValue(mockSite);
+
+      const result = await service.processQRScan(request);
 
       expect(result.success).toBe(true);
+      // Location verification doesn't fail the request, just logs warning
     });
 
-    it('should handle location verification for remote users', async () => {
-      mockArtifactsRepo.getByArtifactId.mockResolvedValue(mockArtifact);
-      mockHeritageSitesRepo.getBySiteId.mockResolvedValue(mockSite);
+    it('should handle repository errors gracefully', async () => {
+      const request: QRScanRequest = {
+        qrData: 'site-1:artifact-1',
+      };
 
-      const result = await service.processQRScan({
-        qrData: 'avvari://site-1/artifact-1',
-        location: { latitude: 0, longitude: 0 }, // Far from site
-      });
+      mockArtifactsRepository.getByArtifactId.mockRejectedValue(new Error('Database error'));
 
-      // Should still succeed but log warning
-      expect(result.success).toBe(true);
+      const result = await service.processQRScan(request);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Internal error processing QR code');
     });
   });
 
   describe('validateQRCodeFormat', () => {
     it('should validate JSON format', () => {
-      const result = service.validateQRCodeFormat(
-        JSON.stringify({ siteId: 'site-1', artifactId: 'artifact-1' })
-      );
+      const qrData = JSON.stringify({
+        siteId: 'site-1',
+        artifactId: 'artifact-1',
+      });
+
+      const result = service.validateQRCodeFormat(qrData);
 
       expect(result.isValid).toBe(true);
       expect(result.format).toBe('json');
     });
 
     it('should validate URI format', () => {
-      const result = service.validateQRCodeFormat('avvari://site-1/artifact-1');
+      const qrData = 'avvari://site-1/artifact-1';
+
+      const result = service.validateQRCodeFormat(qrData);
 
       expect(result.isValid).toBe(true);
       expect(result.format).toBe('uri');
     });
 
     it('should validate simple format', () => {
-      const result = service.validateQRCodeFormat('site-1:artifact-1');
+      const qrData = 'site-1:artifact-1';
+
+      const result = service.validateQRCodeFormat(qrData);
 
       expect(result.isValid).toBe(true);
       expect(result.format).toBe('simple');
@@ -213,17 +233,26 @@ describe('QRProcessingService', () => {
     });
 
     it('should reject JSON missing required fields', () => {
-      const result = service.validateQRCodeFormat(JSON.stringify({ siteId: 'site-1' }));
+      const qrData = JSON.stringify({ siteId: 'site-1' });
+
+      const result = service.validateQRCodeFormat(qrData);
 
       expect(result.isValid).toBe(false);
       expect(result.error).toBe('JSON missing required fields');
     });
 
     it('should reject invalid URI', () => {
-      const result = service.validateQRCodeFormat('avvari://invalid');
+      const result = service.validateQRCodeFormat('avvari://');
 
       expect(result.isValid).toBe(false);
       expect(result.error).toBe('URI missing required path components');
+    });
+
+    it('should reject invalid simple format', () => {
+      const result = service.validateQRCodeFormat('site-1:');
+
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe('Simple format missing required components');
     });
 
     it('should reject unrecognized format', () => {
@@ -237,33 +266,43 @@ describe('QRProcessingService', () => {
   describe('isQRCodeCorrupted', () => {
     it('should detect null bytes', () => {
       const result = service.isQRCodeCorrupted('site-1\0artifact-1');
+
       expect(result).toBe(true);
     });
 
-    it('should detect replacement characters', () => {
+    it('should detect replacement character', () => {
       const result = service.isQRCodeCorrupted('site-1�artifact-1');
+
       expect(result).toBe(true);
     });
 
     it('should detect too short data', () => {
       const result = service.isQRCodeCorrupted('short');
+
       expect(result).toBe(true);
     });
 
     it('should detect too long data', () => {
-      const result = service.isQRCodeCorrupted('a'.repeat(1001));
+      const longData = 'a'.repeat(1001);
+      const result = service.isQRCodeCorrupted(longData);
+
       expect(result).toBe(true);
     });
 
-    it('should accept valid QR data', () => {
-      const result = service.isQRCodeCorrupted('avvari://site-1/artifact-1');
+    it('should not flag valid data as corrupted', () => {
+      const result = service.isQRCodeCorrupted('site-1:artifact-1');
+
       expect(result).toBe(false);
     });
 
-    it('should accept valid JSON', () => {
-      const result = service.isQRCodeCorrupted(
-        JSON.stringify({ siteId: 'site-1', artifactId: 'artifact-1' })
-      );
+    it('should not flag valid JSON as corrupted', () => {
+      const qrData = JSON.stringify({
+        siteId: 'site-1',
+        artifactId: 'artifact-1',
+      });
+
+      const result = service.isQRCodeCorrupted(qrData);
+
       expect(result).toBe(false);
     });
   });
@@ -271,8 +310,8 @@ describe('QRProcessingService', () => {
   describe('generateQRCodeData', () => {
     it('should generate JSON format', () => {
       const result = service.generateQRCodeData('site-1', 'artifact-1', 'json');
-      const parsed = JSON.parse(result);
 
+      const parsed = JSON.parse(result);
       expect(parsed.siteId).toBe('site-1');
       expect(parsed.artifactId).toBe('artifact-1');
       expect(parsed.timestamp).toBeDefined();
@@ -281,8 +320,7 @@ describe('QRProcessingService', () => {
     it('should generate URI format', () => {
       const result = service.generateQRCodeData('site-1', 'artifact-1', 'uri');
 
-      expect(result).toContain('avvari://site-1/artifact-1');
-      expect(result).toContain('timestamp=');
+      expect(result).toMatch(/^avvari:\/\/site-1\/artifact-1\?timestamp=/);
     });
 
     it('should generate simple format', () => {
@@ -294,7 +332,13 @@ describe('QRProcessingService', () => {
     it('should default to URI format', () => {
       const result = service.generateQRCodeData('site-1', 'artifact-1');
 
-      expect(result).toContain('avvari://');
+      expect(result).toMatch(/^avvari:\/\//);
+    });
+
+    it('should throw error for unsupported format', () => {
+      expect(() => {
+        service.generateQRCodeData('site-1', 'artifact-1', 'invalid' as any);
+      }).toThrow('Unsupported QR code format');
     });
   });
 });

@@ -9,13 +9,13 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
-export class AvvarIStack extends cdk.Stack {
+export class SanaathanaAalayaCharithraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // S3 Bucket for content storage
-    const contentBucket = new s3.Bucket(this, 'AvvarIContentBucket', {
-      bucketName: `avvari-content-${this.account}-${this.region}`,
+    const contentBucket = new s3.Bucket(this, 'SanaathanaAalayaCharithraContentBucket', {
+      bucketName: `sanaathana-aalaya-charithra-content-${this.account}-${this.region}`,
       versioned: true,
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -46,7 +46,7 @@ export class AvvarIStack extends cdk.Stack {
     });
 
     // CloudFront Distribution for global content delivery
-    const distribution = new cloudfront.Distribution(this, 'AvvarIContentDistribution', {
+    const distribution = new cloudfront.Distribution(this, 'SanaathanaAalayaCharithraContentDistribution', {
       defaultBehavior: {
         origin: new origins.S3Origin(contentBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -56,14 +56,14 @@ export class AvvarIStack extends cdk.Stack {
       },
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       enableLogging: true,
-      comment: 'AvvarI for Bharat Content Distribution',
+      comment: 'Sanaathana Aalaya Charithra Content Distribution',
     });
 
     // DynamoDB Tables
     
     // Heritage Sites table
     const heritageSitesTable = new dynamodb.Table(this, 'HeritageSitesTable', {
-      tableName: 'AvvarI-HeritageSites',
+      tableName: 'SanaathanaAalayaCharithra-HeritageSites',
       partitionKey: { name: 'siteId', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       encryption: dynamodb.TableEncryption.AWS_MANAGED,
@@ -73,7 +73,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Artifacts table
     const artifactsTable = new dynamodb.Table(this, 'ArtifactsTable', {
-      tableName: 'AvvarI-Artifacts',
+      tableName: 'SanaathanaAalayaCharithra-Artifacts',
       partitionKey: { name: 'artifactId', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'siteId', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
@@ -91,7 +91,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // User Sessions table
     const userSessionsTable = new dynamodb.Table(this, 'UserSessionsTable', {
-      tableName: 'AvvarI-UserSessions',
+      tableName: 'SanaathanaAalayaCharithra-UserSessions',
       partitionKey: { name: 'sessionId', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       encryption: dynamodb.TableEncryption.AWS_MANAGED,
@@ -101,7 +101,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Content Cache table
     const contentCacheTable = new dynamodb.Table(this, 'ContentCacheTable', {
-      tableName: 'AvvarI-ContentCache',
+      tableName: 'SanaathanaAalayaCharithra-ContentCache',
       partitionKey: { name: 'cacheKey', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       encryption: dynamodb.TableEncryption.AWS_MANAGED,
@@ -111,7 +111,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Analytics table
     const analyticsTable = new dynamodb.Table(this, 'AnalyticsTable', {
-      tableName: 'AvvarI-Analytics',
+      tableName: 'SanaathanaAalayaCharithra-Analytics',
       partitionKey: { name: 'eventId', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'timestamp', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
@@ -127,13 +127,13 @@ export class AvvarIStack extends cdk.Stack {
     });
 
     // IAM Role for Lambda functions
-    const lambdaExecutionRole = new iam.Role(this, 'AvvarILambdaExecutionRole', {
+    const lambdaExecutionRole = new iam.Role(this, 'SanaathanaAalayaCharithraLambdaExecutionRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
       ],
       inlinePolicies: {
-        AvvarILambdaPolicy: new iam.PolicyDocument({
+        SanaathanaAalayaCharithraLambdaPolicy: new iam.PolicyDocument({
           statements: [
             // DynamoDB permissions
             new iam.PolicyStatement({
@@ -217,18 +217,18 @@ export class AvvarIStack extends cdk.Stack {
     });
 
     // Lambda Layer for common dependencies
-    const commonLayer = new lambda.LayerVersion(this, 'AvvarICommonLayer', {
-      layerVersionName: 'avvari-common-layer',
+    const commonLayer = new lambda.LayerVersion(this, 'SanaathanaAalayaCharithraCommonLayer', {
+      layerVersionName: 'sanaathana-aalaya-charithra-common-layer',
       code: lambda.Code.fromAsset('src/layers/common'),
       compatibleRuntimes: [lambda.Runtime.NODEJS_18_X],
-      description: 'Common utilities and AWS SDK for AvvarI Lambda functions',
+      description: 'Common utilities and AWS SDK for Sanaathana Aalaya Charithra Lambda functions',
     });
 
     // Lambda Functions
 
     // QR Processing Lambda
     const qrProcessingLambda = new lambda.Function(this, 'QRProcessingLambda', {
-      functionName: 'AvvarI-QRProcessing',
+      functionName: 'SanaathanaAalayaCharithra-QRProcessing',
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'qr-processing.handler',
       code: lambda.Code.fromAsset('dist/lambdas'),
@@ -248,7 +248,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Content Generation Lambda
     const contentGenerationLambda = new lambda.Function(this, 'ContentGenerationLambda', {
-      functionName: 'AvvarI-ContentGeneration',
+      functionName: 'SanaathanaAalayaCharithra-ContentGeneration',
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'content-generation.handler',
       code: lambda.Code.fromAsset('dist/lambdas'),
@@ -268,7 +268,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Q&A Processing Lambda
     const qaProcessingLambda = new lambda.Function(this, 'QAProcessingLambda', {
-      functionName: 'AvvarI-QAProcessing',
+      functionName: 'SanaathanaAalayaCharithra-QAProcessing',
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'qa-processing.handler',
       code: lambda.Code.fromAsset('dist/lambdas'),
@@ -287,7 +287,7 @@ export class AvvarIStack extends cdk.Stack {
 
     // Analytics Lambda
     const analyticsLambda = new lambda.Function(this, 'AnalyticsLambda', {
-      functionName: 'AvvarI-Analytics',
+      functionName: 'SanaathanaAalayaCharithra-Analytics',
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'analytics.handler',
       code: lambda.Code.fromAsset('dist/lambdas'),
@@ -303,9 +303,9 @@ export class AvvarIStack extends cdk.Stack {
     });
 
     // API Gateway
-    const api = new apigateway.RestApi(this, 'AvvarIAPI', {
-      restApiName: 'AvvarI for Bharat API',
-      description: 'API for AvvarI heritage site digitization platform',
+    const api = new apigateway.RestApi(this, 'SanaathanaAalayaCharithraAPI', {
+      restApiName: 'Sanaathana Aalaya Charithra API',
+      description: 'API for Sanaathana Aalaya Charithra temple heritage platform',
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
         allowMethods: apigateway.Cors.ALL_METHODS,
@@ -373,7 +373,7 @@ export class AvvarIStack extends cdk.Stack {
             'application/json': JSON.stringify({
               status: 'healthy',
               timestamp: '$context.requestTime',
-              service: 'AvvarI for Bharat API',
+              service: 'Sanaathana Aalaya Charithra API',
             }),
           },
         },
@@ -396,31 +396,31 @@ export class AvvarIStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'APIGatewayURL', {
       value: api.url,
       description: 'API Gateway URL',
-      exportName: 'AvvarI-API-URL',
+      exportName: 'SanaathanaAalayaCharithra-API-URL',
     });
 
     new cdk.CfnOutput(this, 'ContentBucketName', {
       value: contentBucket.bucketName,
       description: 'S3 Content Bucket Name',
-      exportName: 'AvvarI-Content-Bucket',
+      exportName: 'SanaathanaAalayaCharithra-Content-Bucket',
     });
 
     new cdk.CfnOutput(this, 'CloudFrontDistributionDomain', {
       value: distribution.distributionDomainName,
       description: 'CloudFront Distribution Domain',
-      exportName: 'AvvarI-CloudFront-Domain',
+      exportName: 'SanaathanaAalayaCharithra-CloudFront-Domain',
     });
 
     new cdk.CfnOutput(this, 'HeritageSitesTableName', {
       value: heritageSitesTable.tableName,
       description: 'Heritage Sites DynamoDB Table Name',
-      exportName: 'AvvarI-HeritageSites-Table',
+      exportName: 'SanaathanaAalayaCharithra-HeritageSites-Table',
     });
 
     new cdk.CfnOutput(this, 'ArtifactsTableName', {
       value: artifactsTable.tableName,
       description: 'Artifacts DynamoDB Table Name',
-      exportName: 'AvvarI-Artifacts-Table',
+      exportName: 'SanaathanaAalayaCharithra-Artifacts-Table',
     });
   }
 }

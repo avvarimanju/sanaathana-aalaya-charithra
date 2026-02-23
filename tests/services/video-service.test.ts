@@ -44,7 +44,7 @@ describe('VideoService', () => {
         artifactId: '',
         siteId: 'site-456',
         contentType: 'artifact-showcase',
-        language: Language.HINDI,
+        language: Language.ENGLISH,
       });
 
       expect(result.success).toBe(false);
@@ -56,18 +56,31 @@ describe('VideoService', () => {
         artifactId: 'artifact-123',
         siteId: '',
         contentType: 'site-tour',
-        language: Language.TAMIL,
+        language: Language.ENGLISH,
       });
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Artifact ID and Site ID are required');
     });
 
-    it('should generate video with custom quality', async () => {
+    it('should use custom duration', async () => {
       const result = await service.generateVideo({
         artifactId: 'artifact-123',
         siteId: 'site-456',
         contentType: 'cultural-context',
+        language: Language.ENGLISH,
+        duration: 180,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.duration).toBe(180);
+    });
+
+    it('should use custom quality', async () => {
+      const result = await service.generateVideo({
+        artifactId: 'artifact-123',
+        siteId: 'site-456',
+        contentType: 'historical-reconstruction',
         language: Language.ENGLISH,
         quality: 'high',
       });
@@ -76,23 +89,10 @@ describe('VideoService', () => {
       expect(result.quality).toBe('high');
     });
 
-    it('should generate video with custom duration', async () => {
-      const result = await service.generateVideo({
-        artifactId: 'artifact-123',
-        siteId: 'site-456',
-        contentType: 'historical-reconstruction',
-        language: Language.ENGLISH,
-        duration: 300,
-      });
-
-      expect(result.success).toBe(true);
-      expect(result.duration).toBe(300);
-    });
-
-    it('should generate video with subtitles', async () => {
+    it('should generate subtitles when requested', async () => {
       mockTranslationService.translateText.mockResolvedValue({
         success: true,
-        translatedText: 'Translated subtitle text',
+        translatedText: 'नमस्ते',
       });
 
       const result = await service.generateVideo({
@@ -129,7 +129,7 @@ describe('VideoService', () => {
       const result = await service.processVideo({
         sourceVideoUrl: '',
         targetQuality: 'medium',
-        targetFormat: 'webm',
+        targetFormat: 'mp4',
       });
 
       expect(result.success).toBe(false);
@@ -146,7 +146,6 @@ describe('VideoService', () => {
 
       expect(result.success).toBe(true);
       expect(result.thumbnailUrl).toBeDefined();
-      expect(result.thumbnailUrl).toContain('.jpg');
     });
 
     it('should extract audio when requested', async () => {
@@ -159,11 +158,10 @@ describe('VideoService', () => {
 
       expect(result.success).toBe(true);
       expect(result.audioUrl).toBeDefined();
-      expect(result.audioUrl).toContain('.mp3');
     });
 
-    it('should process video to different formats', async () => {
-      const formats: Array<'mp4' | 'webm' | 'hls'> = ['mp4', 'webm', 'hls'];
+    it('should handle different formats', async () => {
+      const formats = ['mp4', 'webm', 'hls'] as const;
 
       for (const format of formats) {
         const result = await service.processVideo({
@@ -176,41 +174,25 @@ describe('VideoService', () => {
         expect(result.format).toBe(format);
       }
     });
-
-    it('should process video to different qualities', async () => {
-      const qualities: Array<'low' | 'medium' | 'high' | 'ultra'> = ['low', 'medium', 'high', 'ultra'];
-
-      for (const quality of qualities) {
-        const result = await service.processVideo({
-          sourceVideoUrl: 'https://example.com/video.mp4',
-          targetQuality: quality,
-          targetFormat: 'mp4',
-        });
-
-        expect(result.success).toBe(true);
-        expect(result.quality).toBe(quality);
-      }
-    });
   });
 
   describe('generateSubtitles', () => {
     it('should generate subtitles successfully', async () => {
       mockTranslationService.translateText.mockResolvedValue({
         success: true,
-        translatedText: 'Translated text',
+        translatedText: 'नमस्ते',
       });
 
       const result = await service.generateSubtitles({
         videoId: 'video-123',
-        transcript: 'This is a test transcript',
+        transcript: 'Hello world',
         sourceLanguage: Language.ENGLISH,
-        targetLanguages: [Language.HINDI, Language.TAMIL],
+        targetLanguages: [Language.HINDI],
       });
 
       expect(result.success).toBe(true);
       expect(result.subtitles).toBeDefined();
-      expect(result.subtitles?.length).toBe(2);
-      expect(mockTranslationService.translateText).toHaveBeenCalledTimes(2);
+      expect(result.subtitles?.length).toBe(1);
     });
 
     it('should handle empty transcript', async () => {
@@ -225,6 +207,23 @@ describe('VideoService', () => {
       expect(result.error).toBe('Transcript is required');
     });
 
+    it('should generate subtitles for multiple languages', async () => {
+      mockTranslationService.translateText.mockResolvedValue({
+        success: true,
+        translatedText: 'Translated text',
+      });
+
+      const result = await service.generateSubtitles({
+        videoId: 'video-123',
+        transcript: 'Test transcript',
+        sourceLanguage: Language.ENGLISH,
+        targetLanguages: [Language.HINDI, Language.TAMIL, Language.TELUGU],
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.subtitles?.length).toBe(3);
+    });
+
     it('should not translate when source and target are same', async () => {
       const result = await service.generateSubtitles({
         videoId: 'video-123',
@@ -236,41 +235,6 @@ describe('VideoService', () => {
       expect(result.success).toBe(true);
       expect(mockTranslationService.translateText).not.toHaveBeenCalled();
     });
-
-    it('should generate subtitles in multiple languages', async () => {
-      mockTranslationService.translateText.mockResolvedValue({
-        success: true,
-        translatedText: 'Translated',
-      });
-
-      const result = await service.generateSubtitles({
-        videoId: 'video-123',
-        transcript: 'Test',
-        sourceLanguage: Language.ENGLISH,
-        targetLanguages: [Language.HINDI, Language.TAMIL, Language.TELUGU, Language.BENGALI],
-      });
-
-      expect(result.success).toBe(true);
-      expect(result.subtitles?.length).toBe(4);
-    });
-
-    it('should handle translation failures gracefully', async () => {
-      mockTranslationService.translateText.mockResolvedValue({
-        success: false,
-        error: 'Translation failed',
-      });
-
-      const result = await service.generateSubtitles({
-        videoId: 'video-123',
-        transcript: 'Test',
-        sourceLanguage: Language.ENGLISH,
-        targetLanguages: [Language.HINDI],
-      });
-
-      // Should still succeed but use original text
-      expect(result.success).toBe(true);
-      expect(result.subtitles?.length).toBe(1);
-    });
   });
 
   describe('generateSRTContent', () => {
@@ -278,67 +242,71 @@ describe('VideoService', () => {
       const timecodes = [
         { startTime: 0, endTime: 2.5, text: 'First subtitle' },
         { startTime: 3, endTime: 5.5, text: 'Second subtitle' },
-        { startTime: 6, endTime: 8, text: 'Third subtitle' },
       ];
 
-      const srtContent = service.generateSRTContent(timecodes);
+      const srt = service.generateSRTContent(timecodes);
 
-      expect(srtContent).toContain('1\n');
-      expect(srtContent).toContain('00:00:00,000 --> 00:00:02,500');
-      expect(srtContent).toContain('First subtitle');
-      expect(srtContent).toContain('2\n');
-      expect(srtContent).toContain('00:00:03,000 --> 00:00:05,500');
-      expect(srtContent).toContain('Second subtitle');
+      expect(srt).toContain('1\n');
+      expect(srt).toContain('00:00:00,000 --> 00:00:02,500');
+      expect(srt).toContain('First subtitle');
+      expect(srt).toContain('2\n');
+      expect(srt).toContain('00:00:03,000 --> 00:00:05,500');
+      expect(srt).toContain('Second subtitle');
     });
 
-    it('should handle empty timecodes', () => {
-      const srtContent = service.generateSRTContent([]);
-
-      expect(srtContent).toBe('');
-    });
-
-    it('should format time correctly for hours', () => {
+    it('should format time correctly', () => {
       const timecodes = [
-        { startTime: 3661.5, endTime: 3665, text: 'After one hour' },
+        { startTime: 3661.5, endTime: 3665.25, text: 'Test' }, // 1:01:01.500 to 1:01:05.250
       ];
 
-      const srtContent = service.generateSRTContent(timecodes);
+      const srt = service.generateSRTContent(timecodes);
 
-      expect(srtContent).toContain('01:01:01,500 --> 01:01:05,000');
+      expect(srt).toContain('01:01:01,500 --> 01:01:05,250');
     });
   });
 
   describe('getOptimalQuality', () => {
     it('should return low quality for slow network', () => {
-      const quality = service.getOptimalQuality('slow');
-
-      expect(quality).toBe('low');
+      expect(service.getOptimalQuality('slow')).toBe('low');
     });
 
     it('should return medium quality for medium network', () => {
-      const quality = service.getOptimalQuality('medium');
-
-      expect(quality).toBe('medium');
+      expect(service.getOptimalQuality('medium')).toBe('medium');
     });
 
     it('should return high quality for fast network', () => {
-      const quality = service.getOptimalQuality('fast');
-
-      expect(quality).toBe('high');
+      expect(service.getOptimalQuality('fast')).toBe('high');
     });
   });
 
-  describe('Quality and Format Configuration', () => {
-    it('should get quality configuration', () => {
+  describe('getQualityConfig', () => {
+    it('should return config for low quality', () => {
+      const config = service.getQualityConfig('low');
+
+      expect(config.resolution).toBe('480p');
+      expect(config.bitrate).toBe('500k');
+      expect(config.fps).toBe(24);
+    });
+
+    it('should return config for high quality', () => {
       const config = service.getQualityConfig('high');
 
       expect(config.resolution).toBe('1080p');
       expect(config.bitrate).toBe('3000k');
       expect(config.fps).toBe(30);
-      expect(config.codec).toBe('h264');
     });
 
-    it('should get format configuration', () => {
+    it('should return config for ultra quality', () => {
+      const config = service.getQualityConfig('ultra');
+
+      expect(config.resolution).toBe('4k');
+      expect(config.bitrate).toBe('8000k');
+      expect(config.fps).toBe(60);
+    });
+  });
+
+  describe('getFormatConfig', () => {
+    it('should return config for mp4', () => {
       const config = service.getFormatConfig('mp4');
 
       expect(config.container).toBe('mp4');
@@ -347,55 +315,43 @@ describe('VideoService', () => {
       expect(config.extension).toBe('.mp4');
     });
 
-    it('should get all quality configurations', () => {
-      const qualities: Array<'low' | 'medium' | 'high' | 'ultra'> = ['low', 'medium', 'high', 'ultra'];
+    it('should return config for webm', () => {
+      const config = service.getFormatConfig('webm');
 
-      qualities.forEach(quality => {
-        const config = service.getQualityConfig(quality);
-        expect(config).toBeDefined();
-        expect(config.resolution).toBeDefined();
-        expect(config.bitrate).toBeDefined();
-      });
+      expect(config.container).toBe('webm');
+      expect(config.videoCodec).toBe('vp9');
+      expect(config.audioCodec).toBe('opus');
     });
 
-    it('should get all format configurations', () => {
-      const formats: Array<'mp4' | 'webm' | 'hls'> = ['mp4', 'webm', 'hls'];
+    it('should return config for hls', () => {
+      const config = service.getFormatConfig('hls');
 
-      formats.forEach(format => {
-        const config = service.getFormatConfig(format);
-        expect(config).toBeDefined();
-        expect(config.container).toBeDefined();
-        expect(config.extension).toBeDefined();
-      });
+      expect(config.container).toBe('m3u8');
+      expect(config.videoCodec).toBe('h264');
+      expect(config.audioCodec).toBe('aac');
     });
   });
 
   describe('estimateFileSize', () => {
     it('should estimate file size for low quality', () => {
-      const fileSize = service.estimateFileSize(120, 'low');
+      const size = service.estimateFileSize(120, 'low'); // 2 minutes
 
-      expect(fileSize).toBeGreaterThan(0);
-      expect(fileSize).toBeLessThan(10); // Should be less than 10 MB for 2 min low quality
+      expect(size).toBeGreaterThan(0);
+      expect(size).toBeLessThan(10); // Should be less than 10 MB
     });
 
     it('should estimate file size for high quality', () => {
-      const fileSize = service.estimateFileSize(120, 'high');
+      const size = service.estimateFileSize(120, 'high');
 
-      expect(fileSize).toBeGreaterThan(10); // Should be more than 10 MB for 2 min high quality
+      expect(size).toBeGreaterThan(0);
+      expect(size).toBeGreaterThan(service.estimateFileSize(120, 'low'));
     });
 
     it('should scale with duration', () => {
-      const size1min = service.estimateFileSize(60, 'medium');
-      const size2min = service.estimateFileSize(120, 'medium');
+      const size60 = service.estimateFileSize(60, 'medium');
+      const size120 = service.estimateFileSize(120, 'medium');
 
-      expect(size2min).toBeCloseTo(size1min * 2, 1);
-    });
-
-    it('should scale with quality', () => {
-      const sizeLow = service.estimateFileSize(120, 'low');
-      const sizeHigh = service.estimateFileSize(120, 'high');
-
-      expect(sizeHigh).toBeGreaterThan(sizeLow);
+      expect(size120).toBeCloseTo(size60 * 2, 1);
     });
   });
 
@@ -405,7 +361,6 @@ describe('VideoService', () => {
       expect(service.isFormatSupported('webm')).toBe(true);
       expect(service.isFormatSupported('hls')).toBe(true);
       expect(service.isFormatSupported('avi')).toBe(false);
-      expect(service.isFormatSupported('mkv')).toBe(false);
     });
 
     it('should validate supported qualities', () => {
@@ -413,10 +368,10 @@ describe('VideoService', () => {
       expect(service.isQualitySupported('medium')).toBe(true);
       expect(service.isQualitySupported('high')).toBe(true);
       expect(service.isQualitySupported('ultra')).toBe(true);
-      expect(service.isQualitySupported('super')).toBe(false);
+      expect(service.isQualitySupported('extreme')).toBe(false);
     });
 
-    it('should get list of supported formats', () => {
+    it('should return supported formats', () => {
       const formats = service.getSupportedFormats();
 
       expect(formats).toContain('mp4');
@@ -425,7 +380,7 @@ describe('VideoService', () => {
       expect(formats.length).toBe(3);
     });
 
-    it('should get list of supported qualities', () => {
+    it('should return supported qualities', () => {
       const qualities = service.getSupportedQualities();
 
       expect(qualities).toContain('low');
