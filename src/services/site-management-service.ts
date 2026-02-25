@@ -9,6 +9,7 @@ import {
 } from '../models/common';
 import { HeritageSitesRepository } from '../repositories/heritage-sites-repository';
 import { logger } from '../utils/logger';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Site Management Service
@@ -345,13 +346,14 @@ export class SiteManagementService {
    * Generate site ID from name
    */
   private generateSiteId(name: string): string {
-    const normalized = name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-    const timestamp = Date.now().toString(36);
-    return `${normalized}-${timestamp}`;
-  }
+      const normalized = name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      const uniqueId = uuidv4().split('-')[0]; // Use first segment of UUID for uniqueness
+      return `${normalized}-${uniqueId}`;
+    }
+
 
   /**
    * Generate artifact ID

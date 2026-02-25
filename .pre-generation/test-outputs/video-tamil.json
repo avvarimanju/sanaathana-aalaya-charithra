@@ -1,0 +1,134 @@
+{
+  "artifactId": "hanging-pillar",
+  "language": "ta",
+  "title": "Hanging Pillar of Lepakshi",
+  "duration": 210,
+  "format": {
+    "format": "mp4",
+    "codec": "h264",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 30,
+    "bitrate": 5000000,
+    "minDuration": 120,
+    "maxDuration": 300
+  },
+  "script": [
+    {
+      "startTime": 0,
+      "endTime": 30,
+      "text": "Welcome to Hanging Pillar of Lepakshi. A remarkable architectural marvel, one of the 70 pillars in the temple that hangs without touching the ground. Visitors can pass objects underneath to verify its suspended state."
+    },
+    {
+      "startTime": 30,
+      "endTime": 90,
+      "text": "Built during the Vijayanagara Empire in the 16th century, this pillar demonstrates the advanced engineering skills of ancient Indian architects. Legend says a British engineer tried to move it to understand the secret but failed."
+    },
+    {
+      "startTime": 90,
+      "endTime": 150,
+      "text": "The hanging pillar symbolizes the mysterious and advanced knowledge of ancient Indian architecture. It attracts thousands of visitors annually who marvel at this engineering wonder."
+    },
+    {
+      "startTime": 150,
+      "endTime": 210,
+      "text": "Thank you for exploring Hanging Pillar of Lepakshi. We hope you enjoyed learning about this remarkable heritage site."
+    }
+  ],
+  "storyboard": [
+    {
+      "sceneNumber": 1,
+      "startTime": 0,
+      "endTime": 30,
+      "description": "Wide shot of the temple exterior, slowly zooming into the artifact",
+      "visualElements": [
+        "wide shot",
+        "temple",
+        "zoom"
+      ]
+    },
+    {
+      "sceneNumber": 2,
+      "startTime": 30,
+      "endTime": 60,
+      "description": "Close-up of the artifact showing intricate details and craftsmanship",
+      "visualElements": [
+        "close-up",
+        "detail",
+        "carving"
+      ]
+    },
+    {
+      "sceneNumber": 3,
+      "startTime": 60,
+      "endTime": 90,
+      "description": "Pan across the artifact highlighting unique architectural features",
+      "visualElements": [
+        "pan",
+        "architecture",
+        "detail"
+      ]
+    },
+    {
+      "sceneNumber": 4,
+      "startTime": 90,
+      "endTime": 120,
+      "description": "Historical context visualization with period imagery",
+      "visualElements": [
+        "overview",
+        "architecture"
+      ]
+    },
+    {
+      "sceneNumber": 5,
+      "startTime": 120,
+      "endTime": 150,
+      "description": "Cultural significance shown through visitor interactions",
+      "visualElements": [
+        "general view",
+        "detail"
+      ]
+    },
+    {
+      "sceneNumber": 6,
+      "startTime": 150,
+      "endTime": 180,
+      "description": "Detailed view of inscriptions and symbolic elements",
+      "visualElements": [
+        "close-up",
+        "inscription",
+        "detail"
+      ]
+    },
+    {
+      "sceneNumber": 7,
+      "startTime": 180,
+      "endTime": 200,
+      "description": "Wide shot showing the artifact in its temple context",
+      "visualElements": [
+        "wide shot",
+        "temple",
+        "architecture"
+      ]
+    },
+    {
+      "sceneNumber": 8,
+      "startTime": 200,
+      "endTime": 210,
+      "description": "Closing shot with temple overview and sunset lighting",
+      "visualElements": [
+        "wide shot",
+        "temple",
+        "overview"
+      ]
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-02-24T07:23:55.900Z",
+    "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+    "language": "ta",
+    "templeGroup": "lepakshi-temple-andhra"
+  }
+}

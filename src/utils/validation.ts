@@ -111,7 +111,7 @@ export const heritageSiteSchema = z.object({
   description: z.string(),
   historicalPeriod: z.string(),
   culturalSignificance: z.string(),
-  artifacts: z.array(artifactReferenceSchema),
+  artifacts: z.array(artifactReferenceSchema).min(1, 'Heritage site must have at least one artifact'),
   supportedLanguages: z.array(languageSchema).min(1),
   metadata: siteMetadataSchema,
 });

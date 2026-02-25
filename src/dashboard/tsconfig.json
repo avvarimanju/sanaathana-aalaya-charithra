@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@dashboard/*": ["./*"],
+      "@dashboard/types": ["./types"],
+      "@dashboard/services": ["./services"],
+      "@dashboard/repositories": ["./repositories"],
+      "@dashboard/lambdas": ["./lambdas"],
+      "@dashboard/utils": ["./utils"]
+    }
+  },
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

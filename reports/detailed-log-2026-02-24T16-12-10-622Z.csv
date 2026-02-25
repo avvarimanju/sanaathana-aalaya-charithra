@@ -1,0 +1,3 @@
+Timestamp,Artifact ID,Language,Content Type,Status,Duration (s),S3 Key,Error
+2026-02-24T16:12:13.655Z,hanging-pillar,en,audio_guide,failed,,,A dynamic import callback was invoked without --experimental-vm-modules
+2026-02-24T16:12:16.770Z,hanging-pillar,en,video,failed,,,Validation failed: Video duration too short: ~1s (min: 60s)

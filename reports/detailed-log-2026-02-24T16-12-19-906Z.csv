@@ -1,0 +1,2 @@
+Timestamp,Artifact ID,Language,Content Type,Status,Duration (s),S3 Key,Error
+2026-02-24T16:12:19.987Z,hanging-pillar,en,audio_guide,failed,,,A dynamic import callback was invoked without --experimental-vm-modules

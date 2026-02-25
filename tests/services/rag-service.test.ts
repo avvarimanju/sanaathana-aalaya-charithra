@@ -81,7 +81,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'The Ancient Pillar is an important religious symbol built in the 12th century.',
-        tokensUsed: 50,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 50,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion(baseRequest);
@@ -124,7 +128,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'It was built using local stone.',
-        tokensUsed: 30,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 30,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion({
@@ -152,7 +160,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'यह स्तंभ 12वीं शताब्दी में बनाया गया था।',
-        tokensUsed: 40,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 40,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion({
@@ -193,7 +205,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'It was built using local stone and traditional techniques.',
-        tokensUsed: 45,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 45,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion({
@@ -205,9 +221,9 @@ describe('RAGService', () => {
       expect(result.success).toBe(true);
       expect(mockBedrockService.generateContent).toHaveBeenCalled();
       
-      // Check that conversation context was included in the prompt
-      const promptCall = mockBedrockService.generateContent.mock.calls[0][0];
-      expect(promptCall.prompt).toContain('Previous Conversation');
+      // Check that conversation context was included in the request
+      const requestCall = mockBedrockService.generateContent.mock.calls[0][0];
+      expect(requestCall.historicalContext).toBeDefined();
     });
 
     it('should limit conversation context to maxContextMessages', async () => {
@@ -227,7 +243,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'Answer based on context',
-        tokensUsed: 50,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 50,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion({
@@ -264,7 +284,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'Answer using cached content',
-        tokensUsed: 60,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 60,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion(baseRequest);
@@ -280,7 +304,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'Answer based on keyword search',
-        tokensUsed: 55,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 55,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion({
@@ -301,7 +329,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: "I don't have enough information",
-        tokensUsed: 20,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 20,
+          generationTime: 100,
+        },
       });
 
       const result1 = await service.processQuestion(baseRequest);
@@ -311,7 +343,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'The Ancient Pillar is a magnificent example of 12th-century architecture, built during the Hoysala dynasty. It features intricate carvings and serves as an important religious symbol in the region. The pillar stands as a testament to the advanced engineering and artistic skills of the period.',
-        tokensUsed: 100,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 100,
+          generationTime: 100,
+        },
       });
 
       const result2 = await service.processQuestion(baseRequest);
@@ -325,7 +361,11 @@ describe('RAGService', () => {
       mockBedrockService.generateContent.mockResolvedValue({
         success: true,
         content: 'Test answer',
-        tokensUsed: 30,
+        metadata: {
+          modelId: 'test-model',
+          tokensUsed: 30,
+          generationTime: 100,
+        },
       });
 
       const result = await service.processQuestion(baseRequest);

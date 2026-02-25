@@ -1,0 +1,117 @@
+# Content Pre-Generation Configuration
+# This configuration file controls the pre-generation of all multimedia content
+# for the Sanaathana Aalaya Charithra heritage site platform
+
+aws:
+  region: us-east-1
+  s3:
+    # S3 bucket name will be constructed as: sanaathana-aalaya-charithra-content-{account}-{region}
+    bucket: ${AWS_ACCOUNT_ID:sanaathana-aalaya-charithra-content}
+    encryption: AES256
+  dynamodb:
+    progressTable: PreGenerationProgress
+    cacheTable: SanaathanaAalayaCharithra-ContentCache
+  bedrock:
+    modelId: anthropic.claude-3-sonnet-20240229-v1:0
+    maxTokens: 2048
+    temperature: 0.7
+  polly:
+    engine: neural
+    # Voice mapping for each language (null means use standard voice)
+    voiceMapping:
+      en: Joanna  # Neural voice for English
+      hi: Aditi   # Neural voice for Hindi
+      ta: null    # Standard voice for Tamil
+      te: null    # Standard voice for Telugu
+      bn: null    # Standard voice for Bengali
+      mr: null    # Standard voice for Marathi
+      gu: null    # Standard voice for Gujarati
+      kn: null    # Standard voice for Kannada
+      ml: null    # Standard voice for Malayalam
+      pa: null    # Standard voice for Punjabi
+
+generation:
+  # Languages to generate content for (in processing order)
+  languages:
+    - en      # English
+    - hi      # Hindi
+    - ta      # Tamil
+    - te      # Telugu
+    - bn      # Bengali
+    - mr      # Marathi
+    - gu      # Gujarati
+    - kn      # Kannada
+    - ml      # Malayalam
+    - pa      # Punjabi
+  
+  # Content types to generate
+  contentTypes:
+    - audio_guide
+    - video
+    - infographic
+    - qa_knowledge_base
+  
+  # Force regeneration even if cached content exists
+  forceRegenerate: false
+  
+  # Skip generation if valid cached content exists (< 30 days old)
+  skipExisting: true
+  
+  # Cache max age in seconds (30 days = 2592000 seconds)
+  cacheMaxAge: 2592000
+
+rateLimits:
+  # Maximum requests per second for each AWS service
+  bedrock: 10      # Bedrock API rate limit
+  polly: 100       # Polly API rate limit
+  s3: 3500         # S3 API rate limit (effectively unlimited for this use case)
+  dynamodb: 1000   # DynamoDB write rate limit (on-demand mode)
+
+retry:
+  # Retry configuration for failed operations
+  maxAttempts: 3
+  initialDelay: 1000        # milliseconds
+  maxDelay: 30000           # milliseconds
+  backoffMultiplier: 2
+  jitter: true              # Add random jitter to prevent thundering herd
+
+validation:
+  # Content validation rules
+  audio:
+    minDuration: 30         # seconds
+    maxDuration: 300        # seconds (5 minutes)
+  video:
+    minDuration: 60         # seconds
+    maxDuration: 600        # seconds (10 minutes)
+    expectedDimensions:
+      width: 1920
+      height: 1080
+  infographic:
+    minResolution:
+      width: 1200
+      height: 800
+  qaKnowledgeBase:
+    minQuestionCount: 5
+
+execution:
+  # Execution mode: local or lambda
+  mode: local
+  
+  # Batch size for Lambda mode (items per invocation)
+  batchSize: 10
+  
+  # Maximum concurrent operations
+  maxConcurrency: 5
+  
+  # Timeout in milliseconds (5 minutes)
+  timeout: 300000
+
+reporting:
+  # Output directory for reports
+  outputDir: ./reports
+  
+  # Report formats to generate
+  formats:
+    - json
+    - csv
+    - html

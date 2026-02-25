@@ -72,7 +72,44 @@ npm install
 npm start
 ```
 
-See [DOCUMENTATION.md](./DOCUMENTATION.md) for detailed setup and API configuration.
+## Documentation
+
+All project documentation has been organized into the following categories:
+
+### Checklists
+
+- [Android Launch Checklist](./docs/checklists/ANDROID_LAUNCH_CHECKLIST.md)
+- [Immediate Actions Checklist](./docs/checklists/IMMEDIATE_ACTIONS_CHECKLIST.md)
+
+### Status Reports
+
+- [Complete Project Status](./docs/status/COMPLETE_PROJECT_STATUS.md)
+- [Payment Integration Status](./docs/status/PAYMENT_INTEGRATION_STATUS.md)
+- [Pre Generation Status](./docs/status/PRE_GENERATION_STATUS.md)
+
+### Guides
+
+- [Quick Start Guide](./docs/guides/QUICK_START_GUIDE.md)
+- [Razorpay Api Keys Setup](./docs/guides/RAZORPAY_API_KEYS_SETUP.md)
+
+### Analysis
+
+- [Organization Summary](./docs/analysis/ORGANIZATION_SUMMARY.md)
+- [Project Gap Analysis](./docs/analysis/PROJECT_GAP_ANALYSIS.md)
+
+### General
+
+- [Documentation](./docs/DOCUMENTATION.md)
+- [How It Works](./docs/HOW_IT_WORKS.md)
+- [User Guide](./docs/USER_GUIDE.md)
+
+zed planning, business, and technical guides
+
+### Quick Links
+- [AWS Cost Analysis](./docs/business/AWS_COST_ANALYSIS.md) - Costs and pricing strategy
+- [Payment Methods](./docs/business/PAYMENT_METHODS_COMPARISON.md) - Payment gateway comparison
+- [Content Generation](./docs/technical/CONTENT_GENERATION_EXPLAINED.md) - How AI generates content
+- [Virtual Exploration](./docs/planning/VIRTUAL_EXPLORATION_ENHANCEMENT.md) - Browse temples from home
 
 ## Temple Coverage
 

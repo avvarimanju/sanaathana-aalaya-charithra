@@ -1,0 +1,21 @@
+{
+  "jobId": "job-1771943540885-95y550",
+  "startTime": "2026-02-24T14:32:20.885Z",
+  "lastUpdateTime": "2026-02-24T14:32:23.922Z",
+  "totalItems": 1,
+  "completedItems": [],
+  "failedItems": [
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-02-24T14:32:23.892Z",
+      "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+    }
+  ],
+  "remainingItems": [],
+  "status": "completed"
+}

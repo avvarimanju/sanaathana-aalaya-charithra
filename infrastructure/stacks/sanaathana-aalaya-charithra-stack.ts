@@ -126,6 +126,42 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
       sortKey: { name: 'date', type: dynamodb.AttributeType.STRING },
     });
 
+    // Purchases table (for Razorpay payments)
+    const purchasesTable = new dynamodb.Table(this, 'PurchasesTable', {
+      tableName: 'SanaathanaAalayaCharithra-Purchases',
+      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'purchaseId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      encryption: dynamodb.TableEncryption.AWS_MANAGED,
+      pointInTimeRecovery: true,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+
+    // Add GSI for querying purchases by temple
+    purchasesTable.addGlobalSecondaryIndex({
+      indexName: 'TempleIdIndex',
+      partitionKey: { name: 'templeId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'purchaseDate', type: dynamodb.AttributeType.STRING },
+    });
+
+    // Pre-Generation Progress table
+    const preGenerationProgressTable = new dynamodb.Table(this, 'PreGenerationProgressTable', {
+      tableName: 'SanaathanaAalayaCharithra-PreGenerationProgress',
+      partitionKey: { name: 'jobId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'itemKey', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      encryption: dynamodb.TableEncryption.AWS_MANAGED,
+      timeToLiveAttribute: 'ttl',
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
+    // Add GSI for querying progress by status
+    preGenerationProgressTable.addGlobalSecondaryIndex({
+      indexName: 'StatusIndex',
+      partitionKey: { name: 'jobId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'status', type: dynamodb.AttributeType.STRING },
+    });
+
     // IAM Role for Lambda functions
     const lambdaExecutionRole = new iam.Role(this, 'SanaathanaAalayaCharithraLambdaExecutionRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
@@ -154,8 +190,10 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
                 userSessionsTable.tableArn,
                 contentCacheTable.tableArn,
                 analyticsTable.tableArn,
+                purchasesTable.tableArn,
                 `${artifactsTable.tableArn}/index/*`,
                 `${analyticsTable.tableArn}/index/*`,
+                `${purchasesTable.tableArn}/index/*`,
               ],
             }),
             // S3 permissions
@@ -200,6 +238,92 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
                 'translate:DetectDominantLanguage',
               ],
               resources: ['*'],
+            }),
+            // CloudWatch Logs permissions
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'logs:CreateLogGroup',
+                'logs:CreateLogStream',
+                'logs:PutLogEvents',
+              ],
+              resources: [`arn:aws:logs:${this.region}:${this.account}:*`],
+            }),
+          ],
+        }),
+      },
+    });
+
+    // IAM Role for Pre-Generation Lambda
+    const preGenerationLambdaRole = new iam.Role(this, 'PreGenerationLambdaExecutionRole', {
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+      ],
+      inlinePolicies: {
+        PreGenerationLambdaPolicy: new iam.PolicyDocument({
+          statements: [
+            // DynamoDB permissions for progress tracking and content cache
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'dynamodb:GetItem',
+                'dynamodb:PutItem',
+                'dynamodb:UpdateItem',
+                'dynamodb:Query',
+                'dynamodb:Scan',
+                'dynamodb:BatchGetItem',
+                'dynamodb:BatchWriteItem',
+              ],
+              resources: [
+                preGenerationProgressTable.tableArn,
+                `${preGenerationProgressTable.tableArn}/index/*`,
+                contentCacheTable.tableArn,
+              ],
+            }),
+            // S3 permissions for content storage
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                's3:GetObject',
+                's3:PutObject',
+                's3:HeadObject',
+                's3:ListBucket',
+              ],
+              resources: [
+                contentBucket.bucketArn,
+                `${contentBucket.bucketArn}/*`,
+              ],
+            }),
+            // Amazon Bedrock permissions for content generation
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'bedrock:InvokeModel',
+                'bedrock:InvokeModelWithResponseStream',
+              ],
+              resources: [
+                `arn:aws:bedrock:${this.region}::foundation-model/*`,
+              ],
+            }),
+            // Amazon Polly permissions for audio synthesis
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'polly:SynthesizeSpeech',
+                'polly:DescribeVoices',
+              ],
+              resources: ['*'],
+            }),
+            // Lambda invocation permissions for recursive batch processing
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'lambda:InvokeFunction',
+              ],
+              resources: [
+                `arn:aws:lambda:${this.region}:${this.account}:function:SanaathanaAalayaCharithra-PreGeneration`,
+              ],
             }),
             // CloudWatch Logs permissions
             new iam.PolicyStatement({
@@ -302,6 +426,43 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
       logRetention: logs.RetentionDays.ONE_WEEK,
     });
 
+    // Payment Handler Lambda
+    const paymentHandlerLambda = new lambda.Function(this, 'PaymentHandlerLambda', {
+      functionName: 'SanaathanaAalayaCharithra-PaymentHandler',
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'payment-handler.handler',
+      code: lambda.Code.fromAsset('dist/lambdas'),
+      role: lambdaExecutionRole,
+      layers: [commonLayer],
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 512,
+      environment: {
+        PURCHASES_TABLE: purchasesTable.tableName,
+        RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID || 'rzp_test_PLACEHOLDER',
+        RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET || 'PLACEHOLDER_SECRET',
+      },
+      logRetention: logs.RetentionDays.ONE_WEEK,
+    });
+
+    // Pre-Generation Lambda
+    const preGenerationLambda = new lambda.Function(this, 'PreGenerationLambda', {
+      functionName: 'SanaathanaAalayaCharithra-PreGeneration',
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'pre-generation.handler',
+      code: lambda.Code.fromAsset('dist/lambdas'),
+      role: preGenerationLambdaRole,
+      layers: [commonLayer],
+      timeout: cdk.Duration.minutes(5),
+      memorySize: 1024,
+      environment: {
+        S3_BUCKET: contentBucket.bucketName,
+        DYNAMODB_PROGRESS_TABLE: preGenerationProgressTable.tableName,
+        DYNAMODB_CACHE_TABLE: contentCacheTable.tableName,
+        BATCH_SIZE: '10',
+      },
+      logRetention: logs.RetentionDays.ONE_WEEK,
+    });
+
     // API Gateway
     const api = new apigateway.RestApi(this, 'SanaathanaAalayaCharithraAPI', {
       restApiName: 'Sanaathana Aalaya Charithra API',
@@ -331,6 +492,7 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
     const contentGenerationIntegration = new apigateway.LambdaIntegration(contentGenerationLambda);
     const qaProcessingIntegration = new apigateway.LambdaIntegration(qaProcessingLambda);
     const analyticsIntegration = new apigateway.LambdaIntegration(analyticsLambda);
+    const paymentIntegration = new apigateway.LambdaIntegration(paymentHandlerLambda);
 
     // API Routes
     
@@ -362,6 +524,28 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
     const analyticsResource = api.root.addResource('analytics');
     analyticsResource.addMethod('POST', analyticsIntegration);
     analyticsResource.addMethod('GET', analyticsIntegration);
+
+    // Payment routes
+    const paymentsResource = api.root.addResource('payments');
+    
+    // Create order
+    const createOrderResource = paymentsResource.addResource('create-order');
+    createOrderResource.addMethod('POST', paymentIntegration);
+    
+    // Verify payment
+    const verifyPaymentResource = paymentsResource.addResource('verify');
+    verifyPaymentResource.addMethod('POST', paymentIntegration);
+    
+    // Check access
+    const checkAccessResource = paymentsResource.addResource('check-access');
+    const userAccessResource = checkAccessResource.addResource('{userId}');
+    const templeAccessResource = userAccessResource.addResource('{templeId}');
+    templeAccessResource.addMethod('GET', paymentIntegration);
+    
+    // Get purchases
+    const purchasesResource = paymentsResource.addResource('purchases');
+    const userPurchasesResource = purchasesResource.addResource('{userId}');
+    userPurchasesResource.addMethod('GET', paymentIntegration);
 
     // Health check endpoint
     const healthResource = api.root.addResource('health');
@@ -421,6 +605,30 @@ export class SanaathanaAalayaCharithraStack extends cdk.Stack {
       value: artifactsTable.tableName,
       description: 'Artifacts DynamoDB Table Name',
       exportName: 'SanaathanaAalayaCharithra-Artifacts-Table',
+    });
+
+    new cdk.CfnOutput(this, 'PurchasesTableName', {
+      value: purchasesTable.tableName,
+      description: 'Purchases DynamoDB Table Name',
+      exportName: 'SanaathanaAalayaCharithra-Purchases-Table',
+    });
+
+    new cdk.CfnOutput(this, 'PreGenerationProgressTableName', {
+      value: preGenerationProgressTable.tableName,
+      description: 'Pre-Generation Progress DynamoDB Table Name',
+      exportName: 'SanaathanaAalayaCharithra-PreGenerationProgress-Table',
+    });
+
+    new cdk.CfnOutput(this, 'PreGenerationLambdaArn', {
+      value: preGenerationLambda.functionArn,
+      description: 'Pre-Generation Lambda Function ARN',
+      exportName: 'SanaathanaAalayaCharithra-PreGeneration-Lambda-ARN',
+    });
+
+    new cdk.CfnOutput(this, 'PreGenerationLambdaName', {
+      value: preGenerationLambda.functionName,
+      description: 'Pre-Generation Lambda Function Name',
+      exportName: 'SanaathanaAalayaCharithra-PreGeneration-Lambda-Name',
     });
   }
 }

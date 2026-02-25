@@ -1,0 +1,29 @@
+{
+  "estimated": {
+    "bedrockCost": 0,
+    "pollyCost": 0.016,
+    "s3StorageCost": 0.000044921875,
+    "s3RequestCost": 0.000005,
+    "dynamoDBCost": 0.0000024999999999999998,
+    "totalCost": 0.016052421875,
+    "currency": "USD"
+  },
+  "actual": {
+    "bedrockCost": 0,
+    "pollyCost": 0,
+    "s3StorageCost": 0,
+    "s3RequestCost": 0,
+    "dynamoDBCost": 0,
+    "totalCost": 0,
+    "currency": "USD"
+  },
+  "variance": {
+    "bedrock": 0,
+    "polly": -0.016,
+    "s3Storage": -0.000044921875,
+    "s3Requests": -0.000005,
+    "dynamoDB": -0.0000024999999999999998,
+    "total": -0.016052421875,
+    "totalPercent": -100
+  }
+}

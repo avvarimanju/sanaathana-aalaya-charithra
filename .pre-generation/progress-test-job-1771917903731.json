@@ -1,0 +1,200 @@
+{
+  "jobId": "test-job-1771917903731",
+  "startTime": "2026-02-24T07:25:03.731Z",
+  "lastUpdateTime": "2026-02-24T07:25:03.897Z",
+  "totalItems": 0,
+  "completedItems": [
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.745Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "video",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.778Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "infographic",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.780Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "qa_knowledge_base",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.782Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "hi",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.784Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "hi",
+      "contentType": "video",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.792Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "hi",
+      "contentType": "infographic",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.793Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "hi",
+      "contentType": "qa_knowledge_base",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.795Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.798Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "en",
+      "contentType": "video",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.799Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "en",
+      "contentType": "infographic",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.801Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "en",
+      "contentType": "qa_knowledge_base",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.808Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "hi",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.810Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "hi",
+      "contentType": "video",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.812Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "hi",
+      "contentType": "infographic",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.814Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "hi",
+      "contentType": "qa_knowledge_base",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.815Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.876Z"
+    },
+    {
+      "artifactId": "test-artifact-2",
+      "siteId": "test-site-2",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.881Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.894Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "hi",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.895Z"
+    },
+    {
+      "artifactId": "test-artifact-1",
+      "siteId": "test-site-1",
+      "language": "ta",
+      "contentType": "audio_guide",
+      "status": "completed",
+      "retryCount": 0,
+      "timestamp": "2026-02-24T07:25:03.897Z"
+    }
+  ],
+  "failedItems": [],
+  "remainingItems": [],
+  "status": "in_progress"
+}

@@ -147,6 +147,7 @@ export class QRProcessingService {
     try {
       // QR data format: avvari://{siteId}/{artifactId}?timestamp={timestamp}
       // or JSON format: {"siteId": "...", "artifactId": "...", "timestamp": "..."}
+      // or simple format: siteId:artifactId or SITE_ARTIFACT (underscore separated)
       
       // Try JSON format first
       if (qrData.startsWith('{')) {
@@ -192,6 +193,21 @@ export class QRProcessingService {
           return {
             siteId: parts[0],
             artifactId: parts[1],
+            timestamp: new Date().toISOString(),
+          };
+        }
+      }
+
+      // Try underscore format: SITE_ARTIFACT (split at first underscore)
+      if (qrData.includes('_')) {
+        const firstUnderscoreIndex = qrData.indexOf('_');
+        const siteId = qrData.substring(0, firstUnderscoreIndex);
+        const artifactId = qrData.substring(firstUnderscoreIndex + 1);
+        
+        if (siteId && artifactId) {
+          return {
+            siteId,
+            artifactId,
             timestamp: new Date().toISOString(),
           };
         }

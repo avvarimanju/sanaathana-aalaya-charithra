@@ -1,0 +1,492 @@
+[
+  {
+    "artifactId": "hanging-pillar",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Hanging Pillar",
+    "type": "architecture",
+    "description": "Mysterious pillar that hangs without touching the ground, architectural marvel",
+    "historicalContext": "Built in 16th century, one of 70 pillars in the temple",
+    "culturalSignificance": "Engineering wonder that defies gravity, visitors pass objects underneath to verify",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "monolithic-nandi",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Monolithic Nandi",
+    "type": "sculpture",
+    "description": "Largest monolithic Nandi bull in India, carved from single granite block",
+    "historicalContext": "Carved in 16th century, measures 27 feet long and 15 feet high",
+    "culturalSignificance": "One of the largest Nandi sculptures in the world",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "ceiling-paintings",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Vijayanagara Ceiling Paintings",
+    "type": "painting",
+    "description": "Exquisite frescoes depicting scenes from Ramayana, Mahabharata, and Puranas",
+    "historicalContext": "Painted in 16th century using natural pigments",
+    "culturalSignificance": "Best preserved examples of Vijayanagara mural art",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "veerabhadra-sanctum",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Sri Veerabhadra Swamy (Main Sanctum)",
+    "type": "sculpture",
+    "description": "Main deity of the temple, fierce form of Lord Shiva as Veerabhadra",
+    "historicalContext": "Installed in 16th century during Vijayanagara period, represents the fierce warrior form created by Shiva",
+    "culturalSignificance": "Central deity of the temple, worshipped as the protector and destroyer of evil",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "nagalinga",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Nagalinga (Shivalingam under Nagapadaga)",
+    "type": "sculpture",
+    "description": "Sacred Shivalingam protected by a seven-headed serpent (Nagapadaga), carved from single stone",
+    "historicalContext": "Carved in 16th century, represents the cosmic serpent Adisesha protecting Lord Shiva",
+    "culturalSignificance": "Unique representation of Shiva protected by the divine serpent, symbolizes protection and devotion",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "kalyana-mandapa",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "The Unfinished Kalyana Mandapa",
+    "type": "architecture",
+    "description": "Incomplete marriage hall with partially carved pillars and sculptures, left unfinished due to historical events",
+    "historicalContext": "Construction halted in 16th century when treasurer Virupanna was blinded by the king, legend says he threw his eyes at the wall leaving blood stains still visible",
+    "culturalSignificance": "Testament to the tragic story of Virupanna, showcases the ambitious architectural plans of the Vijayanagara period",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "sita-footprint",
+    "siteId": "lepakshi-temple-andhra",
+    "name": "Sita's Footprint",
+    "type": "sculpture",
+    "description": "Large footprint carved in stone, believed to be where Goddess Sita stepped while being carried away by Ravana",
+    "historicalContext": "According to legend, when Ravana abducted Sita, she dropped her jewels here and left her footprint as a sign for Lord Rama",
+    "culturalSignificance": "Sacred site connected to the Ramayana epic, \"Lepakshi\" means \"Rise, bird\" - words spoken by Rama to the dying Jatayu",
+    "templeGroup": "lepakshi-temple-andhra"
+  },
+  {
+    "artifactId": "venkateswara-main-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Venkateswara Swamy Temple",
+    "type": "temple",
+    "description": "Main temple dedicated to Lord Venkateswara, richest and most visited Hindu temple in the world",
+    "historicalContext": "Ancient temple with references dating back to 300 CE, expanded by various dynasties including Pallavas, Cholas, and Vijayanagara rulers",
+    "culturalSignificance": "Receives 50,000-100,000 pilgrims daily, sacred idol adorned with gold and precious jewels worth billions",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "bhu-varaha-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Bhu Varaha Swamy Temple",
+    "type": "temple",
+    "description": "Ancient temple dedicated to Lord Varaha (boar incarnation of Vishnu)",
+    "historicalContext": "One of the oldest temples on Tirumala hills, believed to be the spot where Varaha rescued Earth",
+    "culturalSignificance": "Pilgrims visit this temple as part of the Tirumala pilgrimage circuit",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "bedi-anjaneya-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Bedi Anjaneya Swamy Temple",
+    "type": "temple",
+    "description": "Temple dedicated to Lord Hanuman in a unique standing posture",
+    "historicalContext": "Ancient Hanuman temple on Tirumala hills, believed to protect the sacred region",
+    "culturalSignificance": "Devotees believe Hanuman guards the Tirumala temple and grants protection",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "srivari-padalu",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Srivari Padalu",
+    "type": "sculpture",
+    "description": "Sacred footprints of Lord Venkateswara imprinted on rock at the highest point of Narayanagiri hill",
+    "historicalContext": "Believed to be the spot where Lord Venkateswara first set foot on Tirumala hills",
+    "culturalSignificance": "Pilgrims consider it highly auspicious to visit and offer prayers at this sacred site",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "silathoranam",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Silathoranam",
+    "type": "sculpture",
+    "description": "Natural rock arch, one of only three such formations in Asia",
+    "historicalContext": "Geological formation estimated to be 1500 million years old, formed by natural erosion",
+    "culturalSignificance": "Considered a divine natural wonder, located very close to Srivari Padalu",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "papavinasanam",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Papavinasanam",
+    "type": "temple",
+    "description": "Sacred waterfall and temple, usually the final stop on the Tirumala road, located about 5km from main temple",
+    "historicalContext": "Ancient sacred site where pilgrims take holy bath to cleanse sins before temple visit",
+    "culturalSignificance": "Name means \"destroyer of sins\", pilgrims believe bathing here purifies them",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "akasa-ganga",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Akasa Ganga",
+    "type": "temple",
+    "description": "Sacred waterfall located further up the Tirumala road, believed to have celestial origins",
+    "historicalContext": "Ancient sacred waterfall mentioned in temple legends and scriptures",
+    "culturalSignificance": "Pilgrims believe the water has divine healing properties",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "japali-theertham",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Japali Theertham",
+    "type": "temple",
+    "description": "Sacred water body and temple site on Tirumala hills",
+    "historicalContext": "Ancient theertham (sacred water) associated with temple rituals",
+    "culturalSignificance": "Important pilgrimage spot for devotees visiting Tirumala",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "hathiram-baba-matham",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Venkateswara Swamy Temple & Hathiram Baba Matham",
+    "type": "temple",
+    "description": "Historic matham (monastery) and temple associated with saint Hathiram Baba",
+    "historicalContext": "Established by the revered saint Hathiram Baba who dedicated his life to Lord Venkateswara",
+    "culturalSignificance": "Important spiritual center providing accommodation and services to pilgrims",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "padmavathi-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Padmavathi Ammavari Temple, Tiruchanoor",
+    "type": "temple",
+    "description": "Temple dedicated to Goddess Padmavathi, consort of Lord Venkateswara",
+    "historicalContext": "Ancient temple rebuilt during Vijayanagara period, essential part of Tirupati pilgrimage",
+    "culturalSignificance": "Pilgrims traditionally visit this temple before or after Tirumala darshan to complete the pilgrimage",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "kalyana-venkateswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Kalyana Venkateswara Swamyvari Temple, Srinivasa Mangapuram",
+    "type": "temple",
+    "description": "Temple depicting the divine marriage of Lord Venkateswara and Goddess Padmavathi",
+    "historicalContext": "Built to commemorate the celestial wedding, important pilgrimage site",
+    "culturalSignificance": "Devotees visit to seek blessings for marriage and family harmony",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "agastheeswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Agastheeswara Swamyvari Temple, Thondawada",
+    "type": "temple",
+    "description": "Ancient Shiva temple associated with sage Agasthya",
+    "historicalContext": "Temple dating back to Chola period, named after the revered sage",
+    "culturalSignificance": "Important Shiva temple in the Tirupati region",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "kapileswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Kapileswraswamyvari Temple, Kapilatheertham, Tirupati",
+    "type": "temple",
+    "description": "Ancient Shiva temple with sacred waterfall at Kapila Theertham",
+    "historicalContext": "One of the oldest temples in Tirupati, associated with sage Kapila",
+    "culturalSignificance": "Famous for its natural waterfall and cave temple, popular pilgrimage site",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "govindaraja-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Govindaraja Swamyvari Temple, Tirupati",
+    "type": "temple",
+    "description": "Ancient Vishnu temple in Tirupati city with beautiful Dravidian architecture",
+    "historicalContext": "Built during Chola period, one of the oldest temples in Tirupati",
+    "culturalSignificance": "Important Vishnu temple managed by TTD, features stunning gopuram and architecture",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "vakulamatha-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Vakulamatha Temple, Tirupati",
+    "type": "temple",
+    "description": "Temple dedicated to Vakuladevi, foster mother of Lord Venkateswara",
+    "historicalContext": "Ancient temple honoring the divine mother who raised Lord Venkateswara",
+    "culturalSignificance": "Devotees visit to seek blessings for motherhood and family welfare",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "venugopala-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Venugopalaswamyvari Temple, Karvetinagaram",
+    "type": "temple",
+    "description": "Ancient Krishna temple in Karvetinagaram village",
+    "historicalContext": "Temple dating back to Vijayanagara period, dedicated to Lord Krishna",
+    "culturalSignificance": "Famous for Krishna worship and annual festivals",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "kalyanavenkaeswaraswamy-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Kalyanavenkaeswaraswamyvari Temple, Narayanavaram",
+    "type": "temple",
+    "description": "Vishnu temple in Narayanavaram village",
+    "historicalContext": "Ancient temple on pilgrimage route to Tirumala",
+    "culturalSignificance": "Important stop for pilgrims traveling to Tirumala",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "pallikondeswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Pallikondeswara Swamyvari Temple, Surutupalli",
+    "type": "temple",
+    "description": "Ancient Shiva temple in Surutupalli village",
+    "historicalContext": "Temple built during Chola period with unique architecture",
+    "culturalSignificance": "Known for its peaceful setting and traditional rituals",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "vedanarayana-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Vedanarayanaswamyvari Temple, Nagalapuram",
+    "type": "temple",
+    "description": "Ancient Vishnu temple in scenic hills of Nagalapuram",
+    "historicalContext": "One of the oldest Vishnu temples in the region",
+    "culturalSignificance": "Pilgrims visit for its serene location and spiritual atmosphere",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "kariya-manikya-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Kariya Manikya Swamyvari Temple, Nagari",
+    "type": "temple",
+    "description": "Historic temple in Nagari town",
+    "historicalContext": "Temple associated with local legends and traditions",
+    "culturalSignificance": "Important temple for local community and pilgrims",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "kasi-viseswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Kasi Viseswara Swamyvari Temple, Bugga",
+    "type": "temple",
+    "description": "Shiva temple in Bugga village",
+    "historicalContext": "Ancient temple with connections to Kashi (Varanasi)",
+    "culturalSignificance": "Believed to provide blessings equivalent to visiting Kashi",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "prasanna-venkateswara-temple",
+    "siteId": "tirumala-tirupati-andhra",
+    "name": "Sri Prasanna Venkateswaraswamyvari Temple, Apppalayagunta",
+    "type": "temple",
+    "description": "Vishnu temple in Apppalayagunta village",
+    "historicalContext": "Temple dedicated to a benevolent form of Lord Venkateswara",
+    "culturalSignificance": "Known for granting wishes and blessings to devotees",
+    "templeGroup": "tirumala-tirupati-andhra"
+  },
+  {
+    "artifactId": "vayu-linga",
+    "siteId": "srikalahasti-temple-andhra",
+    "name": "Vayu Linga",
+    "type": "sculpture",
+    "description": "Self-manifested Shiva Linga representing the element of wind (Vayu)",
+    "historicalContext": "Ancient linga worshipped since 5th century",
+    "culturalSignificance": "One of the Pancha Bhoota Sthalas, lamp flame flickers without external wind",
+    "templeGroup": "srikalahasti-temple-andhra"
+  },
+  {
+    "artifactId": "kalamkari-paintings",
+    "siteId": "srikalahasti-temple-andhra",
+    "name": "Kalamkari Temple Paintings",
+    "type": "painting",
+    "description": "Traditional hand-painted Kalamkari art depicting mythological scenes",
+    "historicalContext": "Sri Kalahasti is the birthplace of Kalamkari art tradition",
+    "culturalSignificance": "UNESCO recognized art form, natural dyes and hand-painted technique",
+    "templeGroup": "srikalahasti-temple-andhra"
+  },
+  {
+    "artifactId": "mallikarjuna-jyotirlinga",
+    "siteId": "srisailam-temple-andhra",
+    "name": "Mallikarjuna Jyotirlinga",
+    "type": "sculpture",
+    "description": "One of the 12 sacred Jyotirlingas of Lord Shiva",
+    "historicalContext": "Ancient Jyotirlinga mentioned in Puranas, worshipped for thousands of years",
+    "culturalSignificance": "Second Jyotirlinga among the 12, represents divine light of Shiva",
+    "templeGroup": "srisailam-temple-andhra"
+  },
+  {
+    "artifactId": "bhramaramba-deity",
+    "siteId": "srisailam-temple-andhra",
+    "name": "Goddess Bhramaramba",
+    "type": "sculpture",
+    "description": "Sacred Shakti Peetha representing the neck of Goddess Sati",
+    "historicalContext": "One of the 18 Maha Shakti Peethas, ancient goddess shrine",
+    "culturalSignificance": "Represents divine feminine power, completes the Jyotirlinga-Shakti Peetha combination",
+    "templeGroup": "srisailam-temple-andhra"
+  },
+  {
+    "artifactId": "narasimha-deity",
+    "siteId": "vidurashwatha-temple-karnataka",
+    "name": "Lakshmi Narasimha Swamy Deity",
+    "type": "sculpture",
+    "description": "Beautiful idol of Lord Narasimha with Goddess Lakshmi",
+    "historicalContext": "Carved during Hoysala period in 12th century",
+    "culturalSignificance": "Unique representation of Narasimha in peaceful form with consort",
+    "templeGroup": "vidurashwatha-temple-karnataka"
+  },
+  {
+    "artifactId": "hoysala-pillars",
+    "siteId": "vidurashwatha-temple-karnataka",
+    "name": "Hoysala Carved Pillars",
+    "type": "architecture",
+    "description": "Intricately carved pillars showcasing Hoysala architectural style",
+    "historicalContext": "Built in 12th-13th century during Hoysala dynasty",
+    "culturalSignificance": "Fine example of Hoysala craftsmanship with detailed sculptures",
+    "templeGroup": "vidurashwatha-temple-karnataka"
+  },
+  {
+    "artifactId": "virupaksha-temple",
+    "siteId": "hampi-ruins-karnataka",
+    "name": "Virupaksha Temple",
+    "type": "temple",
+    "description": "Ancient temple dedicated to Lord Shiva, still in active worship",
+    "historicalContext": "Built in 7th century, expanded during Vijayanagara Empire",
+    "culturalSignificance": "Oldest functioning temple in India",
+    "templeGroup": "hampi-ruins-karnataka"
+  },
+  {
+    "artifactId": "stone-chariot",
+    "siteId": "hampi-ruins-karnataka",
+    "name": "Stone Chariot",
+    "type": "sculpture",
+    "description": "Iconic stone chariot structure at Vittala Temple",
+    "historicalContext": "Built in 16th century during reign of Krishnadevaraya",
+    "culturalSignificance": "Symbol of Hampi and masterpiece of Vijayanagara sculpture",
+    "templeGroup": "hampi-ruins-karnataka"
+  },
+  {
+    "artifactId": "hoysaleswara-temple",
+    "siteId": "halebidu-temple-karnataka",
+    "name": "Hoysaleswara Temple Main Structure",
+    "type": "temple",
+    "description": "Twin-shrined temple with intricate soapstone carvings covering every inch",
+    "historicalContext": "Built in 1121 CE, took 105 years to complete",
+    "culturalSignificance": "Epitome of Hoysala architecture with 240 wall sculptures",
+    "templeGroup": "halebidu-temple-karnataka"
+  },
+  {
+    "artifactId": "darpana-sundari",
+    "siteId": "halebidu-temple-karnataka",
+    "name": "Darpana Sundari Sculpture",
+    "type": "sculpture",
+    "description": "Famous sculpture of a lady with mirror, masterpiece of Hoysala art",
+    "historicalContext": "Carved in 12th century, shows incredible detail and craftsmanship",
+    "culturalSignificance": "Icon of Hoysala sculptural excellence, depicts beauty and grace",
+    "templeGroup": "halebidu-temple-karnataka"
+  },
+  {
+    "artifactId": "chennakeshava-temple",
+    "siteId": "belur-temple-karnataka",
+    "name": "Chennakeshava Temple",
+    "type": "temple",
+    "description": "Magnificent Vishnu temple with star-shaped platform and ornate pillars",
+    "historicalContext": "Built in 1117 CE to commemorate Hoysala victory over Cholas",
+    "culturalSignificance": "Masterpiece of Hoysala architecture, still an active place of worship",
+    "templeGroup": "belur-temple-karnataka"
+  },
+  {
+    "artifactId": "narasimha-pillar",
+    "siteId": "belur-temple-karnataka",
+    "name": "Narasimha Pillar",
+    "type": "sculpture",
+    "description": "Intricately carved rotating pillar, engineering marvel of 12th century",
+    "historicalContext": "One of 48 pillars, could be rotated on its base",
+    "culturalSignificance": "Demonstrates advanced engineering and sculptural skills",
+    "templeGroup": "belur-temple-karnataka"
+  },
+  {
+    "artifactId": "big-temple-vimana",
+    "siteId": "thanjavur-temple-tamilnadu",
+    "name": "Brihadeeswarar Temple Vimana",
+    "type": "architecture",
+    "description": "216-foot tall pyramidal tower, one of the tallest in the world",
+    "historicalContext": "Built in 1010 CE, capstone weighs 80 tons",
+    "culturalSignificance": "Architectural marvel, shadow never falls on ground at noon",
+    "templeGroup": "thanjavur-temple-tamilnadu"
+  },
+  {
+    "artifactId": "nandi-statue",
+    "siteId": "thanjavur-temple-tamilnadu",
+    "name": "Nandi Statue",
+    "type": "sculpture",
+    "description": "Massive monolithic Nandi bull, 16 feet long and 13 feet high",
+    "historicalContext": "Carved from single stone in 11th century",
+    "culturalSignificance": "Second largest Nandi in India, weighs approximately 25 tons",
+    "templeGroup": "thanjavur-temple-tamilnadu"
+  },
+  {
+    "artifactId": "kailasa-temple",
+    "siteId": "ellora-caves-maharashtra",
+    "name": "Kailasa Temple (Cave 16)",
+    "type": "temple",
+    "description": "Largest monolithic rock excavation in the world, carved top-down",
+    "historicalContext": "Built in 8th century by Rashtrakuta king Krishna I",
+    "culturalSignificance": "Represents Mount Kailash, home of Lord Shiva, architectural wonder",
+    "templeGroup": "ellora-caves-maharashtra"
+  },
+  {
+    "artifactId": "ravana-shaking-kailasa",
+    "siteId": "ellora-caves-maharashtra",
+    "name": "Ravana Shaking Mount Kailasa",
+    "type": "sculpture",
+    "description": "Dramatic sculpture showing Ravana lifting Mount Kailasa",
+    "historicalContext": "Carved in 8th century, depicts scene from Ramayana",
+    "culturalSignificance": "Masterpiece of Indian rock-cut sculpture",
+    "templeGroup": "ellora-caves-maharashtra"
+  },
+  {
+    "artifactId": "meenakshi-gopuram",
+    "siteId": "meenakshi-temple-tamilnadu",
+    "name": "South Gopuram",
+    "type": "architecture",
+    "description": "Tallest gopuram at 170 feet with thousands of colorful sculptures",
+    "historicalContext": "Built in 17th century by Nayak rulers",
+    "culturalSignificance": "Iconic symbol of Madurai, visible from miles away",
+    "templeGroup": "meenakshi-temple-tamilnadu"
+  },
+  {
+    "artifactId": "thousand-pillar-hall",
+    "siteId": "meenakshi-temple-tamilnadu",
+    "name": "Thousand Pillar Hall",
+    "type": "architecture",
+    "description": "Magnificent hall with 985 intricately carved pillars",
+    "historicalContext": "Built in 16th century, each pillar uniquely carved",
+    "culturalSignificance": "Architectural marvel, now houses temple museum",
+    "templeGroup": "meenakshi-temple-tamilnadu"
+  },
+  {
+    "artifactId": "kandariya-mahadeva",
+    "siteId": "khajuraho-temples-madhyapradesh",
+    "name": "Kandariya Mahadeva Temple",
+    "type": "temple",
+    "description": "Largest and most ornate temple with 900 sculptures",
+    "historicalContext": "Built around 1050 CE by Chandela king Vidyadhara",
+    "culturalSignificance": "Pinnacle of Chandela architecture, represents Mount Kailash",
+    "templeGroup": "khajuraho-temples-madhyapradesh"
+  },
+  {
+    "artifactId": "erotic-sculptures",
+    "siteId": "khajuraho-temples-madhyapradesh",
+    "name": "Mithuna Sculptures",
+    "type": "sculpture",
+    "description": "Famous erotic sculptures depicting various aspects of life and love",
+    "historicalContext": "Carved in 10th-11th century, represent tantric traditions",
+    "culturalSignificance": "Celebrate human emotions, only 10% of total sculptures are erotic",
+    "templeGroup": "khajuraho-temples-madhyapradesh"
+  }
+]

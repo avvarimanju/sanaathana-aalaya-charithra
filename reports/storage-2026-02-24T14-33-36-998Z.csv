@@ -1,0 +1,8 @@
+Storage Type,Metric,Value
+S3,Total Size,0 Bytes
+S3,Total Size (Bytes),0
+S3,Object Count,0
+S3,Average Size (Bytes),0
+DynamoDB,Item Count,0
+DynamoDB,Estimated Size,0 Bytes
+DynamoDB,Estimated Size (Bytes),0
