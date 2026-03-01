@@ -1,0 +1,66 @@
+=================================================================
+STEP 3: HOST PRIVACY POLICY - QUICK COMMANDS
+=================================================================
+
+Status: ✅ Files created in docs/ folder
+Time: 5-10 minutes
+
+-----------------------------------------------------------------
+COMMANDS TO RUN:
+-----------------------------------------------------------------
+
+# 1. Navigate to project root
+cd Sanaathana-Aalaya-Charithra
+
+# 2. Add privacy policy files to git
+git add docs/privacy-policy.md docs/privacy-policy.html
+
+# 3. Commit the files
+git commit -m "Add privacy policy for Play Store submission"
+
+# 4. Push to GitHub
+git push origin main
+
+-----------------------------------------------------------------
+ENABLE GITHUB PAGES (Do this on GitHub.com):
+-----------------------------------------------------------------
+
+1. Go to: https://github.com/[your-username]/Sanaathana-Aalaya-Charithra
+2. Click "Settings" tab
+3. Click "Pages" in left sidebar
+4. Under "Source":
+   - Branch: main
+   - Folder: /docs
+5. Click "Save"
+6. Wait 2-3 minutes for deployment
+
+-----------------------------------------------------------------
+YOUR PRIVACY POLICY URL:
+-----------------------------------------------------------------
+
+https://[your-username].github.io/Sanaathana-Aalaya-Charithra/privacy-policy.html
+
+Example (if username is avvarimanju):
+https://avvarimanju.github.io/Sanaathana-Aalaya-Charithra/privacy-policy.html
+
+-----------------------------------------------------------------
+VERIFY:
+-----------------------------------------------------------------
+
+[ ] Files pushed to GitHub
+[ ] GitHub Pages enabled
+[ ] URL is accessible in browser
+[ ] URL works in incognito mode
+[ ] Content displays correctly
+[ ] URL saved for Play Store submission
+
+-----------------------------------------------------------------
+NEXT STEP:
+-----------------------------------------------------------------
+
+Once privacy policy is live, proceed to:
+Step 4: Build Production APK/AAB
+
+See: PLAY_STORE_INTERNAL_TESTING_GUIDE.md - Step 4
+
+=================================================================
