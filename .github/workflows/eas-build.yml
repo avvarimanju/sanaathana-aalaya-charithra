@@ -11,9 +11,6 @@ jobs:
   build:
     name: Build Android AAB
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: mobile-app
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +23,7 @@ jobs:
           cache-dependency-path: mobile-app/package-lock.json
 
       - name: Install dependencies
+        working-directory: mobile-app
         run: npm install
 
       - name: Install EAS CLI
@@ -35,6 +33,7 @@ jobs:
         run: eas --version
 
       - name: Build Android AAB
+        working-directory: mobile-app
         run: eas build --platform android --profile internal-testing --non-interactive --no-wait
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
