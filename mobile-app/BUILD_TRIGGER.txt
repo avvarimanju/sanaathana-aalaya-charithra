@@ -1,0 +1,2 @@
+Build trigger file - updated to trigger GitHub Actions workflow
+Timestamp: 2026-03-02
