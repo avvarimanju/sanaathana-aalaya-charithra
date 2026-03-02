@@ -1,33 +1,39 @@
-PROBLEM SOLVED!
-===============
-
-ROOT CAUSE IDENTIFIED:
-----------------------
-There's a package.json in the PARENT directory (Sanaathana-Aalaya-Charithra/).
-This made EAS think your project is a monorepo, so it was looking for mobile-app
-as a workspace package instead of treating it as the root.
-
-THE FIX:
---------
-Created .easignore file in the parent directory to tell EAS to ignore the parent
-package.json and other folders.
-
-NOW BUILD AGAIN:
-----------------
-
-cd mobile-app
-eas build --platform android --profile internal-testing
-
-This should work now!
+EAS BUILD - FINAL FIX APPLIED
+==============================
 
 WHAT WAS FIXED:
----------------
-✅ Created .easignore in parent directory
-✅ Ignores parent package.json
-✅ Ignores other project folders (admin-portal, src, etc.)
-✅ Keeps only mobile-app for the build
+1. Removed version constraint from eas.json (was causing version mismatch)
+2. Added explicit @latest flag to EAS CLI installation
+3. Added version verification step to debug any issues
+4. Added --no-wait flag to prevent workflow timeout
 
-The build will now upload only the mobile-app folder without the confusing
-parent package.json that was causing the monorepo detection.
+NEXT STEPS:
+-----------
 
-GO AHEAD AND BUILD! 🚀
+1. Commit and push the changes:
+   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+   git add .
+   git commit -m "Fix EAS CLI version constraint and workflow"
+   git push origin main
+
+2. Monitor the build:
+   - GitHub Actions: https://github.com/avvarimanju/sanaathana-aalaya-charithra/actions
+   - EAS Dashboard: https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds
+
+3. If build still fails, check the workflow logs for the "Verify EAS CLI version" step
+
+WHAT CHANGED:
+-------------
+- Sanaathana-Aalaya-Charithra/.github/workflows/eas-build.yml
+  * Now installs eas-cli@latest explicitly
+  * Added version verification step
+  * Added --no-wait flag to build command
+
+- Sanaathana-Aalaya-Charithra/mobile-app/eas.json
+  * Removed "version": ">= 18.0.6" constraint
+  * Workflow now controls the EAS CLI version
+
+ROOT CAUSE:
+-----------
+The version constraint in eas.json was conflicting with the npm-installed version.
+By removing the constraint and explicitly installing @latest, we ensure compatibility.

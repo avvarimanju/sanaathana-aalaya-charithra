@@ -1,11 +1,14 @@
 # Start Local Backend Server
 Write-Host "Starting Local Backend Server..." -ForegroundColor Green
 
+# Use environment variable with fallback to localhost
+$ENDPOINT = if ($env:DYNAMODB_ENDPOINT) { $env:DYNAMODB_ENDPOINT } else { "http://localhost:4566" }
+
 # Set environment variables
-$env:AWS_ENDPOINT_URL = "http://localhost:4566"
-$env:AWS_REGION = "ap-south-1"
-$env:AWS_ACCESS_KEY_ID = "test"
-$env:AWS_SECRET_ACCESS_KEY = "test"
+$env:AWS_ENDPOINT_URL = $ENDPOINT
+$env:AWS_REGION = if ($env:AWS_REGION) { $env:AWS_REGION } else { "ap-south-1" }
+$env:AWS_ACCESS_KEY_ID = if ($env:AWS_ACCESS_KEY_ID) { $env:AWS_ACCESS_KEY_ID } else { "test" }
+$env:AWS_SECRET_ACCESS_KEY = if ($env:AWS_SECRET_ACCESS_KEY) { $env:AWS_SECRET_ACCESS_KEY } else { "test" }
 $env:PORT = "4000"
 $env:NODE_ENV = "development"
 
@@ -44,5 +47,6 @@ if (-not (Test-Path "src/local-server/node_modules")) {
 
 # Start the server
 Write-Host "Starting server on http://localhost:4000..." -ForegroundColor Cyan
+Write-Host "Using DynamoDB endpoint: $ENDPOINT" -ForegroundColor Yellow
 Set-Location src/local-server
 npm start

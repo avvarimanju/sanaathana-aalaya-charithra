@@ -29,10 +29,13 @@ jobs:
         run: npm install
 
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: npm install -g eas-cli@latest
+
+      - name: Verify EAS CLI version
+        run: eas --version
 
       - name: Build Android AAB
-        run: eas build --platform android --profile internal-testing --non-interactive
+        run: eas build --platform android --profile internal-testing --non-interactive --no-wait
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 

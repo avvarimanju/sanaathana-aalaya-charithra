@@ -1,0 +1,73 @@
+GITHUB ACTIONS BUILD FAILURE - TROUBLESHOOTING
+===============================================
+
+ERROR: "The process '/usr/local/bin/yarn' failed with exit code 1"
+
+ROOT CAUSE
+----------
+The EXPO_TOKEN secret is either:
+1. Not set in GitHub repository secrets
+2. Set incorrectly
+3. Invalid or expired
+
+SOLUTION
+--------
+
+STEP 1: Verify EXPO_TOKEN Secret Exists
+----------------------------------------
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/settings/secrets/actions
+2. Check if "EXPO_TOKEN" is listed
+3. If NOT listed, proceed to Step 2
+4. If listed but build fails, the token might be invalid - proceed to Step 2 to create a new one
+
+STEP 2: Create New Expo Access Token
+-------------------------------------
+1. Go to: https://expo.dev/accounts/avvarimanju/settings/access-tokens
+2. Click "Create Token"
+3. Name: "GitHub Actions"
+4. Click "Create"
+5. COPY THE TOKEN IMMEDIATELY (shown only once!)
+
+STEP 3: Add/Update Token in GitHub Secrets
+-------------------------------------------
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/settings/secrets/actions
+2. If EXPO_TOKEN exists:
+   - Click on it
+   - Click "Update"
+   - Paste new token
+   - Click "Update secret"
+3. If EXPO_TOKEN doesn't exist:
+   - Click "New repository secret"
+   - Name: EXPO_TOKEN
+   - Value: [paste your token]
+   - Click "Add secret"
+
+STEP 4: Re-run the Workflow
+----------------------------
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/actions
+2. Click on the failed "EAS Build" run
+3. Click "Re-run jobs" > "Re-run all jobs"
+
+OR manually trigger:
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/actions
+2. Click "EAS Build" in left sidebar
+3. Click "Run workflow" button
+4. Select "main" branch
+5. Click "Run workflow"
+
+VERIFICATION
+------------
+After adding the token, the build should:
+1. Start successfully
+2. Install dependencies
+3. Run EAS build (takes ~10-15 minutes)
+4. Complete with success
+
+If it still fails, check the logs for different error messages.
+
+IMPORTANT NOTES
+---------------
+- Expo tokens don't expire unless you delete them
+- Make sure you're logged into the correct Expo account (avvarimanju@gmail.com)
+- The token needs full access permissions (default when created)
+- Don't share the token publicly - it's stored securely in GitHub Secrets

@@ -1,0 +1,130 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                   ENVIRONMENT CONFIGURATION QUICK REFERENCE                ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ QUESTION: What happens when we promote to Staging/Production?             │
+└────────────────────────────────────────────────────────────────────────────┘
+
+ANSWER: The hardcoded LocalStack endpoint URL is ONLY used in local scripts.
+        The actual application code does NOT hardcode any endpoints!
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ HOW IT WORKS                                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+The AWS SDK automatically detects the environment:
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │ LOCAL DEVELOPMENT                                                   │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │ • Scripts set: AWS_ENDPOINT_URL=http://localhost:4566              │
+  │ • SDK sees environment variable → uses LocalStack                   │
+  │ • All DynamoDB calls go to Docker container                         │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │ STAGING / PRODUCTION (AWS Lambda)                                   │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │ • AWS_ENDPOINT_URL is NOT set                                       │
+  │ • SDK uses default behavior → connects to real AWS DynamoDB         │
+  │ • All DynamoDB calls go to AWS in the same region                   │
+  └─────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ CODE EXAMPLE (src/utils/aws-clients.ts)                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  const clientConfig = {
+    region: AWS_REGION,
+    maxAttempts: 3,
+    // NO endpoint property - SDK auto-detects!
+  };
+
+  export const dynamoDBClient = new DynamoDBClient(clientConfig);
+
+  ✅ CORRECT: No hardcoded endpoint
+  ✅ CORRECT: SDK reads AWS_ENDPOINT_URL from environment
+  ✅ CORRECT: Works in Local, Staging, and Production
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ ENVIRONMENT VARIABLES BY ENVIRONMENT                                       │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  LOCAL (set by scripts):
+    AWS_ENDPOINT_URL=http://localhost:4566  ← Only set locally!
+    AWS_ACCESS_KEY_ID=test
+    AWS_SECRET_ACCESS_KEY=test
+    AWS_DEFAULT_REGION=ap-south-1
+
+  STAGING (set in Lambda config):
+    AWS_REGION=ap-south-1
+    HERITAGE_SITES_TABLE=Staging-HeritageSites
+    # NO AWS_ENDPOINT_URL ← Uses real DynamoDB
+
+  PRODUCTION (set in Lambda config):
+    AWS_REGION=ap-south-1
+    HERITAGE_SITES_TABLE=Prod-HeritageSites
+    # NO AWS_ENDPOINT_URL ← Uses real DynamoDB
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DEPLOYMENT CHECKLIST                                                       │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  When deploying to Staging/Production:
+
+  ✅ Deploy Lambda functions to AWS
+  ✅ Set environment variables in Lambda (region, table names)
+  ❌ DO NOT set AWS_ENDPOINT_URL in Lambda
+  ✅ Verify DynamoDB tables exist in target account
+  ✅ Update API Gateway endpoints
+  ✅ Update frontend .env files with new API URLs
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ COMMON MISTAKES TO AVOID                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  ❌ DON'T hardcode endpoint in code:
+     const client = new DynamoDBClient({
+       endpoint: 'http://localhost:4566'  // BAD!
+     });
+
+  ❌ DON'T set AWS_ENDPOINT_URL in Lambda environment variables
+
+  ❌ DON'T use same table names across environments
+
+  ✅ DO let SDK auto-detect from environment
+  ✅ DO use different table names per environment
+  ✅ DO test in Staging before Production
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ VERIFICATION COMMANDS                                                      │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  Local:
+    echo $env:AWS_ENDPOINT_URL  # Should show http://localhost:4566
+    aws dynamodb list-tables --endpoint-url http://localhost:4566
+
+  Staging/Production:
+    aws lambda get-function-configuration --function-name MyFunction
+    # Verify NO AWS_ENDPOINT_URL in output
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ SUMMARY                                                                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+  The hardcoded "http://localhost:4566" in your scripts is SAFE because:
+
+  1. It's only in PowerShell scripts (not application code)
+  2. Scripts only run on your local machine
+  3. Application code uses environment variables
+  4. AWS SDK automatically adapts to each environment
+  5. Lambda functions will connect to real DynamoDB automatically
+
+  NO CODE CHANGES NEEDED when promoting to Staging/Production!
+
+════════════════════════════════════════════════════════════════════════════
+
+For detailed information, see: ENVIRONMENT_CONFIGURATION_GUIDE.md

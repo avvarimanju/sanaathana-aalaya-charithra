@@ -37,7 +37,8 @@ const StateManagementPage: React.FC = () => {
     setLoading(true);
     try {
       // Fetch from backend API
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/states/visibility`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      const response = await fetch(`${apiUrl}/api/states/visibility`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -94,7 +95,8 @@ const StateManagementPage: React.FC = () => {
       });
 
       // Save to backend API
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/states/visibility`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      const response = await fetch(`${apiUrl}/api/states/visibility`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

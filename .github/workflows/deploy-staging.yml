@@ -1,0 +1,160 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-south-1
+  NODE_ENV: staging
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend to Staging
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Build Lambda functions
+        run: npm run build
+      
+      - name: Deploy to AWS Lambda
+        run: |
+          # Deploy Lambda functions with environment variables
+          # NO DYNAMODB_ENDPOINT - uses real AWS DynamoDB
+          aws lambda update-function-configuration \
+            --function-name staging-temple-management \
+            --environment "Variables={
+              NODE_ENV=staging,
+              AWS_REGION=${{ env.AWS_REGION }},
+              TEMPLES_TABLE=Staging-Temples,
+              ARTIFACTS_TABLE=Staging-Artifacts,
+              TEMPLE_GROUPS_TABLE=Staging-TempleGroups,
+              PRICING_TABLE=Staging-Pricing,
+              PRICE_HISTORY_TABLE=Staging-PriceHistory,
+              PRICING_FORMULAS_TABLE=Staging-PricingFormulas,
+              CONTENT_JOBS_TABLE=Staging-ContentJobs,
+              CONTENT_TABLE=Staging-Content,
+              ADMIN_USERS_TABLE=Staging-AdminUsers,
+              MOBILE_USERS_TABLE=Staging-MobileUsers,
+              DEFECTS_TABLE=Staging-Defects,
+              STATE_VISIBILITY_TABLE=Staging-StateVisibility,
+              API_URL=https://api-staging.sanaathana.org,
+              ENABLE_AI_CONTENT_GENERATION=true,
+              ENABLE_ANALYTICS=true,
+              ENABLE_CACHING=true,
+              LOG_LEVEL=info
+            }"
+      
+      - name: Verify deployment
+        run: |
+          # Test the deployed Lambda function
+          aws lambda invoke \
+            --function-name staging-temple-management \
+            --payload '{"httpMethod":"GET","path":"/health"}' \
+            response.json
+          cat response.json
+
+  deploy-admin-portal:
+    name: Deploy Admin Portal to Staging
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: admin-portal/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: admin-portal
+        run: npm ci
+      
+      - name: Create .env.staging file
+        working-directory: admin-portal
+        run: |
+          echo "VITE_API_URL=https://api-staging.sanaathana.org" > .env.staging
+          echo "VITE_ENVIRONMENT=staging" >> .env.staging
+      
+      - name: Build for staging
+        working-directory: admin-portal
+        run: npm run build -- --mode staging
+      
+      - name: Deploy to S3
+        run: |
+          aws s3 sync admin-portal/dist s3://staging-admin-sanaathana-org --delete
+      
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_STAGING }} \
+            --paths "/*"
+
+  deploy-mobile-app:
+    name: Build Mobile App for Staging
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: mobile-app/package-lock.json
+      
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Install dependencies
+        working-directory: mobile-app
+        run: npm ci
+      
+      - name: Create .env.staging file
+        working-directory: mobile-app
+        run: |
+          echo "EXPO_PUBLIC_API_URL=https://api-staging.sanaathana.org" > .env.staging
+          echo "EXPO_PUBLIC_DEMO_MODE=false" >> .env.staging
+          echo "EXPO_PUBLIC_ENVIRONMENT=staging" >> .env.staging
+      
+      - name: Build for staging
+        working-directory: mobile-app
+        run: eas build --platform android --profile staging --non-interactive
+      
+      - name: Submit to internal testing
+        working-directory: mobile-app
+        run: eas submit --platform android --profile staging --latest

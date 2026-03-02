@@ -14,11 +14,20 @@ dist/
 
 # Misc
 .DS_Store
+
+# Environment files (except development and examples)
 .env
 .env.local
+.env.staging
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Keep these committed:
+# !.env.example
+# !.env.development
+# !.env.*.example
 
 # Logs
 npm-debug.log*

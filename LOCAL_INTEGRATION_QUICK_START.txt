@@ -1,0 +1,107 @@
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║   🚀 LOCAL INTEGRATION - QUICK START                      ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
+
+ONE-COMMAND STARTUP:
+────────────────────────────────────────────────────────────
+cd Sanaathana-Aalaya-Charithra
+.\scripts\start-local-integration.ps1
+
+This will start:
+  ✅ LocalStack (DynamoDB) on port 4566
+  ✅ Backend API on port 4000
+  ✅ Admin Portal on port 5173
+  ✅ Mobile App on port 8081
+
+────────────────────────────────────────────────────────────
+
+MANUAL STARTUP (if you prefer):
+────────────────────────────────────────────────────────────
+
+1. Start LocalStack:
+   docker-compose up -d
+
+2. Initialize Database:
+   .\scripts\init-db-simple.ps1
+
+3. Start Backend (Terminal 1):
+   cd src\local-server
+   npm start
+
+4. Start Admin Portal (Terminal 2):
+   cd admin-portal
+   npm run dev
+
+5. Start Mobile App (Terminal 3):
+   cd mobile-app
+   npm start
+
+────────────────────────────────────────────────────────────
+
+SERVICE URLS:
+────────────────────────────────────────────────────────────
+Backend API:       http://localhost:4000
+Admin Portal:      http://localhost:5173
+Mobile App (Web):  http://localhost:8081
+LocalStack:        http://localhost:4566
+
+────────────────────────────────────────────────────────────
+
+TEST INTEGRATION:
+────────────────────────────────────────────────────────────
+1. Open Admin Portal: http://localhost:5173
+2. Create a new temple
+3. Open Mobile App: http://localhost:8081
+4. Verify the temple appears in the list
+
+✅ If you see the temple in both apps, integration works!
+
+────────────────────────────────────────────────────────────
+
+HEALTH CHECK:
+────────────────────────────────────────────────────────────
+curl http://localhost:4000/health
+
+Expected response:
+{
+  "status": "ok",
+  "environment": "local",
+  "localstack": "http://localhost:4566"
+}
+
+────────────────────────────────────────────────────────────
+
+STOP SERVICES:
+────────────────────────────────────────────────────────────
+1. Press Ctrl+C in each terminal window
+2. Stop LocalStack: docker-compose down
+
+────────────────────────────────────────────────────────────
+
+TROUBLESHOOTING:
+────────────────────────────────────────────────────────────
+Issue: Backend not starting
+Fix:   cd src\local-server && npm install
+
+Issue: Admin Portal shows "Network Error"
+Fix:   Check if backend is running: curl http://localhost:4000/health
+
+Issue: Mobile App shows mock data
+Fix:   Verify EXPO_PUBLIC_DEMO_MODE=false in mobile-app\.env.development
+
+Issue: LocalStack not starting
+Fix:   Check Docker Desktop is running
+
+────────────────────────────────────────────────────────────
+
+FULL DOCUMENTATION:
+────────────────────────────────────────────────────────────
+See LOCAL_INTEGRATION_GUIDE.md for detailed instructions
+
+────────────────────────────────────────────────────────────
+
+COST: $0 (runs entirely on your local machine)
+
+────────────────────────────────────────────────────────────

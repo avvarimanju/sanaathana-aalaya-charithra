@@ -1,11 +1,14 @@
 # Initialize local DynamoDB tables for Temple Pricing Management
 Write-Host "🚀 Initializing local DynamoDB tables..." -ForegroundColor Green
 
+# Use environment variable with fallback to localhost
+$ENDPOINT = if ($env:DYNAMODB_ENDPOINT) { $env:DYNAMODB_ENDPOINT } else { "http://localhost:4566" }
+
 # Set LocalStack endpoint
-$env:AWS_ENDPOINT_URL = "http://localhost:4566"
-$env:AWS_ACCESS_KEY_ID = "test"
-$env:AWS_SECRET_ACCESS_KEY = "test"
-$env:AWS_DEFAULT_REGION = "ap-south-1"
+$env:AWS_ENDPOINT_URL = $ENDPOINT
+$env:AWS_ACCESS_KEY_ID = if ($env:AWS_ACCESS_KEY_ID) { $env:AWS_ACCESS_KEY_ID } else { "test" }
+$env:AWS_SECRET_ACCESS_KEY = if ($env:AWS_SECRET_ACCESS_KEY) { $env:AWS_SECRET_ACCESS_KEY } else { "test" }
+$env:AWS_DEFAULT_REGION = if ($env:AWS_REGION) { $env:AWS_REGION } else { "ap-south-1" }
 
 # Function to create table
 function Create-Table {
@@ -106,6 +109,8 @@ Create-Table "AuditLog"
 
 Write-Host ""
 Write-Host "🎉 All tables created successfully!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Using endpoint: $ENDPOINT" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Admin dashboard is already running on http://localhost:5173" -ForegroundColor White

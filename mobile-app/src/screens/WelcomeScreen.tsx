@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
+// Welcome screen images with captions
+const WELCOME_IMAGES = [
+  {
+    source: require('../../assets/Nandi_Lepakshi_Temple_Hindupur.jpg'),
+    caption: 'Nandi, Lepakshi Temple'
+  },
+  {
+    source: require('../../assets/Sahaja_Shila_Thoranam_Tirumala.jpg'),
+    caption: 'Shilathoranam, Tirumala'
+  },
+  {
+    source: require('../../assets/TemplePortrait.png'),
+    caption: 'Temple Gopuram'
+  }
+];
+
 export default function WelcomeScreen({ navigation }: any) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-rotate images every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % WELCOME_IMAGES.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentImage = WELCOME_IMAGES[currentImageIndex];
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       
-      {/* Background Image - Shilathoranam, Tirumala */}
+      {/* Background Image - Rotating */}
       <ImageBackground
-        source={require('../../assets/Sahaja_Shila_Thoranam_Tirumala.jpg')}
+        key={currentImageIndex}
+        source={currentImage.source}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
@@ -54,10 +84,24 @@ export default function WelcomeScreen({ navigation }: any) {
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
 
-          {/* Image Credit */}
-          <Text style={styles.imageCredit}>
-            Shilathoranam, Tirumala
-          </Text>
+          {/* Image Credit - Now shows current image caption */}
+          <View style={styles.imageCreditContainer}>
+            <Text style={styles.imageCredit}>
+              {currentImage.caption}
+            </Text>
+            {/* Image indicators */}
+            <View style={styles.indicators}>
+              {WELCOME_IMAGES.map((_, index) => (
+                <View
+                  key={index}
+                  style={[
+                    styles.indicator,
+                    index === currentImageIndex && styles.indicatorActive
+                  ]}
+                />
+              ))}
+            </View>
+          </View>
         </View>
       </ImageBackground>
     </View>
@@ -155,14 +199,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  imageCredit: {
+  imageCreditContainer: {
     position: 'absolute',
     bottom: 20,
+    alignItems: 'center',
+  },
+  imageCredit: {
     color: '#fff',
     fontSize: 12,
     opacity: 0.9,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
+    marginBottom: 10,
+  },
+  indicators: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  indicator: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    marginHorizontal: 4,
+  },
+  indicatorActive: {
+    backgroundColor: '#fff',
+    width: 24,
   },
 });

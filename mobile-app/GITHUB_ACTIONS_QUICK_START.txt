@@ -4,6 +4,8 @@ GITHUB ACTIONS SETUP - QUICK START
 ✅ WORKFLOW FILE CREATED AT: .github/workflows/eas-build.yml
 (Repository root - correct location!)
 
+✅ WORKFLOW UPDATED: Fixed npm install issue
+
 STEP 1: Get Expo Token
 -----------------------
 1. Open: https://expo.dev/accounts/avvarimanju/settings/access-tokens

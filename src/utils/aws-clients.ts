@@ -5,21 +5,24 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { PollyClient } from '@aws-sdk/client-polly';
 import { S3Client } from '@aws-sdk/client-s3';
 import { TranslateClient } from '@aws-sdk/client-translate';
+import { getEnv, getDynamoDBConfig } from './env-validation';
 
-// AWS Region configuration
-// Default to ap-south-1 (Mumbai) for optimal performance in India
-const AWS_REGION = process.env.AWS_REGION || 'ap-south-1';
+// Validate environment variables at startup
+const env = getEnv();
+
+// Get DynamoDB configuration (automatically handles LocalStack vs AWS)
+const dynamoDBConfig = getDynamoDBConfig(env);
 
 // Common client configuration
 const clientConfig = {
-  region: AWS_REGION,
+  region: env.AWS_REGION,
   maxAttempts: 3,
 };
 
 // Initialize AWS service clients
 export const bedrockClient = new BedrockRuntimeClient(clientConfig);
 
-export const dynamoDBClient = new DynamoDBClient(clientConfig);
+export const dynamoDBClient = new DynamoDBClient(dynamoDBConfig);
 
 export const docClient = DynamoDBDocumentClient.from(dynamoDBClient, {
   marshallOptions: {
@@ -38,18 +41,28 @@ export const s3Client = new S3Client(clientConfig);
 
 export const translateClient = new TranslateClient(clientConfig);
 
-// Environment variables for table names and bucket names
+// Environment variables for table names (validated at startup)
 export const TABLES = {
-  HERITAGE_SITES: process.env.HERITAGE_SITES_TABLE || 'AvvarI-HeritageSites',
-  ARTIFACTS: process.env.ARTIFACTS_TABLE || 'AvvarI-Artifacts',
-  USER_SESSIONS: process.env.USER_SESSIONS_TABLE || 'AvvarI-UserSessions',
-  CONTENT_CACHE: process.env.CONTENT_CACHE_TABLE || 'AvvarI-ContentCache',
-  ANALYTICS: process.env.ANALYTICS_TABLE || 'AvvarI-Analytics',
+  TEMPLES: env.TEMPLES_TABLE,
+  ARTIFACTS: env.ARTIFACTS_TABLE,
+  TEMPLE_GROUPS: env.TEMPLE_GROUPS_TABLE,
+  PRICING: env.PRICING_TABLE,
+  PRICE_HISTORY: env.PRICE_HISTORY_TABLE,
+  PRICING_FORMULAS: env.PRICING_FORMULAS_TABLE,
+  CONTENT_JOBS: env.CONTENT_JOBS_TABLE,
+  CONTENT: env.CONTENT_TABLE,
+  ADMIN_USERS: env.ADMIN_USERS_TABLE,
+  MOBILE_USERS: env.MOBILE_USERS_TABLE,
+  DEFECTS: env.DEFECTS_TABLE,
+  STATE_VISIBILITY: env.STATE_VISIBILITY_TABLE,
 };
 
 export const BUCKETS = {
-  CONTENT: process.env.CONTENT_BUCKET || 'avvari-content-bucket',
+  CONTENT: env.CONTENT_BUCKET || 'sanaathana-content-bucket',
+  ASSETS: env.ASSETS_BUCKET || 'sanaathana-assets-bucket',
 };
+
+export const API_URL = env.API_URL;
 
 export const CLOUDFRONT_DOMAIN = process.env.CLOUDFRONT_DOMAIN || '';
 
