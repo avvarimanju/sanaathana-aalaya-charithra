@@ -1,0 +1,46 @@
+{
+  "_comment": "Copy this template when adding a new source to content-sources.json",
+  "template": {
+    "id": "unique_source_id",
+    "name": "Full Source Name",
+    "type": "government|temple_authority|state_government|research|ngo|scripture|primary_evidence",
+    "url": "https://source-website.com",
+    "trustLevel": "high|medium-high|medium",
+    "categories": ["category1", "category2", "category3"],
+    "note": "Optional: Brief description of the source"
+  },
+  "examples": {
+    "temple_authority": {
+      "id": "kalahasti_temple",
+      "name": "Sri Kalahasti Temple Trust",
+      "type": "temple_authority",
+      "url": "https://www.srikalahasti.org",
+      "trustLevel": "high",
+      "categories": ["sri_kalahasti", "rituals", "history", "pancha_bhoota"],
+      "note": "Official authority for Sri Kalahasti Temple"
+    },
+    "research_institution": {
+      "id": "nias",
+      "name": "National Institute of Advanced Studies",
+      "type": "research",
+      "url": "https://www.nias.res.in",
+      "trustLevel": "medium-high",
+      "categories": ["research", "heritage", "culture"]
+    },
+    "state_department": {
+      "id": "tn_archaeology",
+      "name": "Tamil Nadu State Archaeology",
+      "type": "state_government",
+      "trustLevel": "high",
+      "categories": ["tamil_nadu", "temples", "monuments", "conservation"]
+    },
+    "traditional_text": {
+      "id": "lepakshi_sthala_purana",
+      "name": "Lepakshi Sthala Purana",
+      "type": "scripture",
+      "trustLevel": "medium",
+      "categories": ["lepakshi", "mythology", "legends", "history"],
+      "note": "Traditional text specific to Lepakshi Temple"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "timestamp": "2026-03-01T09:13:10.160Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "status": "failed",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+  }
+]

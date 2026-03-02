@@ -2,34 +2,64 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 const MOCK_CONTENT = {
-  'qr-001': {
-    title: 'Qutub Minar',
-    audioGuide: 'Welcome to Qutub Minar, a UNESCO World Heritage Site and one of Delhi\'s most iconic monuments. This magnificent tower stands 73 meters tall and was built in 1193 by Qutb-ud-din Aibak...',
+  'LP-PILLAR-001': {
+    title: 'Hanging Pillar',
+    audioGuide: 'Welcome to the famous Hanging Pillar of Lepakshi Temple. This architectural marvel appears to be suspended in mid-air, with a small gap between the pillar base and the ground. Built during the Vijayanagara period, this pillar demonstrates the exceptional engineering skills of ancient Indian architects...',
     facts: [
-      'Built in 1193 CE',
-      'Height: 73 meters (240 feet)',
-      'UNESCO World Heritage Site since 1993',
-      'Made of red sandstone and marble',
+      'Built in 16th century during Vijayanagara Empire',
+      'One of 70 pillars in the temple',
+      'Small gap visible between base and ground',
+      'Made of granite stone',
     ],
   },
-  'qr-002': {
-    title: 'Taj Mahal',
-    audioGuide: 'Welcome to the Taj Mahal, one of the Seven Wonders of the World. This ivory-white marble mausoleum was commissioned by Mughal Emperor Shah Jahan in memory of his beloved wife Mumtaz Mahal...',
+  'LP-NANDI-002': {
+    title: 'Monolithic Nandi',
+    audioGuide: 'Behold the magnificent Monolithic Nandi of Lepakshi, one of the largest Nandi statues in India. Carved from a single granite rock, this 27-foot long and 15-foot high sculpture faces the Veerabhadra Temple. The intricate details and massive scale showcase the mastery of Vijayanagara sculptors...',
     facts: [
-      'Built between 1632-1653',
-      'Took 22 years to complete',
-      'Over 20,000 artisans worked on it',
-      'Made of white marble from Rajasthan',
+      'Carved from single granite rock',
+      'Length: 27 feet, Height: 15 feet',
+      'One of the largest Nandi statues in India',
+      'Faces the Veerabhadra Temple',
     ],
   },
-  'qr-003': {
-    title: 'Hampi Ruins',
-    audioGuide: 'Welcome to Hampi, the ancient capital of the Vijayanagara Empire. This UNESCO World Heritage Site features stunning ruins spread across 4,100 hectares, showcasing the grandeur of medieval Hindu architecture...',
+  'LP-PAINT-003': {
+    title: 'Ceiling Paintings',
+    audioGuide: 'Marvel at the stunning ceiling paintings of Lepakshi Temple, created using natural dyes and vegetable colors. These vibrant frescoes depict scenes from Hindu epics including Ramayana, Mahabharata, and Puranas. Despite being over 500 years old, the colors remain remarkably vivid...',
     facts: [
-      'Capital of Vijayanagara Empire (1336-1565)',
-      'UNESCO World Heritage Site since 1986',
-      'Over 1,600 monuments',
-      'Spread across 4,100 hectares',
+      'Created in 16th century',
+      'Natural dyes and vegetable colors used',
+      'Depicts scenes from Hindu epics',
+      'Colors remain vibrant after 500+ years',
+    ],
+  },
+  'TT-DEITY-001': {
+    title: 'Lord Venkateswara Deity',
+    audioGuide: 'Welcome to the sacred shrine of Lord Venkateswara at Tirumala. This ancient deity, also known as Balaji, is one of the most visited pilgrimage sites in the world. The idol is believed to be self-manifested and is adorned with precious jewels and gold ornaments...',
+    facts: [
+      'One of the richest temples in the world',
+      'Receives millions of pilgrims annually',
+      'Deity adorned with precious jewels',
+      'Ancient Dravidian architecture',
+    ],
+  },
+  'TT-GOPURAM-002': {
+    title: 'Golden Gopuram',
+    audioGuide: 'Behold the magnificent Golden Gopuram of Tirumala Temple, a stunning example of Dravidian temple architecture. This towering gateway is covered in gold plating and features intricate carvings depicting various deities and mythological scenes...',
+    facts: [
+      'Covered in gold plating',
+      'Dravidian architectural style',
+      'Intricate deity carvings',
+      'Main entrance to the temple',
+    ],
+  },
+  'SK-LINGA-001': {
+    title: 'Vayu Linga',
+    audioGuide: 'Welcome to the sacred Vayu Linga at Sri Kalahasti Temple, one of the Pancha Bhoota Sthalams representing the element of Air. This ancient Shiva Linga is believed to be self-manifested and is associated with the legend of the spider, snake, and elephant devotees...',
+    facts: [
+      'Represents Air element (Vayu)',
+      'One of Pancha Bhoota Sthalams',
+      'Self-manifested Linga',
+      'Associated with spider-snake-elephant legend',
     ],
   },
 };
@@ -40,7 +70,7 @@ export default function AudioGuideScreen({ navigation, route }: any) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration] = useState(180); // 3 minutes
 
-  const content = MOCK_CONTENT[artifact.id as keyof typeof MOCK_CONTENT] || MOCK_CONTENT['qr-001'];
+  const content = MOCK_CONTENT[artifact.id as keyof typeof MOCK_CONTENT] || MOCK_CONTENT['LP-PILLAR-001'];
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);

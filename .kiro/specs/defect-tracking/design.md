@@ -22,87 +22,406 @@ The defect tracking system integrates with the existing serverless AWS infrastru
 - **Notifications**: Integration with existing notification mechanisms
 - **Admin Interface**: Web-based dashboard for administrators
 
-## Architecture
+## High-Level Architecture
 
-### High-Level Architecture
+This section provides a comprehensive view of the system architecture, designed to be accessible to both technical and non-technical stakeholders.
+
+### System Architecture Overview
+
+The defect tracking system follows a serverless, event-driven architecture deployed on AWS. The system is organized into distinct layers, each with specific responsibilities:
 
 ```mermaid
 graph TB
-    subgraph "Mobile App Layer"
-        MA[Mobile App<br/>React Native]
+    subgraph Frontend["🎨 FRONTEND LAYER"]
+        direction TB
+        Mobile["📱 Mobile App<br/>(React Native)<br/>━━━━━━━━━━<br/>• Submit Defects<br/>• View My Defects<br/>• Track Status<br/>• Notifications"]
+        Admin["💻 Admin Portal<br/>(React Web)<br/>━━━━━━━━━━<br/>• Manage All Defects<br/>• Update Status<br/>• Add Comments<br/>• View Analytics"]
     end
     
-    subgraph "Admin Layer"
-        AW[Admin Web Dashboard]
+    subgraph API["🌐 API GATEWAY LAYER"]
+        direction TB
+        Gateway["⚡ AWS API Gateway<br/>━━━━━━━━━━<br/>• REST API Endpoints<br/>• Authentication<br/>• Rate Limiting<br/>• Request Validation"]
     end
     
-    subgraph "API Layer"
-        AG[API Gateway]
-        subgraph "Lambda Functions"
-            L1[Submit Defect Lambda]
-            L2[Get Defects Lambda]
-            L3[Update Status Lambda]
-            L4[Add Comment Lambda]
-            L5[Get Notifications Lambda]
+    subgraph Compute["⚙️ COMPUTE LAYER (AWS Lambda)"]
+        direction LR
+        subgraph UserOps["User Operations"]
+            L1["📝 Submit<br/>Defect"]
+            L2["📋 Get User<br/>Defects"]
+            L3["🔍 Get Defect<br/>Details"]
+        end
+        subgraph AdminOps["Admin Operations"]
+            L4["✏️ Update<br/>Status"]
+            L5["💬 Add<br/>Comment"]
+            L6["📊 Get All<br/>Defects"]
+        end
+        subgraph NotifyOps["Notification Operations"]
+            L7["🔔 Get<br/>Notifications"]
+            L8["✅ Mark<br/>Read"]
         end
     end
     
-    subgraph "Data Layer"
-        DB[(DynamoDB)]
-        subgraph "Tables"
-            T1[Defects Table]
-            T2[StatusUpdates Table]
-            T3[Notifications Table]
-        end
+    subgraph Data["💾 DATA LAYER (DynamoDB)"]
+        direction TB
+        T1[("🗂️ Defects Table<br/>━━━━━━━━━━<br/>• defectId (PK)<br/>• userId (GSI)<br/>• status (GSI)<br/>• All defect data")]
+        T2[("📝 StatusUpdates<br/>Table<br/>━━━━━━━━━━<br/>• updateId (PK)<br/>• defectId (GSI)<br/>• Admin comments<br/>• Status history")]
+        T3[("🔔 Notifications<br/>Table<br/>━━━━━━━━━━<br/>• notificationId (PK)<br/>• userId (GSI)<br/>• TTL enabled<br/>• Read status")]
     end
     
-    subgraph "External Services"
-        SNS[SNS/Email<br/>Notifications]
+    subgraph External["🔌 EXTERNAL SERVICES"]
+        SNS["📧 AWS SNS<br/>━━━━━━━━━━<br/>• Email Alerts<br/>• Push Notifications<br/>(Future)"]
+        CloudWatch["📊 CloudWatch<br/>━━━━━━━━━━<br/>• Logs<br/>• Metrics<br/>• Alarms"]
     end
     
-    MA -->|Submit/View Defects| AG
-    AW -->|Manage Defects| AG
-    AG --> L1
-    AG --> L2
-    AG --> L3
-    AG --> L4
-    AG --> L5
+    Mobile -->|"1️⃣ HTTPS Request"| Gateway
+    Admin -->|"1️⃣ HTTPS Request"| Gateway
     
-    L1 --> T1
-    L2 --> T1
-    L2 --> T2
-    L3 --> T1
-    L3 --> T2
-    L3 --> T3
-    L4 --> T2
-    L4 --> T3
-    L5 --> T3
+    Gateway -->|"2️⃣ Invoke"| L1
+    Gateway -->|"2️⃣ Invoke"| L2
+    Gateway -->|"2️⃣ Invoke"| L3
+    Gateway -->|"2️⃣ Invoke"| L4
+    Gateway -->|"2️⃣ Invoke"| L5
+    Gateway -->|"2️⃣ Invoke"| L6
+    Gateway -->|"2️⃣ Invoke"| L7
+    Gateway -->|"2️⃣ Invoke"| L8
     
-    L3 -.->|Trigger| SNS
-    L4 -.->|Trigger| SNS
+    L1 -->|"3️⃣ Write"| T1
+    L2 -->|"3️⃣ Query"| T1
+    L3 -->|"3️⃣ Query"| T1
+    L3 -->|"3️⃣ Query"| T2
+    L4 -->|"3️⃣ Update"| T1
+    L4 -->|"3️⃣ Write"| T2
+    L4 -->|"3️⃣ Write"| T3
+    L5 -->|"3️⃣ Write"| T2
+    L5 -->|"3️⃣ Write"| T3
+    L6 -->|"3️⃣ Scan/Query"| T1
+    L7 -->|"3️⃣ Query"| T3
+    L8 -->|"3️⃣ Update"| T3
+    
+    L4 -.->|"4️⃣ Publish"| SNS
+    L5 -.->|"4️⃣ Publish"| SNS
+    
+    L1 -->|"Logs"| CloudWatch
+    L2 -->|"Logs"| CloudWatch
+    L3 -->|"Logs"| CloudWatch
+    L4 -->|"Logs"| CloudWatch
+    L5 -->|"Logs"| CloudWatch
+    L6 -->|"Logs"| CloudWatch
+    L7 -->|"Logs"| CloudWatch
+    L8 -->|"Logs"| CloudWatch
+    
+    Gateway -.->|"5️⃣ Response"| Mobile
+    Gateway -.->|"5️⃣ Response"| Admin
+    
+    style Frontend fill:#e1f5ff,stroke:#0288d1,stroke-width:3px
+    style API fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style Compute fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style Data fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style External fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    
+    style Mobile fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style Admin fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style Gateway fill:#ffe0b2,stroke:#f57c00,stroke-width:2px
 ```
+
+**Legend:**
+- **Solid arrows (→)**: Synchronous request/response flow
+- **Dashed arrows (⇢)**: Asynchronous operations (notifications, logging)
+- **Numbers (1️⃣-5️⃣)**: Request/response lifecycle sequence
 
 ### Component Architecture
 
-The system follows a layered architecture pattern:
+The system follows a layered architecture pattern with clear separation of concerns:
 
-1. **Presentation Layer**: Mobile app and admin web interface
-2. **API Layer**: API Gateway with Lambda function handlers
-3. **Business Logic Layer**: Service classes for defect management, validation, and workflow
-4. **Data Access Layer**: Repository pattern for DynamoDB operations
-5. **Integration Layer**: Notification services and external integrations
+```mermaid
+graph TB
+    subgraph Layer1["PRESENTATION LAYER"]
+        direction LR
+        MobileUI["📱 Mobile App UI<br/>• Defect Forms<br/>• Status Views<br/>• Notifications"]
+        AdminUI["💻 Admin Portal<br/>• Defect Management<br/>• Status Controls<br/>• Analytics"]
+    end
+    
+    subgraph Layer2["API LAYER"]
+        direction LR
+        APIGateway["⚡ API Gateway<br/>• Routing<br/>• Auth<br/>• Throttling"]
+        LambdaHandlers["🔧 Lambda Handlers<br/>• Request Parsing<br/>• Response Formatting<br/>• Error Handling"]
+    end
+    
+    subgraph Layer3["BUSINESS LOGIC LAYER"]
+        direction LR
+        DefectService["📋 Defect Service<br/>• Submit Defect<br/>• Get Defects<br/>• Validation"]
+        StatusService["🔄 Status Workflow<br/>• Validate Transitions<br/>• Update Status<br/>• History Tracking"]
+        NotifyService["🔔 Notification Service<br/>• Create Notifications<br/>• Send Alerts<br/>• Mark Read"]
+    end
+    
+    subgraph Layer4["DATA ACCESS LAYER"]
+        direction LR
+        DefectRepo["🗂️ Defect Repository<br/>• CRUD Operations<br/>• Query by User<br/>• Query by Status"]
+        StatusRepo["📝 Status Repository<br/>• Create Updates<br/>• Get History<br/>• Query by Defect"]
+        NotifyRepo["🔔 Notification Repo<br/>• Create<br/>• Query by User<br/>• Update Read Status"]
+    end
+    
+    subgraph Layer5["DATA PERSISTENCE LAYER"]
+        direction LR
+        DDB1[("💾 Defects<br/>Table")]
+        DDB2[("💾 StatusUpdates<br/>Table")]
+        DDB3[("💾 Notifications<br/>Table")]
+    end
+    
+    MobileUI --> APIGateway
+    AdminUI --> APIGateway
+    
+    APIGateway --> LambdaHandlers
+    
+    LambdaHandlers --> DefectService
+    LambdaHandlers --> StatusService
+    LambdaHandlers --> NotifyService
+    
+    DefectService --> DefectRepo
+    StatusService --> StatusRepo
+    StatusService --> DefectRepo
+    NotifyService --> NotifyRepo
+    
+    DefectRepo --> DDB1
+    StatusRepo --> DDB2
+    NotifyRepo --> DDB3
+    
+    style Layer1 fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    style Layer2 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Layer3 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style Layer4 fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    style Layer5 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+```
 
-### Technology Stack
+### Data Flow Diagrams
 
-- **Backend Runtime**: Node.js 18.x (TypeScript)
-- **API Framework**: AWS API Gateway (REST API)
-- **Compute**: AWS Lambda (serverless functions)
-- **Database**: Amazon DynamoDB (NoSQL)
-- **Notifications**: Amazon SNS (Simple Notification Service)
-- **Mobile**: React Native (existing app framework)
-- **Admin UI**: React (web-based dashboard)
-- **Testing**: Jest + fast-check (property-based testing)
-- **Validation**: Zod (schema validation)
+#### Flow 1: User Submits Defect Report
+
+```mermaid
+sequenceDiagram
+    actor User as 👤 End User
+    participant Mobile as 📱 Mobile App
+    participant API as ⚡ API Gateway
+    participant Lambda as 🔧 Submit Lambda
+    participant Service as 📋 Defect Service
+    participant Repo as 🗂️ Repository
+    participant DB as 💾 DynamoDB
+    participant CW as 📊 CloudWatch
+    
+    User->>Mobile: Fill defect form
+    Mobile->>Mobile: Validate input locally
+    Mobile->>API: POST /defects<br/>{title, description, ...}
+    
+    API->>API: Authenticate user
+    API->>API: Rate limit check
+    API->>Lambda: Invoke with event
+    
+    Lambda->>Service: submitDefect(request)
+    Service->>Service: Validate data (Zod)
+    Service->>Service: Generate defectId (UUID)
+    Service->>Service: Set status = "New"
+    
+    Service->>Repo: create(defect)
+    Repo->>DB: PutItem
+    DB-->>Repo: Success
+    Repo-->>Service: Defect created
+    
+    Service->>CW: Log defect submission
+    Service-->>Lambda: {defectId, status, createdAt}
+    Lambda-->>API: 201 Created
+    API-->>Mobile: Response
+    Mobile-->>User: ✅ Defect submitted!
+    
+    Note over User,CW: Total time: ~300-500ms
+```
+
+#### Flow 2: Admin Updates Defect Status
+
+```mermaid
+sequenceDiagram
+    actor Admin as 👨‍💼 Administrator
+    participant Dashboard as 💻 Admin Portal
+    participant API as ⚡ API Gateway
+    participant Lambda as 🔧 Update Status Lambda
+    participant StatusSvc as 🔄 Status Workflow
+    participant DefectRepo as 🗂️ Defect Repo
+    participant StatusRepo as 📝 Status Repo
+    participant NotifyRepo as 🔔 Notify Repo
+    participant DB as 💾 DynamoDB
+    participant SNS as 📧 AWS SNS
+    participant User as 👤 End User
+    
+    Admin->>Dashboard: Select defect
+    Dashboard->>Dashboard: Show current status
+    Admin->>Dashboard: Change status to "In_Progress"
+    
+    Dashboard->>API: PUT /admin/defects/{id}/status<br/>{newStatus: "In_Progress"}
+    API->>API: Verify admin token
+    API->>Lambda: Invoke
+    
+    Lambda->>StatusSvc: updateStatus(defectId, newStatus)
+    StatusSvc->>DefectRepo: findById(defectId)
+    DefectRepo->>DB: GetItem
+    DB-->>DefectRepo: Current defect
+    DefectRepo-->>StatusSvc: {status: "Acknowledged"}
+    
+    StatusSvc->>StatusSvc: isValidTransition?<br/>("Acknowledged" → "In_Progress")
+    StatusSvc->>StatusSvc: ✅ Valid transition
+    
+    StatusSvc->>DefectRepo: updateStatus(defectId, "In_Progress")
+    DefectRepo->>DB: UpdateItem (Defects)
+    DB-->>DefectRepo: Success
+    
+    StatusSvc->>StatusRepo: createUpdate(statusUpdate)
+    StatusRepo->>DB: PutItem (StatusUpdates)
+    DB-->>StatusRepo: Success
+    
+    StatusSvc->>NotifyRepo: createNotification(userId, message)
+    NotifyRepo->>DB: PutItem (Notifications)
+    DB-->>NotifyRepo: Success
+    
+    StatusSvc->>SNS: Publish notification
+    SNS-->>User: 📧 Email: "Your defect is now In Progress"
+    
+    StatusSvc-->>Lambda: Success
+    Lambda-->>API: 200 OK
+    API-->>Dashboard: Response
+    Dashboard-->>Admin: ✅ Status updated!
+    
+    Note over Admin,User: User receives notification<br/>within seconds
+```
+
+#### Flow 3: User Views Defect Details with Updates
+
+```mermaid
+sequenceDiagram
+    actor User as 👤 End User
+    participant Mobile as 📱 Mobile App
+    participant API as ⚡ API Gateway
+    participant Lambda as 🔧 Get Details Lambda
+    participant Service as 📋 Defect Service
+    participant DefectRepo as 🗂️ Defect Repo
+    participant StatusRepo as 📝 Status Repo
+    participant DB as 💾 DynamoDB
+    
+    User->>Mobile: Tap on defect
+    Mobile->>API: GET /defects/{defectId}
+    
+    API->>API: Authenticate user
+    API->>Lambda: Invoke
+    
+    Lambda->>Service: getDefectDetails(defectId, userId)
+    
+    par Fetch Defect and Status Updates
+        Service->>DefectRepo: findById(defectId)
+        DefectRepo->>DB: GetItem (Defects)
+        DB-->>DefectRepo: Defect data
+        DefectRepo-->>Service: Defect
+    and
+        Service->>StatusRepo: findByDefectId(defectId)
+        StatusRepo->>DB: Query (StatusUpdates GSI)
+        DB-->>StatusRepo: Status updates
+        StatusRepo-->>Service: Updates[]
+    end
+    
+    Service->>Service: Verify user owns defect
+    Service->>Service: Combine defect + updates
+    Service->>Service: Sort updates by timestamp
+    
+    Service-->>Lambda: {defect, statusUpdates[]}
+    Lambda-->>API: 200 OK
+    API-->>Mobile: Response
+    Mobile->>Mobile: Render defect details
+    Mobile->>Mobile: Show status timeline
+    Mobile-->>User: Display complete history
+    
+    Note over User,DB: Parallel queries reduce latency<br/>Total time: ~200-300ms
+```
+
+### Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph AWS["☁️ AWS CLOUD"]
+        subgraph Region["us-east-1 Region"]
+            subgraph VPC["Virtual Private Cloud (Optional)"]
+                subgraph AZ1["Availability Zone 1"]
+                    Lambda1["⚙️ Lambda<br/>Functions"]
+                    DDB1["💾 DynamoDB<br/>(Multi-AZ)"]
+                end
+                subgraph AZ2["Availability Zone 2"]
+                    Lambda2["⚙️ Lambda<br/>Functions"]
+                    DDB2["💾 DynamoDB<br/>(Replica)"]
+                end
+            end
+            
+            APIGateway["⚡ API Gateway<br/>(Regional)"]
+            CloudWatch["📊 CloudWatch<br/>Logs & Metrics"]
+            SNS["📧 SNS Topics"]
+            IAM["🔐 IAM Roles<br/>& Policies"]
+            
+            APIGateway --> Lambda1
+            APIGateway --> Lambda2
+            Lambda1 --> DDB1
+            Lambda2 --> DDB2
+            Lambda1 --> CloudWatch
+            Lambda2 --> CloudWatch
+            Lambda1 --> SNS
+            Lambda2 --> SNS
+            
+            IAM -.->|Authorize| Lambda1
+            IAM -.->|Authorize| Lambda2
+        end
+        
+        subgraph CDN["Content Delivery"]
+            CloudFront["🌍 CloudFront<br/>(Admin Portal)"]
+            S3["📦 S3 Bucket<br/>(Static Assets)"]
+            CloudFront --> S3
+        end
+    end
+    
+    subgraph Clients["CLIENT DEVICES"]
+        Mobile["📱 Mobile Apps<br/>(iOS & Android)"]
+        Browser["💻 Web Browsers<br/>(Admin Portal)"]
+    end
+    
+    Mobile -->|HTTPS| APIGateway
+    Browser -->|HTTPS| CloudFront
+    Browser -->|API Calls| APIGateway
+    
+    style AWS fill:#ff9900,stroke:#232f3e,stroke-width:3px,color:#232f3e
+    style Region fill:#fff,stroke:#232f3e,stroke-width:2px
+    style VPC fill:#e7f3ff,stroke:#0066cc,stroke-width:2px
+    style AZ1 fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style AZ2 fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style CDN fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style Clients fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+```
+
+**Key Deployment Features:**
+- **Multi-AZ Deployment**: Lambda functions and DynamoDB replicated across availability zones for high availability
+- **Auto-Scaling**: Lambda automatically scales from 0 to 1000+ concurrent executions
+- **Global Distribution**: CloudFront CDN for Admin Portal with low-latency access worldwide
+- **Managed Services**: All components are fully managed by AWS (no server maintenance)
+- **Security**: IAM roles with least-privilege access, encryption at rest and in transit
+
+### Technology Stack Summary
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React Native | Cross-platform mobile app (iOS & Android) |
+| **Frontend** | React | Admin web dashboard |
+| **API Gateway** | AWS API Gateway | REST API endpoints, authentication, rate limiting |
+| **Compute** | AWS Lambda (Node.js 18.x) | Serverless function execution |
+| **Language** | TypeScript | Type-safe backend development |
+| **Database** | Amazon DynamoDB | NoSQL database with auto-scaling |
+| **Notifications** | Amazon SNS | Email and push notification delivery |
+| **Monitoring** | CloudWatch | Logs, metrics, alarms, and tracing |
+| **Validation** | Zod | Runtime schema validation |
+| **Testing** | Jest + fast-check | Unit tests and property-based testing |
+| **IaC** | AWS CDK | Infrastructure as Code (TypeScript) |
+
+## Detailed API Specifications
 
 ## Components and Interfaces
 
@@ -759,14 +1078,14 @@ interface DefectState {
 }
 ```
 
-### 2. Admin Dashboard Integration
+### 2. Admin Portal Integration
 
-The admin dashboard will be a separate web application with the following structure:
+The Admin Portal will be a separate web application with the following structure:
 
 #### 2.1 Dashboard Components
 
 ```
-admin-dashboard/
+admin-portal/
   src/
     pages/
       DefectListPage.tsx       // Main defect list with filters

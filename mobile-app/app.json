@@ -24,13 +24,17 @@
         "backgroundColor": "#FF6B35"
       },
       "package": "com.sanaathana.aalayacharithra",
+      "versionCode": 1,
       "permissions": [
         "CAMERA",
         "RECORD_AUDIO"
       ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "web": {},
+    "extra": {
+      "eas": {
+        "projectId": "eb47f233-ddd2-4edb-92f5-60914d13af3c"
+      }
     }
   }
 }

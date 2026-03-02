@@ -31,7 +31,15 @@ describe('WebSocketManager', () => {
   beforeEach(() => {
     dynamoMock.reset();
     const dynamoClient = new DynamoDBClient({ region: 'us-east-1' });
-    manager = new WebSocketManager(dynamoClient, config);
+    const apiGatewayClient = {
+      send: jest.fn()
+    } as any;
+    manager = new WebSocketManager(
+      dynamoClient,
+      apiGatewayClient,
+      config.connectionsTableName,
+      config.connectionTtlHours
+    );
   });
 
   describe('handleConnect', () => {

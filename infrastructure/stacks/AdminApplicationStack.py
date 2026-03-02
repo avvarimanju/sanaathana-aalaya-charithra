@@ -20,6 +20,8 @@ from aws_cdk import (
     aws_apigateway as apigateway,
     aws_iam as iam,
     aws_logs as logs,
+    aws_events as events,
+    aws_events_targets as targets,
     CfnOutput,
 )
 from constructs import Construct
@@ -245,6 +247,33 @@ class AdminApplicationStack(Stack):
             ),
         )
 
+        # CostCache Table - for caching Cost Explorer API results
+        self.cost_cache_table = dynamodb.Table(
+            self,
+            "CostCacheTable",
+            table_name="SanaathanaAalayaCharithra-CostCache",
+            partition_key=dynamodb.Attribute(
+                name="cacheKey", type=dynamodb.AttributeType.STRING
+            ),
+            billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+            encryption=dynamodb.TableEncryption.AWS_MANAGED,
+            time_to_live_attribute="ttl",
+            removal_policy=RemovalPolicy.RETAIN,
+        )
+
+        # CostAlerts Table - for cost alert thresholds
+        self.cost_alerts_table = dynamodb.Table(
+            self,
+            "CostAlertsTable",
+            table_name="SanaathanaAalayaCharithra-CostAlerts",
+            partition_key=dynamodb.Attribute(
+                name="alertId", type=dynamodb.AttributeType.STRING
+            ),
+            billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+            encryption=dynamodb.TableEncryption.AWS_MANAGED,
+            removal_policy=RemovalPolicy.RETAIN,
+        )
+
         # ========================================
         # IAM Roles
         # ========================================
@@ -269,6 +298,33 @@ class AdminApplicationStack(Stack):
         self.content_moderation_table.grant_read_write_data(self.admin_lambda_role)
         self.rate_limits_table.grant_read_write_data(self.admin_lambda_role)
         self.admin_sessions_table.grant_read_write_data(self.admin_lambda_role)
+        self.cost_cache_table.grant_read_write_data(self.admin_lambda_role)
+        self.cost_alerts_table.grant_read_write_data(self.admin_lambda_role)
+
+        # Grant Cost Explorer permissions
+        self.admin_lambda_role.add_to_policy(
+            iam.PolicyStatement(
+                effect=iam.Effect.ALLOW,
+                actions=[
+                    "ce:GetCostAndUsage",
+                    "ce:GetCostForecast",
+                    "ce:GetDimensionValues",
+                ],
+                resources=["*"],
+            )
+        )
+
+        # Grant CloudWatch permissions for resource metrics
+        self.admin_lambda_role.add_to_policy(
+            iam.PolicyStatement(
+                effect=iam.Effect.ALLOW,
+                actions=[
+                    "cloudwatch:GetMetricStatistics",
+                    "cloudwatch:ListMetrics",
+                ],
+                resources=["*"],
+            )
+        )
 
         # Authenticated role for Identity Pool
         self.authenticated_role = iam.Role(
@@ -381,9 +437,52 @@ class AdminApplicationStack(Stack):
                 "AUDIT_LOG_TABLE": self.audit_log_table.table_name,
                 "NOTIFICATIONS_TABLE": self.notifications_table.table_name,
                 "CONTENT_MODERATION_TABLE": self.content_moderation_table.table_name,
+                "COST_CACHE_TABLE": self.cost_cache_table.table_name,
+                "COST_ALERTS_TABLE": self.cost_alerts_table.table_name,
             },
             role=self.admin_lambda_role,
             log_retention=logs.RetentionDays.ONE_WEEK,
+        )
+
+        # Cost Monitoring Lambda - for scheduled cost data refresh
+        self.cost_monitoring_lambda = lambda_.Function(
+            self,
+            "CostMonitoringLambda",
+            function_name="SanaathanaAalayaCharithra-CostMonitoring",
+            runtime=lambda_.Runtime.PYTHON_3_11,
+            handler="cost_monitoring.handler",
+            code=lambda_.Code.from_asset("src/admin/lambdas"),
+            timeout=Duration.seconds(60),
+            memory_size=256,
+            environment={
+                "COST_CACHE_TABLE": self.cost_cache_table.table_name,
+            },
+            role=self.admin_lambda_role,
+            log_retention=logs.RetentionDays.ONE_WEEK,
+        )
+
+        # ========================================
+        # EventBridge Rule for Daily Cost Refresh
+        # ========================================
+
+        # Create EventBridge rule to trigger cost monitoring daily at 2 AM UTC
+        self.cost_refresh_rule = events.Rule(
+            self,
+            "CostRefreshRule",
+            rule_name="SanaathanaAalayaCharithra-DailyCostRefresh",
+            description="Trigger cost monitoring Lambda daily to refresh cost data",
+            schedule=events.Schedule.cron(
+                minute="0",
+                hour="2",
+                month="*",
+                week_day="*",
+                year="*"
+            ),
+        )
+
+        # Add Lambda as target
+        self.cost_refresh_rule.add_target(
+            targets.LambdaFunction(self.cost_monitoring_lambda)
         )
 
         # ========================================

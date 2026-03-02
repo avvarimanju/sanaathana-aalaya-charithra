@@ -8,7 +8,7 @@
 **Think of it as:** Your personal AI tour guide for Hindu temples
 
 **What it does:**
-- Shows you information about 11 Hindu temples
+- Shows you information about 13 Hindu temples
 - Provides audio guides, videos, and detailed history
 - Works with QR codes placed at temple artifacts
 - Available in 10+ Indian languages

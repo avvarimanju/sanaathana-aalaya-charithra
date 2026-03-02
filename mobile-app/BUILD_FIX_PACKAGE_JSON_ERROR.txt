@@ -1,0 +1,54 @@
+BUILD ERROR IDENTIFIED & FIX
+============================
+
+ERROR:
+------
+package.json does not exist in /home/expo/workingdir/build/mobile-app
+
+ROOT CAUSE:
+-----------
+EAS is looking for package.json in a "mobile-app" subdirectory, but when you run
+"eas build" from inside the mobile-app folder, it uploads the mobile-app folder
+as the root, so there's no "mobile-app" subfolder.
+
+The build system is confused about the project structure.
+
+SOLUTION 1: Run build from parent directory (RECOMMENDED)
+----------------------------------------------------------
+
+Instead of:
+  cd mobile-app
+  eas build --platform android --profile internal-testing
+
+Do this:
+  cd Sanaathana-Aalaya-Charithra
+  eas build --platform android --profile internal-testing --working-dir mobile-app
+
+The --working-dir flag tells EAS where the app code is.
+
+SOLUTION 2: Move mobile-app to root (Alternative)
+--------------------------------------------------
+
+If you want mobile-app to be the root of your Expo project:
+
+1. Move all files from mobile-app to a new standalone folder
+2. Initialize EAS in that folder
+3. Build from there
+
+But Solution 1 is easier!
+
+QUICK FIX COMMANDS:
+-------------------
+
+# Go to parent directory
+cd ..
+
+# OR if you're in mobile-app:
+cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+
+# Run build with working-dir flag
+eas build --platform android --profile internal-testing --working-dir mobile-app
+
+---
+
+TRY THIS NOW!

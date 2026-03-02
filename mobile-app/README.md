@@ -96,22 +96,28 @@ npm run web
 
 ## 🎨 Demo Data
 
-The app includes mock data for 3 heritage sites:
+The app includes mock data for Hindu temple artifacts from Andhra Pradesh and Karnataka:
 
-1. **Qutub Minar** (Delhi)
-   - 73m tall monument
-   - Built in 1193 CE
-   - UNESCO World Heritage Site
+1. **Lepakshi Temple** (Andhra Pradesh)
+   - Hanging Pillar - Architectural marvel
+   - Monolithic Nandi - One of largest in India
+   - Ceiling Paintings - 500+ year old frescoes
 
-2. **Taj Mahal** (Agra)
-   - Iconic marble mausoleum
-   - Built 1632-1653
-   - Seven Wonders of the World
+2. **Tirumala Temple** (Andhra Pradesh)
+   - Lord Venkateswara Deity - Sacred shrine
+   - Golden Gopuram - Gold-plated gateway
 
-3. **Hampi Ruins** (Karnataka)
-   - Ancient Vijayanagara capital
-   - 1,600+ monuments
-   - UNESCO World Heritage Site
+3. **Sri Kalahasti Temple** (Andhra Pradesh)
+   - Vayu Linga - Represents Air element
+   - Kalamkari Paintings - Traditional art
+
+4. **Srisailam Temple** (Andhra Pradesh)
+   - Mallikarjuna Jyotirlinga - One of 12 Jyotirlingas
+   - Goddess Bhramaramba - Shakti Peetha
+
+5. **Hampi Temples** (Karnataka)
+   - Virupaksha Temple - Ancient Shiva temple
+   - Stone Chariot - Iconic sculpture
 
 ## 🛠️ Technology Stack
 

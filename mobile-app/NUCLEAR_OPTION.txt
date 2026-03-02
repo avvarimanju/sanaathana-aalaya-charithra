@@ -1,0 +1,36 @@
+NUCLEAR OPTION - MOVE MOBILE-APP OUT TEMPORARILY
+=================================================
+
+The --clear-cache didn't work. EAS is STILL detecting the parent directory.
+
+SOLUTION: Temporarily move mobile-app OUT of the parent directory
+------------------------------------------------------------------
+
+STEP 1: Move mobile-app to a sibling directory
+-----------------------------------------------
+cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+move Sanaathana-Aalaya-Charithra\mobile-app mobile-app-temp
+
+STEP 2: Build from the new location
+------------------------------------
+cd mobile-app-temp
+eas build --platform android --profile internal-testing
+
+STEP 3: Wait for "Uploaded to EAS" message
+-------------------------------------------
+Once you see "√ Uploaded to EAS", the build will continue on EAS servers.
+
+STEP 4: Move it back (after upload completes)
+----------------------------------------------
+cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+move mobile-app-temp Sanaathana-Aalaya-Charithra\mobile-app
+
+WHY THIS WORKS:
+---------------
+By moving mobile-app OUT of the parent directory, EAS will scan it as a
+standalone project without any parent package.json confusing it.
+
+THIS IS THE ONLY WAY TO FIX THIS ISSUE!
+========================================
+
+Try this now!

@@ -1,0 +1,34 @@
+[
+  {
+    "timestamp": "2026-03-01T09:12:49.165Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "status": "failed",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+  },
+  {
+    "timestamp": "2026-03-01T09:12:52.154Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "video",
+    "status": "failed",
+    "error": "Validation failed: Video duration too short: ~1s (min: 60s)"
+  },
+  {
+    "timestamp": "2026-03-01T09:12:55.252Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "infographic",
+    "status": "failed",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+  },
+  {
+    "timestamp": "2026-03-01T09:12:58.421Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "qa_knowledge_base",
+    "status": "failed",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+  }
+]

@@ -15,7 +15,7 @@ Sanaathana Aalaya Charithra is a mobile app that provides rich, AI-generated con
 ## ✅ What the App CAN Do
 
 ### 1. Browse Temples from Home (NEW!)
-- ✅ View list of 11 Hindu temples
+- ✅ View list of 13 Hindu temples
 - ✅ See temple photos and basic information
 - ✅ Read temple history and significance
 - ✅ Filter temples by state
@@ -144,26 +144,31 @@ Sanaathana Aalaya Charithra is a mobile app that provides rich, AI-generated con
 
 ---
 
-## 📍 Supported Temples (11 Total)
+## 📍 Supported Temples (13 Total)
 
-### Andhra Pradesh (4 temples)
+### Andhra Pradesh (6 temples)
 1. **Lepakshi Temple** - Hanging pillar, Nandi statue
-2. **Tirumala Venkateswara Temple (TTD)** - Main deity, Gopuram
-3. **Sri Kalahasti Temple** - Vayu Lingam, Rahu-Ketu shrine
-4. **Srisailam Temple** - Mallikarjuna Jyotirlinga, Bhramaramba shrine
+2. **Tirumala Temples** - Main Venkateswara Temple, Bhu Varaha Temple, Bedi Anjaneya Temple
+3. **Tirupathi Local Temples Tour** - Padmavathi Temple, Kalyana Venkateswara Temple, Govindaraja Temple
+4. **Tirupathi Surrounding Temples Tour** - Venugopalswamy Temple, Kalyanavenkaeswarswamy Temple, Prasanna Venkateswaraswamy Temple
+5. **Sri Kalahasti Temple** - Vayu Lingam, Rahu-Ketu shrine
+6. **Srisailam Temple** - Mallikarjuna Jyotirlinga, Bhramaramba shrine
 
 ### Karnataka (4 temples)
-5. **Vidurashwatha Temple** - Ancient inscriptions, Sculptures
-6. **Hampi Ruins** - Virupaksha Temple, Stone Chariot
-7. **Halebidu Temple** - Hoysaleswara sculptures, Star-shaped platform
-8. **Belur Temple** - Chennakesava sculptures, Darpana Sundari
+7. **Vidurashwatha Temple** - Ancient inscriptions, Sculptures
+8. **Hampi Ruins** - Virupaksha Temple, Stone Chariot
+9. **Halebidu Temple** - Hoysaleswara sculptures, Star-shaped platform
+10. **Belur Temple** - Chennakesava sculptures, Darpana Sundari
 
 ### Tamil Nadu (2 temples)
-9. **Thanjavur Brihadeeswarar Temple** - Vimana, Nandi statue
-10. **Meenakshi Temple** - Thousand pillar hall, Gopurams
+11. **Thanjavur Brihadeeswarar Temple** - Vimana, Nandi statue
+12. **Meenakshi Temple** - Thousand pillar hall, Gopurams
 
 ### Maharashtra (1 temple)
-11. **Ellora Caves** - Kailasa Temple, Cave sculptures
+13. **Ellora Caves** - Kailasa Temple, Rock-cut architecture
+
+### Madhya Pradesh (1 temple)
+14. **Khajuraho Temples** - Erotic sculptures, Nagara architecture
 
 ### Madhya Pradesh (1 temple - mentioned but not in current list)
 12. **Khajuraho Temples** - Erotic sculptures, Temple architecture
@@ -467,7 +472,7 @@ A: You pay ₹99 per temple. If you visit 3 temples, total cost is ₹297.
 ### Content Questions
 
 **Q: What languages are supported?**
-A: 10+ Indian languages including English, Hindi, Telugu, Tamil, Kannada, and more.
+A: 10+ Indian languages including English, Hindi, Telugu, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, and more.
 
 **Q: How long is the audio guide?**
 A: 3-7 minutes per artifact, depending on complexity.

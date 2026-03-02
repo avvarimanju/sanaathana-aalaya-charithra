@@ -1,0 +1,90 @@
+/**
+ * ProtectedRoute Component Styles
+ */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.protected-route-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.protected-route-loading {
+  text-align: center;
+}
+
+.protected-route-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.protected-route-loading-text {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.protected-route-error {
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.protected-route-error-title {
+  font-size: 24px;
+  color: #e74c3c;
+  margin-bottom: 16px;
+}
+
+.protected-route-error-message {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.protected-route-retry-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.protected-route-retry-button:hover {
+  background-color: #2980b9;
+}
+
+.protected-route-retry-button:active {
+  background-color: #21618c;
+}
+
+.protected-route-redirect {
+  text-align: center;
+}
+
+.protected-route-redirect-text {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}

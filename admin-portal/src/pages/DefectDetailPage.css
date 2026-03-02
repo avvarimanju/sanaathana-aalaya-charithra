@@ -1,0 +1,60 @@
+/**
+ * DefectDetailPage CSS
+ * Additional styles and animations for the DefectDetailPage component
+ */
+
+/* Spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button hover effects */
+.back-button:hover:not(:disabled) {
+  background-color: #4b5563 !important;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: #2563eb !important;
+}
+
+.retry-button:hover:not(:disabled) {
+  background-color: #b91c1c !important;
+}
+
+.status-transition-button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #2563eb !important;
+}
+
+/* Textarea focus effect */
+.comment-textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .mainContent {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .back-button,
+  .refresh-button,
+  .status-transition-button,
+  .submit-button {
+    display: none;
+  }
+}

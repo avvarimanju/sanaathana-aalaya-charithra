@@ -1,0 +1,124 @@
+CREATE GOOD APP ASSETS - QUICK GUIDE
+=====================================
+
+FILE PATHS (where to save):
+---------------------------
+
+icon.png → mobile-app/assets/icon.png
+splash.png → mobile-app/assets/splash.png
+adaptive-icon.png → mobile-app/assets/adaptive-icon.png
+
+FULL PATHS:
+-----------
+
+C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\icon.png
+C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\splash.png
+C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\adaptive-icon.png
+
+IMAGE REQUIREMENTS:
+-------------------
+
+icon.png:
+- Size: 1024 x 1024 pixels (SQUARE)
+- Format: PNG
+- Purpose: App icon on home screen
+- Recommendation: Use temple symbol, Om symbol, or temple silhouette
+
+splash.png:
+- Size: 1284 x 2778 pixels (PORTRAIT) or any portrait ratio
+- Format: PNG
+- Purpose: Splash screen when app launches
+- Recommendation: Use beautiful temple image (Nandi, Shilathoranam, etc.)
+
+adaptive-icon.png:
+- Size: 1024 x 1024 pixels (SQUARE)
+- Format: PNG
+- Purpose: Android adaptive icon
+- Recommendation: Can be same as icon.png
+
+DESIGN RECOMMENDATIONS:
+-----------------------
+
+For icon.png & adaptive-icon.png (1024x1024):
+- Keep design simple and recognizable at small sizes
+- Use high contrast colors
+- Center the main element
+- Leave some padding around edges (safe zone)
+- Consider using: Om symbol, temple gopuram, or simple temple icon
+
+For splash.png (1284x2778):
+- Use one of your existing temple images
+- Add app name text overlay if desired
+- Use orange background (#FF6B35) to match your brand
+- Make it visually appealing and professional
+
+EASIEST METHODS:
+----------------
+
+Method 1: Use Canva (FREE, RECOMMENDED)
+1. Go to: https://www.canva.com/
+2. Create custom size designs:
+   - 1024x1024 for icons
+   - 1284x2778 for splash
+3. Upload your temple images
+4. Add text, effects, backgrounds
+5. Download as PNG
+6. Save to the paths above
+
+Method 2: Use Online Image Resizer
+1. Choose your best temple image
+2. Go to: https://www.iloveimg.com/resize-image
+3. Resize to required dimensions
+4. Download and save to paths above
+
+Method 3: Use Photoshop/GIMP (if you have it)
+1. Open your temple image
+2. Resize to required dimensions
+3. Add effects, text, backgrounds as needed
+4. Export as PNG
+5. Save to paths above
+
+QUICK PLACEHOLDER (for testing):
+---------------------------------
+
+If you just want to test the build quickly:
+
+1. Go to: https://placeholder.com/
+2. Generate:
+   - 1024x1024 orange image → save as icon.png
+   - 1024x1024 orange image → save as adaptive-icon.png
+   - 1284x2778 orange image → save as splash.png
+3. Save all to mobile-app/assets/
+
+AFTER CREATING IMAGES:
+----------------------
+
+1. Verify files exist:
+   cd mobile-app/assets
+   ls icon.png, splash.png, adaptive-icon.png
+
+2. Rebuild your app:
+   cd mobile-app
+   eas build --platform android --profile internal-testing
+
+3. Build should succeed this time!
+
+EXISTING TEMPLE IMAGES YOU HAVE:
+---------------------------------
+
+You already have these in mobile-app/assets:
+- Nandi_Lepakshi_Temple_Hindupur.jpg
+- Sahaja_Shila_Thoranam_Tirumala.jpg
+
+You can use these as base images and resize them!
+
+RECOMMENDED APPROACH:
+---------------------
+
+1. Use Canva to create professional-looking assets
+2. Use Nandi or Shilathoranam image as background
+3. Add "Sanaathana Aalaya Charithra" text overlay
+4. Use orange (#FF6B35) as accent color
+5. Export in required sizes
+6. Save to the 3 file paths above
+7. Rebuild!

@@ -7,7 +7,8 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { TranslateClient } from '@aws-sdk/client-translate';
 
 // AWS Region configuration
-const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+// Default to ap-south-1 (Mumbai) for optimal performance in India
+const AWS_REGION = process.env.AWS_REGION || 'ap-south-1';
 
 // Common client configuration
 const clientConfig = {

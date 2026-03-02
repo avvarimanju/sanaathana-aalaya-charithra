@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanaathana Aalaya Charithra - Mobile App Screens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .screens-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .phone-frame {
+            background: #1f2937;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #1f2937;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .screen {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            height: 650px;
+            position: relative;
+        }
+
+        .screen-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            text-align: center;
+        }
+
+        .screen-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .screen-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .screen-content {
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100% - 140px);
+        }
+
+        .temple-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .temple-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .temple-info {
+            padding: 15px;
+        }
+
+        .temple-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .temple-location {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .temple-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 16px;
+        }
+
+        .rating-text {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .explore-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .nav-item.active {
+            color: #ff6b6b;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .detail-header {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .detail-content {
+            padding: 20px;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .detail-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: white;
+            border: 2px solid #e5e7eb;
+            color: #1f2937;
+        }
+
+        .feedback-form {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 10px;
+            font-size: 32px;
+        }
+
+        .rating-star {
+            cursor: pointer;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+
+        .rating-star.active {
+            color: #fbbf24;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .screen-label {
+            text-align: center;
+            color: white;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 3px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="screens-container">
+        <div class="header">
+            <h1>🏛️ Sanaathana Aalaya Charithra</h1>
+            <p>Mobile App - End User Experience</p>
+        </div>
+
+        <div class="screens-grid">
+            <!-- Screen 1: Home/Temple List -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="screen">
+                        <div class="screen-header">
+                            <h2>Explore Temples</h2>
+                            <p>Discover India's Sacred Heritage</p>
+                        </div>
+                        <div class="screen-content">
+                            <div class="temple-card">
+                                <div class="temple-image">🕉️</div>
+                                <div class="temple-info">
+                                    <div class="temple-name">Tirumala Temples</div>
+                                    <div class="temple-location">📍 Andhra Pradesh, South India</div>
+                                    <div class="temple-rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.8 (3,245 reviews)</span>
+                                    </div>
+                                    <button class="explore-btn">Explore Temple →</button>
+                                </div>
+                            </div>
+
+                            <div class="temple-card">
+                                <div class="temple-image" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">🛕</div>
+                                <div class="temple-info">
+                                    <div class="temple-name">Meenakshi Amman Temple</div>
+                                    <div class="temple-location">📍 Tamil Nadu, South India</div>
+                                    <div class="temple-rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.7 (2,891 reviews)</span>
+                                    </div>
+                                    <button class="explore-btn">Explore Temple →</button>
+                                </div>
+                            </div>
+
+                            <div class="temple-card">
+                                <div class="temple-image" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">🕌</div>
+                                <div class="temple-info">
+                                    <div class="temple-name">Tirupathi Local Temples Tour</div>
+                                    <div class="temple-location">📍 Andhra Pradesh, South India</div>
+                                    <div class="temple-rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.9 (4,567 reviews)</span>
+                                    </div>
+                                    <button class="explore-btn">Explore Temple →</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-bar">
+                            <div class="nav-item active">
+                                <div class="nav-icon">🏠</div>
+                                <div>Home</div>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon">🔍</div>
+                                <div>Search</div>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon">❤️</div>
+                                <div>Favorites</div>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon">👤</div>
+                                <div>Profile</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Home Screen - Temple List</div>
+            </div>
+
+            <!-- Screen 2: Temple Detail -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="screen">
+                        <div class="detail-header">
+                            <div class="back-btn">←</div>
+                            🕉️
+                        </div>
+                        <div class="screen-content">
+                            <div class="detail-content">
+                                <div class="detail-title">Tirumala Temples</div>
+                                <div class="detail-subtitle">📍 Andhra Pradesh, South India</div>
+                                
+                                <div class="temple-rating" style="margin-bottom: 20px;">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.8 (3,245 reviews)</span>
+                                </div>
+
+                                <div class="info-section">
+                                    <div class="info-label">About</div>
+                                    <div class="info-value">
+                                        One of the most visited pilgrimage sites in the world, dedicated to Lord Venkateswara. The temple is located on the seventh peak of Tirumala hills.
+                                    </div>
+                                </div>
+
+                                <div class="info-section">
+                                    <div class="info-label">Historical Significance</div>
+                                    <div class="info-value">
+                                        Dating back to over 2000 years, this temple has been mentioned in ancient Tamil and Sanskrit literature.
+                                    </div>
+                                </div>
+
+                                <div class="info-section">
+                                    <div class="info-label">Features Available</div>
+                                    <ul class="feature-list">
+                                        <li class="feature-item">
+                                            <div class="feature-icon">🎧</div>
+                                            <div class="feature-text">
+                                                <div class="feature-title">Audio Guide</div>
+                                                <div class="feature-desc">Available in 8 languages</div>
+                                            </div>
+                                        </li>
+                                        <li class="feature-item">
+                                            <div class="feature-icon">📸</div>
+                                            <div class="feature-text">
+                                                <div class="feature-title">Virtual Tour</div>
+                                                <div class="feature-desc">360° immersive experience</div>
+                                            </div>
+                                        </li>
+                                        <li class="feature-item">
+                                            <div class="feature-icon">📖</div>
+                                            <div class="feature-text">
+                                                <div class="feature-title">History & Stories</div>
+                                                <div class="feature-desc">Rich cultural content</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button class="action-btn primary">
+                                        <span>▶️</span>
+                                        <span>Start Tour</span>
+                                    </button>
+                                    <button class="action-btn secondary">
+                                        <span>💬</span>
+                                        <span>Reviews</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Temple Detail Screen</div>
+            </div>
+
+            <!-- Screen 3: Feedback Form -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="screen">
+                        <div class="screen-header">
+                            <h2>Share Your Feedback</h2>
+                            <p>Help us improve your experience</p>
+                        </div>
+                        <div class="screen-content">
+                            <div class="feedback-form">
+                                <div class="form-group">
+                                    <label class="form-label">Rate Your Experience</label>
+                                    <div class="rating-input">
+                                        <span class="rating-star active">★</span>
+                                        <span class="rating-star active">★</span>
+                                        <span class="rating-star active">★</span>
+                                        <span class="rating-star active">★</span>
+                                        <span class="rating-star">★</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Temple Visited</label>
+                                    <select class="form-input">
+                                        <option>Tirumala Temples</option>
+                                        <option>Tirupathi Local Temples Tour</option>
+                                        <option>Meenakshi Amman Temple</option>
+                                        <option>Lepakshi Temple</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Your Review (Optional)</label>
+                                    <textarea class="form-textarea" placeholder="Share your thoughts about the virtual tour experience..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Comments/Suggestions (Optional)</label>
+                                    <textarea class="form-textarea" placeholder="Any suggestions for improvement?"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Comment Type</label>
+                                    <select class="form-input">
+                                        <option>General Feedback</option>
+                                        <option>Suggestion</option>
+                                        <option>Complaint</option>
+                                    </select>
+                                </div>
+
+                                <button class="submit-btn">Submit Feedback</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Feedback Form Screen</div>
+            </div>
+
+            <!-- Screen 4: Virtual Tour -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="screen">
+                        <div style="position: relative; height: 100%; background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);">
+                            <div class="back-btn" style="top: 20px;">←</div>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+                                <div style="font-size: 80px; margin-bottom: 20px;">🕉️</div>
+                                <div style="font-size: 24px; font-weight: 600; margin-bottom: 10px;">Virtual Tour</div>
+                                <div style="font-size: 14px; opacity: 0.9; margin-bottom: 30px;">360° Immersive Experience</div>
+                                <div style="display: flex; gap: 15px; justify-content: center;">
+                                    <button style="background: white; color: #1e3a8a; border: none; padding: 12px 24px; border-radius: 25px; font-weight: 600; cursor: pointer;">
+                                        🎧 Audio Guide
+                                    </button>
+                                    <button style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 12px 24px; border-radius: 25px; font-weight: 600; cursor: pointer;">
+                                        ℹ️ Info
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); text-align: center; color: white;">
+                                <div style="font-size: 12px; opacity: 0.8; margin-bottom: 10px;">Swipe to explore</div>
+                                <div style="display: flex; gap: 8px; justify-content: center;">
+                                    <div style="width: 8px; height: 8px; background: white; border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Virtual Tour Screen</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive rating stars
+        document.querySelectorAll('.rating-star').forEach((star, index) => {
+            star.addEventListener('click', function() {
+                const stars = this.parentElement.querySelectorAll('.rating-star');
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

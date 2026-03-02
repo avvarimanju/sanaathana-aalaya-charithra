@@ -1,0 +1,123 @@
+═══════════════════════════════════════════════════════════════
+WINDOWS SUBSYSTEM FOR ANDROID - QUICK COMMANDS
+═══════════════════════════════════════════════════════════════
+
+⚠️ WARNING: This takes 60+ minutes to set up!
+
+For hackathon demo, use web browser instead (5 minutes):
+cd mobile-app → npm start → w → F12 → 📱 → F11
+
+═══════════════════════════════════════════════════════════════
+PREREQUISITES CHECK
+═══════════════════════════════════════════════════════════════
+
+# Check Windows version (need Windows 11)
+winver
+
+# Check RAM (need 8GB+)
+Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum
+
+# Check virtualization (need Enabled)
+# Task Manager → Performance → CPU → Virtualization: Enabled
+
+═══════════════════════════════════════════════════════════════
+INSTALLATION COMMANDS (Run as Administrator)
+═══════════════════════════════════════════════════════════════
+
+# Step 1: Enable Virtual Machine Platform
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+# Step 2: Install WSA
+winget install "Windows Subsystem for Android"
+
+# Step 3: Restart computer
+Restart-Computer
+
+# Step 4: Launch WSA
+# Press Win → Search "Windows Subsystem for Android" → Open
+
+# Step 5: Enable Developer Mode
+# In WSA Settings → Toggle "Developer mode" ON
+
+═══════════════════════════════════════════════════════════════
+ADB SETUP
+═══════════════════════════════════════════════════════════════
+
+# Download Platform Tools
+# https://developer.android.com/studio/releases/platform-tools
+# Extract to C:\platform-tools
+
+# Add to PATH
+$env:Path += ";C:\platform-tools"
+[Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::Machine)
+
+# Verify
+adb version
+
+# Connect to WSA
+adb connect 127.0.0.1:58526
+
+# Check connection
+adb devices
+
+═══════════════════════════════════════════════════════════════
+INSTALL YOUR APP
+═══════════════════════════════════════════════════════════════
+
+# Option 1: Build and install APK
+cd mobile-app
+eas build --platform android --profile preview
+# Download APK when ready
+adb install path\to\app.apk
+
+# Option 2: Use Expo Go
+# Download Expo Go APK
+# Install: adb install expo-go.apk
+# Start app: cd mobile-app → npm start
+# Open Expo Go in WSA → Enter URL
+
+═══════════════════════════════════════════════════════════════
+USEFUL ADB COMMANDS
+═══════════════════════════════════════════════════════════════
+
+adb devices                    # List connected devices
+adb connect 127.0.0.1:58526   # Connect to WSA
+adb disconnect                 # Disconnect
+adb install app.apk           # Install APK
+adb uninstall com.package     # Uninstall app
+adb logcat                    # View logs
+adb shell                     # Open shell
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+# WSA not in Microsoft Store
+Settings → Time & Language → Region → United States → Restart
+
+# Virtualization not enabled
+Restart → Enter BIOS → Enable Virtualization → Save
+
+# ADB cannot connect
+# Check WSA is running
+# Check IP in WSA Settings → Developer section
+adb connect [IP from WSA Settings]
+
+# WSA is slow
+# WSA Settings → Subsystem resources → Continuous
+
+═══════════════════════════════════════════════════════════════
+MY RECOMMENDATION
+═══════════════════════════════════════════════════════════════
+
+FOR HACKATHON DEMO:
+→ Use web browser (5 minutes)
+→ cd mobile-app → npm start → w → F12 → 📱 → F11
+
+AFTER HACKATHON:
+→ Set up Android Emulator (30 minutes, easier than WSA)
+→ Or set up WSA if you have Windows 11 (60+ minutes)
+
+═══════════════════════════════════════════════════════════════
+
+See full guide: WSA_SETUP_GUIDE.md

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defect Tracking System - Architecture Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .architecture {
+            padding: 40px;
+        }
+
+        .layer {
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .layer-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layer-title:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .layer-title .icon {
+            font-size: 1.5em;
+        }
+
+        .frontend-layer .layer-title {
+            background: linear-gradient(135deg, #e1f5ff 0%, #bbdefb 100%);
+            color: #0288d1;
+        }
+
+        .api-layer .layer-title {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            color: #f57c00;
+        }
+
+        .compute-layer .layer-title {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            color: #7b1fa2;
+        }
+
+        .data-layer .layer-title {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #388e3c;
+        }
+
+        .external-layer .layer-title {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            color: #c2185b;
+        }
+
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .component {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .component:hover::before {
+            transform: scaleX(1);
+        }
+
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .component-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .component-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .component-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .component-features {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .component-features li {
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .component-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .flow-diagram {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .flow-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .flow-step {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .flow-step-content {
+            flex: 1;
+        }
+
+        .flow-step-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .flow-step-desc {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .legend {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .legend-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-icon {
+            font-size: 1.5em;
+        }
+
+        .legend-text {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .tech-stack {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .tech-stack-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .tech-category {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .tech-name {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .tech-purpose {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .components {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .layer-title {
+                font-size: 1.3em;
+            }
+        }
+
+        .collapsible-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .collapsible-content.collapsed {
+            max-height: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Defect Tracking System</h1>
+            <p>Serverless Architecture on AWS</p>
+        </div>
+
+        <div class="architecture">
+            <!-- Frontend Layer -->
+            <div class="layer frontend-layer">
+                <div class="layer-title" onclick="toggleLayer(this)">
+                    <span class="icon">🎨</span>
+                    <span>FRONTEND LAYER</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="components">
+                        <div class="component">
+                            <span class="component-icon">📱</span>
+                            <div class="component-name">Mobile App</div>
+                            <div class="component-desc">React Native cross-platform application for iOS and Android</div>
+                            <ul class="component-features">
+                                <li>Submit defect reports</li>
+                                <li>View my defects</li>
+                                <li>Track status updates</li>
+                                <li>Receive notifications</li>
+                            </ul>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">💻</span>
+                            <div class="component-name">Admin Dashboard</div>
+                            <div class="component-desc">React web application for administrators</div>
+                            <ul class="component-features">
+                                <li>Manage all defects</li>
+                                <li>Update defect status</li>
+                                <li>Add comments</li>
+                                <li>View analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Layer -->
+            <div class="layer api-layer">
+                <div class="layer-title" onclick="toggleLayer(this)">
+                    <span class="icon">🌐</span>
+                    <span>API GATEWAY LAYER</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="components">
+                        <div class="component">
+                            <span class="component-icon">⚡</span>
+                            <div class="component-name">AWS API Gateway</div>
+                            <div class="component-desc">Managed REST API with built-in security and scaling</div>
+                            <ul class="component-features">
+                                <li>REST API endpoints</li>
+                                <li>JWT authentication</li>
+                                <li>Rate limiting & throttling</li>
+                                <li>Request validation</li>
+                                <li>CORS configuration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compute Layer -->
+            <div class="layer compute-layer">
+                <div class="layer-title" onclick="toggleLayer(this)">
+                    <span class="icon">⚙️</span>
+                    <span>COMPUTE LAYER (AWS Lambda)</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="components">
+                        <div class="component">
+                            <span class="component-icon">📝</span>
+                            <div class="component-name">Submit Defect</div>
+                            <div class="component-desc">POST /defects - Create new defect reports</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">📋</span>
+                            <div class="component-name">Get User Defects</div>
+                            <div class="component-desc">GET /defects/user/{userId} - List user's defects</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">🔍</span>
+                            <div class="component-name">Get Defect Details</div>
+                            <div class="component-desc">GET /defects/{id} - Retrieve defect with history</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">✏️</span>
+                            <div class="component-name">Update Status</div>
+                            <div class="component-desc">PUT /admin/defects/{id}/status - Change defect status</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">💬</span>
+                            <div class="component-name">Add Comment</div>
+                            <div class="component-desc">POST /admin/defects/{id}/updates - Add status update</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">📊</span>
+                            <div class="component-name">Get All Defects</div>
+                            <div class="component-desc">GET /admin/defects - Admin view all defects</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">🔔</span>
+                            <div class="component-name">Get Notifications</div>
+                            <div class="component-desc">GET /notifications/user/{userId} - User notifications</div>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">✅</span>
+                            <div class="component-name">Mark Read</div>
+                            <div class="component-desc">PUT /notifications/{id}/read - Mark as read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Layer -->
+            <div class="layer data-layer">
+                <div class="layer-title" onclick="toggleLayer(this)">
+                    <span class="icon">💾</span>
+                    <span>DATA LAYER (DynamoDB)</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="components">
+                        <div class="component">
+                            <span class="component-icon">🗂️</span>
+                            <div class="component-name">Defects Table</div>
+                            <div class="component-desc">Primary defect data storage</div>
+                            <ul class="component-features">
+                                <li>PK: defectId</li>
+                                <li>GSI: userId-createdAt-index</li>
+                                <li>GSI: status-createdAt-index</li>
+                                <li>On-demand capacity</li>
+                                <li>Point-in-time recovery</li>
+                            </ul>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">📝</span>
+                            <div class="component-name">StatusUpdates Table</div>
+                            <div class="component-desc">Status change history and comments</div>
+                            <ul class="component-features">
+                                <li>PK: updateId</li>
+                                <li>GSI: defectId-timestamp-index</li>
+                                <li>Admin comments</li>
+                                <li>Status transitions</li>
+                            </ul>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">🔔</span>
+                            <div class="component-name">Notifications Table</div>
+                            <div class="component-desc">User notification storage</div>
+                            <ul class="component-features">
+                                <li>PK: notificationId</li>
+                                <li>GSI: userId-createdAt-index</li>
+                                <li>TTL enabled (90 days)</li>
+                                <li>Read status tracking</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- External Services Layer -->
+            <div class="layer external-layer">
+                <div class="layer-title" onclick="toggleLayer(this)">
+                    <span class="icon">🔌</span>
+                    <span>EXTERNAL SERVICES</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="components">
+                        <div class="component">
+                            <span class="component-icon">📧</span>
+                            <div class="component-name">AWS SNS</div>
+                            <div class="component-desc">Simple Notification Service for alerts</div>
+                            <ul class="component-features">
+                                <li>Email notifications</li>
+                                <li>Push notifications (future)</li>
+                                <li>Topic-based pub/sub</li>
+                            </ul>
+                        </div>
+                        <div class="component">
+                            <span class="component-icon">📊</span>
+                            <div class="component-name">CloudWatch</div>
+                            <div class="component-desc">Monitoring and logging service</div>
+                            <ul class="component-features">
+                                <li>Lambda execution logs</li>
+                                <li>Performance metrics</li>
+                                <li>Error tracking</li>
+                                <li>Custom alarms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Flow Diagram -->
+            <div class="flow-diagram">
+                <div class="flow-title">📊 Request/Response Flow: User Submits Defect</div>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-step-number">1</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">User Action</div>
+                            <div class="flow-step-desc">User fills out defect form in mobile app and submits</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">2</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">HTTPS Request</div>
+                            <div class="flow-step-desc">Mobile app sends POST /defects to API Gateway</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">3</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Authentication & Validation</div>
+                            <div class="flow-step-desc">API Gateway validates JWT token and rate limits</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">4</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Lambda Invocation</div>
+                            <div class="flow-step-desc">Submit Defect Lambda function is triggered</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">5</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Business Logic</div>
+                            <div class="flow-step-desc">Validate data with Zod, generate UUID, set status to "New"</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">6</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Database Write</div>
+                            <div class="flow-step-desc">Store defect in DynamoDB Defects table</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">7</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Logging</div>
+                            <div class="flow-step-desc">Log submission event to CloudWatch</div>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">8</div>
+                        <div class="flow-step-content">
+                            <div class="flow-step-title">Response</div>
+                            <div class="flow-step-desc">Return 201 Created with defectId to mobile app</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="tech-stack">
+                <div class="tech-stack-title">🛠️ Technology Stack</div>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-category">Frontend Mobile</div>
+                        <div class="tech-name">React Native</div>
+                        <div class="tech-purpose">Cross-platform iOS & Android app</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Frontend Web</div>
+                        <div class="tech-name">React</div>
+                        <div class="tech-purpose">Admin dashboard interface</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">API Gateway</div>
+                        <div class="tech-name">AWS API Gateway</div>
+                        <div class="tech-purpose">REST API endpoints & auth</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Compute</div>
+                        <div class="tech-name">AWS Lambda</div>
+                        <div class="tech-purpose">Serverless function execution</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Language</div>
+                        <div class="tech-name">TypeScript</div>
+                        <div class="tech-purpose">Type-safe development</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Database</div>
+                        <div class="tech-name">DynamoDB</div>
+                        <div class="tech-purpose">NoSQL with auto-scaling</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Notifications</div>
+                        <div class="tech-name">Amazon SNS</div>
+                        <div class="tech-purpose">Email & push delivery</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Monitoring</div>
+                        <div class="tech-name">CloudWatch</div>
+                        <div class="tech-purpose">Logs, metrics & alarms</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Validation</div>
+                        <div class="tech-name">Zod</div>
+                        <div class="tech-purpose">Runtime schema validation</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Testing</div>
+                        <div class="tech-name">Jest + fast-check</div>
+                        <div class="tech-purpose">Unit & property-based tests</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-category">Infrastructure</div>
+                        <div class="tech-name">AWS CDK</div>
+                        <div class="tech-purpose">Infrastructure as Code</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-title">📖 Legend</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-icon">→</span>
+                        <span class="legend-text">Synchronous request/response</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">⇢</span>
+                        <span class="legend-text">Asynchronous operations</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">🎨</span>
+                        <span class="legend-text">Frontend Layer</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">🌐</span>
+                        <span class="legend-text">API Gateway Layer</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">⚙️</span>
+                        <span class="legend-text">Compute Layer</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">💾</span>
+                        <span class="legend-text">Data Layer</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon">🔌</span>
+                        <span class="legend-text">External Services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Sanaathana-Aalaya-Charithra Defect Tracking System</p>
+            <p>Serverless Architecture • AWS Cloud • 2024</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleLayer(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('collapsed');
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.component').forEach(component => {
+            component.style.opacity = '0';
+            component.style.transform = 'translateY(20px)';
+            component.style.transition = 'all 0.6s ease';
+            observer.observe(component);
+        });
+
+        // Add click effect to components
+        document.querySelectorAll('.component').forEach(component => {
+            component.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

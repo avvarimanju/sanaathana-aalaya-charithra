@@ -39,7 +39,7 @@ The Content Pre-Generation System is a batch processing tool for the Sanaathana 
 #### Acceptance Criteria
 
 1. FOR ALL artifacts, THE Pre_Generation_System SHALL generate content in all 10 Supported_Languages
-2. THE Pre_Generation_System SHALL process languages in the following order: English, Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi
+2. THE Pre_Generation_System SHALL process languages in the following order: English, Hindi, Telugu, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil
 3. WHEN generating content for a language, THE Content_Generator SHALL use language-appropriate AI models and voice profiles
 4. THE Pre_Generation_System SHALL validate that generated content is in the correct language before storage
 5. IF language validation fails, THEN THE Pre_Generation_System SHALL retry generation up to 3 times

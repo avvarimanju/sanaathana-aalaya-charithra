@@ -21,3 +21,6 @@ python-dateutil>=2.8.0
 
 # HTTP requests (for external APIs like Razorpay)
 requests>=2.31.0
+
+# Razorpay SDK for payment processing
+razorpay>=1.4.0

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: temple-localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=dynamodb,s3
+      - DEBUG=0
+      - LAMBDA_EXECUTOR=local
+    networks:
+      - temple-network
+
+networks:
+  temple-network:
+    driver: bridge

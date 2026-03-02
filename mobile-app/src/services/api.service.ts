@@ -253,7 +253,7 @@ class APIService {
           culturalSignificance: 'Most visited deity in the world, receives offerings worth billions annually',
         },
         site: {
-          name: 'Tirumala Venkateswara Temple (TTD)',
+          name: 'Tirumala Temples',
           location: {
             city: 'Tirupati',
             state: 'Andhra Pradesh',
@@ -275,7 +275,7 @@ class APIService {
           culturalSignificance: 'Symbol of the temple\'s wealth and devotion of millions of pilgrims',
         },
         site: {
-          name: 'Tirumala Venkateswara Temple (TTD)',
+          name: 'Tirumala Temples',
           location: {
             city: 'Tirupati',
             state: 'Andhra Pradesh',

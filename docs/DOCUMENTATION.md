@@ -57,21 +57,24 @@ npm start
 
 ## Temple Coverage
 
-Currently includes 11 Hindu temples across 5 states:
+Currently includes 13 Hindu temples across 5 states:
 
 1. **Lepakshi Temple** (Andhra Pradesh)
-2. **Tirumala Venkateswara Temple** (Andhra Pradesh)
-3. **Sri Kalahasti Temple** (Andhra Pradesh)
-4. **Vidurashwatha Temple** (Karnataka)
-5. **Hampi Ruins** (Karnataka)
-6. **Halebidu Temple** (Karnataka)
-7. **Belur Temple** (Karnataka)
-8. **Thanjavur Brihadeeswarar Temple** (Tamil Nadu)
-9. **Meenakshi Temple** (Tamil Nadu)
-10. **Ellora Caves** (Maharashtra)
-11. **Khajuraho Temples** (Madhya Pradesh)
+2. **Tirumala Temples** (Andhra Pradesh) - Main Temple Complex
+3. **Tirupathi Local Temples Tour** (Andhra Pradesh)
+4. **Tirupathi Surrounding Temples Tour** (Andhra Pradesh)
+5. **Sri Kalahasti Temple** (Andhra Pradesh)
+6. **Srisailam Temple** (Andhra Pradesh)
+7. **Vidurashwatha Temple** (Karnataka)
+8. **Hampi Ruins** (Karnataka)
+9. **Halebidu Temple** (Karnataka)
+10. **Belur Temple** (Karnataka)
+11. **Thanjavur Brihadeeswarar Temple** (Tamil Nadu)
+12. **Meenakshi Temple** (Tamil Nadu)
+13. **Ellora Caves** (Maharashtra)
+14. **Khajuraho Temples** (Madhya Pradesh)
 
-**Total**: 23 artifacts with QR codes
+**Total**: 45 artifacts with QR codes
 
 ## API Endpoints
 

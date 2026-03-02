@@ -1,0 +1,70 @@
+═══════════════════════════════════════════════════════════════
+MOBILE APP ON LAPTOP - ULTRA QUICK COMMANDS
+═══════════════════════════════════════════════════════════════
+
+COMPLETE SETUP IN 4 COMMANDS:
+═══════════════════════════════════════════════════════════════
+
+1. cd mobile-app
+
+2. npm start
+
+3. Press 'w'
+
+4. Press F12 → Click 📱 icon → Select iPhone 12 Pro → Press F11
+
+DONE! 🎉
+
+═══════════════════════════════════════════════════════════════
+KEYBOARD SHORTCUTS
+═══════════════════════════════════════════════════════════════
+
+F12              Open/close DevTools
+Ctrl+Shift+M     Toggle mobile view
+F11              Fullscreen mode
+Ctrl+0           Reset zoom to 100%
+Ctrl+R           Refresh page
+Ctrl+C           Stop Expo (in terminal)
+
+═══════════════════════════════════════════════════════════════
+EXPO COMMANDS (IN TERMINAL)
+═══════════════════════════════════════════════════════════════
+
+w                Open in web browser
+a                Open in Android emulator
+i                Open in iOS simulator (Mac only)
+r                Reload app
+m                Toggle menu
+c                Clear cache
+q                Quit
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING ONE-LINERS
+═══════════════════════════════════════════════════════════════
+
+App not loading:
+npm start -- --clear
+
+Port in use:
+npm start -- --port 19007
+
+Layout broken:
+Ctrl+0 (reset zoom)
+
+Cache issues:
+Ctrl+Shift+Delete → Clear cache
+
+═══════════════════════════════════════════════════════════════
+DEMO FLOW
+═══════════════════════════════════════════════════════════════
+
+SETUP:
+cd mobile-app → npm start → w → F12 → 📱 → iPhone 12 Pro → F11
+
+DEMO:
+Show features → Navigate screens → Explain functionality
+
+EXIT:
+F11 → F12 → Ctrl+C
+
+═══════════════════════════════════════════════════════════════

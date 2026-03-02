@@ -1233,7 +1233,7 @@ See `config/pre-generation.yaml` for the complete configuration schema.
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `AWS_REGION` | AWS region | us-east-1 | No |
+| `AWS_REGION` | AWS region | ap-south-1 | No |
 | `AWS_PROFILE` | AWS credentials profile | default | No |
 | `S3_BUCKET` | Content storage bucket | - | Yes |
 | `DYNAMODB_PROGRESS_TABLE` | Progress tracking table | PreGenerationProgress | No |

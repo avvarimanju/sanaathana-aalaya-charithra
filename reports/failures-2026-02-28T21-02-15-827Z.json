@@ -1,0 +1,20 @@
+[
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules",
+    "retryCount": 2,
+    "timestamp": "2026-02-28T21:02:18.915Z",
+    "recommendedAction": "Review error details and retry. If the issue persists, check logs for more information or contact support."
+  },
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "video",
+    "error": "Validation failed: Video duration too short: ~1s (min: 60s)",
+    "retryCount": 2,
+    "timestamp": "2026-02-28T21:02:22.133Z",
+    "recommendedAction": "Review artifact metadata for completeness and accuracy. Check that all required fields are present."
+  }
+]

@@ -1,0 +1,37 @@
+═══════════════════════════════════════════════════════════
+  STEP 4: BUILD AAB - QUICK COMMANDS
+═══════════════════════════════════════════════════════════
+
+📍 NAVIGATE TO MOBILE APP FOLDER:
+cd mobile-app
+
+🚀 START BUILD:
+eas build --platform android --profile internal-testing
+
+⏱️ EXPECTED TIME: 15-30 minutes
+
+📊 CHECK BUILD STATUS:
+eas build:list
+
+🌐 VIEW BUILD ONLINE:
+https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds
+
+═══════════════════════════════════════════════════════════
+
+WHAT TO EXPECT:
+1. EAS asks to use existing credentials → Answer: Yes
+2. Code uploads to Expo servers
+3. Build starts (you'll see progress)
+4. Build completes (15-30 min)
+5. Download link provided
+
+DOWNLOAD YOUR AAB:
+- Click the artifact link from build output
+- Or go to expo.dev builds page
+- Save the .aab file for Step 5
+
+═══════════════════════════════════════════════════════════
+
+NEXT: Step 5 - Create App in Play Console
+
+═══════════════════════════════════════════════════════════

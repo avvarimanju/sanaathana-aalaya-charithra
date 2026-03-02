@@ -1,0 +1,31 @@
+{
+  "jobId": "job-1772355215055-9g6yls",
+  "startTime": "2026-03-01T08:53:35.055Z",
+  "lastUpdateTime": "2026-03-01T08:53:41.092Z",
+  "totalItems": 2,
+  "completedItems": [],
+  "failedItems": [
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-03-01T08:53:38.015Z",
+      "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+    },
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "video",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-03-01T08:53:41.064Z",
+      "error": "Validation failed: Video duration too short: ~1s (min: 60s)"
+    }
+  ],
+  "remainingItems": [],
+  "status": "completed"
+}

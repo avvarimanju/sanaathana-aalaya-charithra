@@ -1,0 +1,51 @@
+{
+  "jobId": "job-1772312522998-sim66z",
+  "startTime": "2026-02-28T21:02:02.999Z",
+  "lastUpdateTime": "2026-02-28T21:02:15.539Z",
+  "totalItems": 4,
+  "completedItems": [],
+  "failedItems": [
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "audio_guide",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-02-28T21:02:06.011Z",
+      "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+    },
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "video",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-02-28T21:02:08.954Z",
+      "error": "Validation failed: Video duration too short: ~1s (min: 60s)"
+    },
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "infographic",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-02-28T21:02:12.330Z",
+      "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+    },
+    {
+      "artifactId": "hanging-pillar",
+      "siteId": "lepakshi-temple-andhra",
+      "language": "en",
+      "contentType": "qa_knowledge_base",
+      "status": "failed",
+      "retryCount": 2,
+      "timestamp": "2026-02-28T21:02:15.462Z",
+      "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+    }
+  ],
+  "remainingItems": [],
+  "status": "completed"
+}

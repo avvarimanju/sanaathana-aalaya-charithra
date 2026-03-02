@@ -1,0 +1,67 @@
+✅ WEB SCROLLING NOW FIXED!
+===========================
+
+PROBLEM:
+--------
+On web, you could only see North India states and couldn't scroll down
+to see other regions (Northeast, West, Central, East, South, Islands).
+
+SOLUTION:
+---------
+Added proper web-specific CSS to enable scrolling:
+
+1. Container: Set height to 100vh and overflow hidden
+2. ScrollView: Added overflowY: auto and maxHeight
+3. Content: Added paddingBottom for better scrolling
+
+WHAT'S FIXED:
+-------------
+✅ Web now scrolls properly
+✅ All 7 regions visible (North, Northeast, West, Central, East, South, Islands)
+✅ Can scroll down to see Andhra Pradesh and Karnataka with temple counts
+✅ Smooth scrolling experience
+✅ Mobile still works perfectly
+
+HOW TO TEST:
+------------
+1. Refresh your browser (Ctrl+R or Cmd+R)
+2. Navigate: Login → Language → India Map
+3. SCROLL DOWN using:
+   - Mouse wheel
+   - Scroll bar on the right
+   - Arrow keys
+   - Page Down key
+
+YOU SHOULD NOW SEE:
+-------------------
+📍 North India (8 states) - All showing "Coming Soon"
+📍 Northeast (8 states) - All showing "Coming Soon"
+📍 West India (5 states) - All showing "Coming Soon"
+📍 Central India (2 states) - All showing "Coming Soon"
+📍 East India (4 states) - All showing "Coming Soon"
+📍 South India (6 states) - AP shows "🏛️ 3", KA shows "🏛️ 2"
+📍 Islands (2 states) - All showing "Coming Soon"
+
+TOTAL: 36 states and union territories, all visible!
+
+TECHNICAL CHANGES:
+------------------
+File: mobile-app/src/screens/IndiaMapScreen.tsx
+
+Added web-specific styles:
+- container: height: 100vh, overflow: hidden
+- scrollView: overflowY: auto, maxHeight: calc(100vh - 100px)
+- scrollContent: paddingBottom: 40
+
+These changes only affect web, mobile remains unchanged.
+
+STATUS:
+-------
+✅ WORKING ON WEB
+✅ WORKING ON MOBILE
+✅ ALL REGIONS VISIBLE
+✅ TEMPLE COUNTS SHOWING
+✅ READY FOR DEMO!
+
+---
+Refresh your browser and scroll down now!

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Backend Application - Architecture Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .layer {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        .layer-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .component {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .component-desc {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .component-tech {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            font-size: 0.85em;
+            color: #764ba2;
+            font-weight: 500;
+        }
+        
+        .flow-arrows {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+        
+        .legend-color.frontend { background: #4CAF50; }
+        .legend-color.backend { background: #2196F3; }
+        .legend-color.database { background: #FF9800; }
+        .legend-color.auth { background: #9C27B0; }
+        .legend-color.storage { background: #F44336; }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .modal-close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .modal-close:hover {
+            color: #333;
+        }
+        
+        .modal-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .modal-section {
+            margin-bottom: 20px;
+        }
+        
+        .modal-section h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        
+        .modal-section ul {
+            list-style-position: inside;
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.1em;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: #667eea;
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Admin Backend Application</h1>
+            <p>Architecture Wireframe & System Design</p>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('architecture')">Architecture</button>
+                <button class="tab" onclick="showTab('dataflow')">Data Flow</button>
+                <button class="tab" onclick="showTab('tech-stack')">Tech Stack</button>
+            </div>
+            
+            <!-- Architecture Tab -->
+            <div id="architecture" class="tab-content active">
+                <div class="architecture-diagram">
+                    <!-- Frontend Layer -->
+                    <div class="layer">
+                        <div class="layer-title">🖥️ Frontend Layer (Next.js/React + TypeScript)</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('auth-ui')">
+                                <div class="component-name">Authentication UI</div>
+                                <div class="component-desc">Login, MFA verification, session management</div>
+                                <div class="component-tech">React + AWS Amplify</div>
+                            </div>
+                            <div class="component" onclick="showDetails('temple-mgmt')">
+                                <div class="component-name">Temple Management</div>
+                                <div class="component-desc">CRUD operations, image upload, bulk actions</div>
+                                <div class="component-tech">React Query + Axios</div>
+                            </div>
+                            <div class="component" onclick="showDetails('artifact-mgmt')">
+                                <div class="component-name">Artifact Management</div>
+                                <div class="component-desc">Artifact CRUD, QR code generation, media upload</div>
+                                <div class="component-tech">React + Material-UI</div>
+                            </div>
+                            <div class="component" onclick="showDetails('content-monitor')">
+                                <div class="component-name">Content Monitoring</div>
+                                <div class="component-desc">Job tracking, retry/cancel, statistics</div>
+                                <div class="component-tech">React + WebSocket</div>
+                            </div>
+                            <div class="component" onclick="showDetails('analytics')">
+                                <div class="component-name">Analytics Dashboard</div>
+                                <div class="component-desc">Metrics, charts, data export</div>
+                                <div class="component-tech">Recharts + CSV Export</div>
+                            </div>
+                            <div class="component" onclick="showDetails('user-mgmt')">
+                                <div class="component-name">User Management</div>
+                                <div class="component-desc">Admin users, roles, permissions</div>
+                                <div class="component-tech">React Hook Form + Zod</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrows">↓</div>
+                    
+                    <!-- API Gateway Layer -->
+                    <div class="layer">
+                        <div class="layer-title">🌐 API Gateway Layer</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('api-gateway')">
+                                <div class="component-name">AWS API Gateway</div>
+                                <div class="component-desc">REST API endpoints with custom authorizer</div>
+                                <div class="component-tech">API Gateway + Lambda Proxy</div>
+                            </div>
+                            <div class="component" onclick="showDetails('authorizer')">
+                                <div class="component-name">Custom Authorizer</div>
+                                <div class="component-desc">JWT verification, rate limiting, session validation</div>
+                                <div class="component-tech">Python Lambda + PyJWT</div>
+                            </div>
+                            <div class="component" onclick="showDetails('cors')">
+                                <div class="component-name">CORS Configuration</div>
+                                <div class="component-desc">Cross-origin resource sharing setup</div>
+                                <div class="component-tech">API Gateway CORS</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrows">↓</div>
+                    
+                    <!-- Backend Layer -->
+                    <div class="layer">
+                        <div class="layer-title">⚙️ Backend Layer (Python Lambda Functions)</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('admin-api')">
+                                <div class="component-name">Admin API Handler</div>
+                                <div class="component-desc">Main request router with error handling</div>
+                                <div class="component-tech">Python 3.11 + boto3</div>
+                            </div>
+                            <div class="component" onclick="showDetails('temple-handler')">
+                                <div class="component-name">Temple Handler</div>
+                                <div class="component-desc">Temple CRUD, image upload, bulk operations</div>
+                                <div class="component-tech">Python + DynamoDB</div>
+                            </div>
+                            <div class="component" onclick="showDetails('artifact-handler')">
+                                <div class="component-name">Artifact Handler</div>
+                                <div class="component-desc">Artifact CRUD, QR generation, media handling</div>
+                                <div class="component-tech">Python + qrcode + Pillow</div>
+                            </div>
+                            <div class="component" onclick="showDetails('content-handler')">
+                                <div class="component-name">Content Job Handler</div>
+                                <div class="component-desc">Job monitoring, retry, cancel operations</div>
+                                <div class="component-tech">Python + EventBridge</div>
+                            </div>
+                            <div class="component" onclick="showDetails('analytics-handler')">
+                                <div class="component-name">Analytics Handler</div>
+                                <div class="component-desc">Metrics aggregation, data export</div>
+                                <div class="component-tech">Python + pandas</div>
+                            </div>
+                            <div class="component" onclick="showDetails('cost-monitor')">
+                                <div class="component-name">Cost Monitoring</div>
+                                <div class="component-desc">AWS Cost Explorer integration</div>
+                                <div class="component-tech">Python + Cost Explorer API</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrows">↓</div>
+                    
+                    <!-- Authentication Layer -->
+                    <div class="layer">
+                        <div class="layer-title">🔐 Authentication & Authorization Layer</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('cognito')">
+                                <div class="component-name">AWS Cognito</div>
+                                <div class="component-desc">User Pool with MFA, Identity Pool for AWS SDK</div>
+                                <div class="component-tech">Cognito User Pool + Identity Pool</div>
+                            </div>
+                            <div class="component" onclick="showDetails('rate-limiter')">
+                                <div class="component-name">Rate Limiter</div>
+                                <div class="component-desc">100 requests/minute per user</div>
+                                <div class="component-tech">Python + DynamoDB</div>
+                            </div>
+                            <div class="component" onclick="showDetails('session-mgr')">
+                                <div class="component-name">Session Manager</div>
+                                <div class="component-desc">8-hour session timeout management</div>
+                                <div class="component-tech">Python + DynamoDB</div>
+                            </div>
+                            <div class="component" onclick="showDetails('iam')">
+                                <div class="component-name">IAM Roles & Policies</div>
+                                <div class="component-desc">Fine-grained access control</div>
+                                <div class="component-tech">AWS IAM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrows">↓</div>
+                    
+                    <!-- Data Layer -->
+                    <div class="layer">
+                        <div class="layer-title">💾 Data Layer</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('dynamodb')">
+                                <div class="component-name">DynamoDB Tables</div>
+                                <div class="component-desc">AdminUsers, AuditLog, RateLimits, AdminSessions, etc.</div>
+                                <div class="component-tech">DynamoDB + GSIs</div>
+                            </div>
+                            <div class="component" onclick="showDetails('s3')">
+                                <div class="component-name">S3 Storage</div>
+                                <div class="component-desc">Temple images, artifact media, exports</div>
+                                <div class="component-tech">S3 + Pre-signed URLs</div>
+                            </div>
+                            <div class="component" onclick="showDetails('existing-tables')">
+                                <div class="component-name">Existing Tables</div>
+                                <div class="component-desc">HeritageSites, Artifacts, ContentCache, Analytics</div>
+                                <div class="component-tech">DynamoDB</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrows">↓</div>
+                    
+                    <!-- Monitoring Layer -->
+                    <div class="layer">
+                        <div class="layer-title">📊 Monitoring & Logging Layer</div>
+                        <div class="components">
+                            <div class="component" onclick="showDetails('cloudwatch')">
+                                <div class="component-name">CloudWatch</div>
+                                <div class="component-desc">Logs, metrics, alarms, dashboards</div>
+                                <div class="component-tech">CloudWatch Logs + Metrics</div>
+                            </div>
+                            <div class="component" onclick="showDetails('audit-trail')">
+                                <div class="component-name">Audit Trail</div>
+                                <div class="component-desc">All admin actions logged with before/after values</div>
+                                <div class="component-tech">DynamoDB + Lambda</div>
+                            </div>
+                            <div class="component" onclick="showDetails('notifications')">
+                                <div class="component-name">Notifications</div>
+                                <div class="component-desc">Critical alerts, job failures, cost alerts</div>
+                                <div class="component-tech">SNS + EventBridge</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Flow Tab -->
+            <div id="dataflow" class="tab-content">
+                <h2 style="color: #667eea; margin-bottom: 20px;">Request Flow Diagram</h2>
+                <div style="background: #f9f9f9; padding: 30px; border-radius: 8px;">
+                    <div style="font-family: monospace; line-height: 2;">
+                        <strong>1. User Login Flow:</strong><br>
+                        &nbsp;&nbsp;Frontend → Cognito User Pool → MFA Verification → JWT Token<br>
+                        &nbsp;&nbsp;→ Session Created in AdminSessions table<br><br>
+                        
+                        <strong>2. API Request Flow:</strong><br>
+                        &nbsp;&nbsp;Frontend (with JWT) → API Gateway → Custom Authorizer<br>
+                        &nbsp;&nbsp;→ Rate Limiter Check → Session Validation<br>
+                        &nbsp;&nbsp;→ Admin API Lambda → Handler (Temple/Artifact/etc.)<br>
+                        &nbsp;&nbsp;→ DynamoDB/S3 → Response → Frontend<br><br>
+                        
+                        <strong>3. Temple Creation Flow:</strong><br>
+                        &nbsp;&nbsp;Frontend Form → POST /admin/temples → Admin API Lambda<br>
+                        &nbsp;&nbsp;→ Temple Handler → Validation → DynamoDB (HeritageSites)<br>
+                        &nbsp;&nbsp;→ Audit Log Entry → Success Response<br><br>
+                        
+                        <strong>4. Image Upload Flow:</strong><br>
+                        &nbsp;&nbsp;Frontend → Base64 Encode → POST /admin/temples/{id}/images<br>
+                        &nbsp;&nbsp;→ Temple Handler → S3 Upload → URL Generation<br>
+                        &nbsp;&nbsp;→ Update Temple Record → Return S3 URL<br><br>
+                        
+                        <strong>5. Bulk Operations Flow:</strong><br>
+                        &nbsp;&nbsp;Frontend → POST /admin/temples/bulk-delete<br>
+                        &nbsp;&nbsp;→ Temple Handler → Iterate siteIds<br>
+                        &nbsp;&nbsp;→ Soft Delete Each → Track Success/Failures<br>
+                        &nbsp;&nbsp;→ Return Results Summary<br><br>
+                        
+                        <strong>6. Audit Trail Flow:</strong><br>
+                        &nbsp;&nbsp;Any Write Operation → Audit Log Helper<br>
+                        &nbsp;&nbsp;→ Capture Before/After Values → DynamoDB (AuditLog)<br>
+                        &nbsp;&nbsp;→ TTL Set (365 days)<br>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tech Stack Tab -->
+            <div id="tech-stack" class="tab-content">
+                <h2 style="color: #667eea; margin-bottom: 20px;">Technology Stack</h2>
+                <div class="components">
+                    <div class="component">
+                        <div class="component-name">Frontend</div>
+                        <div class="component-desc">
+                            • Next.js 14+ with TypeScript<br>
+                            • React 18+ with Hooks<br>
+                            • Material-UI / Ant Design<br>
+                            • React Query for data fetching<br>
+                            • Axios for HTTP requests<br>
+                            • Zod for validation<br>
+                            • React Hook Form<br>
+                            • AWS Amplify for auth
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="component-name">Backend</div>
+                        <div class="component-desc">
+                            • Python 3.11+ Lambda functions<br>
+                            • boto3 (AWS SDK)<br>
+                            • PyJWT for token handling<br>
+                            • pydantic for validation<br>
+                            • Pillow for image processing<br>
+                            • qrcode for QR generation<br>
+                            • python-dateutil
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="component-name">Infrastructure</div>
+                        <div class="component-desc">
+                            • AWS CDK with Python<br>
+                            • API Gateway REST API<br>
+                            • Lambda Functions<br>
+                            • DynamoDB (NoSQL)<br>
+                            • S3 for storage<br>
+                            • Cognito for auth<br>
+                            • CloudWatch for monitoring<br>
+                            • EventBridge for events
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="component-name">Testing</div>
+                        <div class="component-desc">
+                            • pytest for unit tests<br>
+                            • Hypothesis for property-based testing<br>
+                            • Jest for frontend tests<br>
+                            • React Testing Library<br>
+                            • Integration tests<br>
+                            • End-to-end tests
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="component-name">DevOps</div>
+                        <div class="component-desc">
+                            • GitHub Actions for CI/CD<br>
+                            • AWS Amplify for frontend hosting<br>
+                            • CDK for infrastructure as code<br>
+                            • CloudWatch for monitoring<br>
+                            • Cost Explorer for cost tracking
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for component details -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+    <script>
+        const componentDetails = {
+            'auth-ui': {
+                title: 'Authentication UI',
+                description: 'User-facing authentication interface',
+                features: [
+                    'Email/password login form',
+                    'MFA verification (SMS/TOTP)',
+                    'Session timeout handling',
+                    'Auto-refresh tokens',
+                    'Protected route wrapper'
+                ],
+                tech: ['React', 'AWS Amplify', 'React Hook Form', 'Zod validation'],
+                endpoints: ['POST /auth/login', 'POST /auth/mfa/verify', 'POST /auth/logout']
+            },
+            'temple-mgmt': {
+                title: 'Temple Management',
+                description: 'Complete temple CRUD operations',
+                features: [
+                    'List temples with pagination (50/page)',
+                    'Search by name/description',
+                    'Filter by state/status',
+                    'Create/update/delete temples',
+                    'Image upload with preview',
+                    'Bulk delete/update operations'
+                ],
+                tech: ['React Query', 'Axios', 'Material-UI DataGrid'],
+                endpoints: [
+                    'GET /admin/temples',
+                    'GET /admin/temples/{id}',
+                    'POST /admin/temples',
+                    'PUT /admin/temples/{id}',
+                    'DELETE /admin/temples/{id}',
+                    'POST /admin/temples/{id}/images',
+                    'POST /admin/temples/bulk-delete',
+                    'POST /admin/temples/bulk-update'
+                ]
+            },
+            'authorizer': {
+                title: 'Custom Authorizer Lambda',
+                description: 'JWT verification and access control',
+                features: [
+                    'JWT token verification with Cognito JWKS',
+                    'Rate limiting (100 req/min per user)',
+                    'Session validation (8-hour timeout)',
+                    'Permission checking',
+                    'IAM policy generation'
+                ],
+                tech: ['Python 3.11', 'PyJWT', 'boto3', 'DynamoDB'],
+                tables: ['AdminUsers', 'RateLimits', 'AdminSessions']
+            },
+            'temple-handler': {
+                title: 'Temple Handler',
+                description: 'Backend logic for temple operations',
+                features: [
+                    'CRUD operations with validation',
+                    'Soft delete implementation',
+                    'Image upload to S3',
+                    'Bulk operations with progress tracking',
+                    'Search and filtering',
+                    'Pagination support'
+                ],
+                tech: ['Python', 'boto3', 'DynamoDB', 'S3'],
+                tables: ['HeritageSites', 'AuditLog']
+            },
+            'rate-limiter': {
+                title: 'Rate Limiter',
+                description: 'Distributed rate limiting',
+                features: [
+                    '100 requests per minute per user',
+                    'Sliding window algorithm',
+                    'DynamoDB-based tracking',
+                    'Auto-cleanup with TTL',
+                    'Fail-open on errors'
+                ],
+                tech: ['Python', 'DynamoDB', 'TTL'],
+                tables: ['RateLimits']
+            },
+            'session-mgr': {
+                title: 'Session Manager',
+                description: 'Session lifecycle management',
+                features: [
+                    '8-hour session timeout',
+                    'Session creation on first auth',
+                    'Activity tracking',
+                    'Bulk session termination',
+                    'Auto-cleanup with TTL'
+                ],
+                tech: ['Python', 'DynamoDB', 'TTL'],
+                tables: ['AdminSessions']
+            },
+            'dynamodb': {
+                title: 'DynamoDB Tables',
+                description: 'NoSQL database tables',
+                features: [
+                    'AdminUsers - Admin user profiles',
+                    'AuditLog - All admin actions',
+                    'RateLimits - Rate limiting data',
+                    'AdminSessions - Active sessions',
+                    'SystemConfiguration - App config',
+                    'Notifications - User notifications',
+                    'ContentModeration - Content review queue'
+                ],
+                tech: ['DynamoDB', 'GSIs', 'TTL', 'Point-in-time recovery'],
+                billing: 'Pay-per-request (on-demand)'
+            },
+            'cognito': {
+                title: 'AWS Cognito',
+                description: 'Authentication service',
+                features: [
+                    'User Pool with MFA required',
+                    'SMS and TOTP MFA support',
+                    'Password policy enforcement',
+                    'Identity Pool for AWS SDK access',
+                    'Advanced security mode',
+                    'Email-only account recovery'
+                ],
+                tech: ['Cognito User Pool', 'Cognito Identity Pool', 'MFA'],
+                security: 'Advanced security mode with adaptive authentication'
+            }
+        };
+        
+        function showDetails(componentId) {
+            const details = componentDetails[componentId];
+            if (!details) return;
+            
+            let html = `<h2 class="modal-title">${details.title}</h2>`;
+            html += `<p style="color: #666; margin-bottom: 20px;">${details.description}</p>`;
+            
+            if (details.features) {
+                html += `<div class="modal-section">
+                    <h3>Features</h3>
+                    <ul>${details.features.map(f => `<li>${f}</li>`).join('')}</ul>
+                </div>`;
+            }
+            
+            if (details.tech) {
+                html += `<div class="modal-section">
+                    <h3>Technologies</h3>
+                    <ul>${details.tech.map(t => `<li>${t}</li>`).join('')}</ul>
+                </div>`;
+            }
+            
+            if (details.endpoints) {
+                html += `<div class="modal-section">
+                    <h3>API Endpoints</h3>
+                    <ul>${details.endpoints.map(e => `<li><code>${e}</code></li>`).join('')}</ul>
+                </div>`;
+            }
+            
+            if (details.tables) {
+                html += `<div class="modal-section">
+                    <h3>Database Tables</h3>
+                    <ul>${details.tables.map(t => `<li>${t}</li>`).join('')}</ul>
+                </div>`;
+            }
+            
+            document.getElementById('modal-body').innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

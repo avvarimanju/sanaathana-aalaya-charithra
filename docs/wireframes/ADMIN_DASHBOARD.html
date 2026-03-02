@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Real-Time Reports & Analytics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .filter-panel {
+            background: #f8fafc;
+            padding: 25px 40px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-item label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-item select {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-item select:hover {
+            border-color: #667eea;
+        }
+
+        .apply-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 40px;
+        }
+
+        .metric-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .metric-card h3 {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        .sentiment-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .sentiment-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sentiment-label {
+            width: 80px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 24px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1s ease;
+        }
+
+        .bar-fill.positive { background: linear-gradient(90deg, #4ade80, #22c55e); }
+        .bar-fill.neutral { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+        .bar-fill.negative { background: linear-gradient(90deg, #f87171, #ef4444); }
+
+        .sentiment-value {
+            width: 50px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .charts-section {
+            padding: 0 40px 40px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .chart-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .line-chart {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            width: 80%;
+            height: 60%;
+            background: linear-gradient(to right, transparent, rgba(102, 126, 234, 0.1));
+            border-top: 3px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .reviews-section {
+            padding: 0 40px 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .export-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .review-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .review-rating {
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .review-sentiment {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .review-sentiment.positive {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .review-sentiment.neutral {
+            background: #fef3c7;
+            color: #ca8a04;
+        }
+
+        .review-sentiment.negative {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .review-content {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .review-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .role-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>📊 Real-Time Reports Dashboard</h1>
+                <p style="opacity: 0.9; margin-top: 5px;">Comprehensive Analytics & Insights</p>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div class="connection-status">
+                    <div class="status-dot"></div>
+                    <span>Connected</span>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <div>
+                        <div style="font-weight: 600;">Admin User</div>
+                        <div class="role-badge">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label>Time Range</label>
+                    <select>
+                        <option>Last 30 Days</option>
+                        <option>Last 7 Days</option>
+                        <option>Today</option>
+                        <option>Last 90 Days</option>
+                        <option>All Time</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Temple</label>
+                    <select>
+                        <option>All Temples</option>
+                        <option>Tirumala Temples</option>
+                        <option>Tirupathi Local Temples</option>
+                        <option>Tirupathi Surrounding Temples</option>
+                        <option>Meenakshi Temple</option>
+                        <option>Lepakshi Temple</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Region</label>
+                    <select>
+                        <option>All Regions</option>
+                        <option>South India</option>
+                        <option>North India</option>
+                        <option>East India</option>
+                        <option>West India</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Category</label>
+                    <select>
+                        <option>All Categories</option>
+                        <option>Architecture</option>
+                        <option>History</option>
+                        <option>Rituals</option>
+                        <option>Festivals</option>
+                    </select>
+                </div>
+            </div>
+            <button class="apply-btn">Apply Filters</button>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Average Rating</h3>
+                <div class="stars">★★★★☆</div>
+                <div class="metric-value">4.32</div>
+                <div style="color: #22c55e; font-size: 14px; font-weight: 600;">↑ 0.15 from last month</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Total Reviews</h3>
+                <div class="metric-value">12,847</div>
+                <div style="color: #22c55e; font-size: 14px; font-weight: 600;">↑ 1,234 this month</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Total Comments</h3>
+                <div class="metric-value">8,592</div>
+                <div style="color: #22c55e; font-size: 14px; font-weight: 600;">↑ 892 this month</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Sentiment Distribution</h3>
+                <div class="sentiment-bars">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Positive</span>
+                        <div class="bar-container">
+                            <div class="bar-fill positive" style="width: 68.5%"></div>
+                        </div>
+                        <span class="sentiment-value">68.5%</span>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Neutral</span>
+                        <div class="bar-container">
+                            <div class="bar-fill neutral" style="width: 22.3%"></div>
+                        </div>
+                        <span class="sentiment-value">22.3%</span>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Negative</span>
+                        <div class="bar-container">
+                            <div class="bar-fill negative" style="width: 9.2%"></div>
+                        </div>
+                        <span class="sentiment-value">9.2%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>📈 Rating Trend Over Time</h3>
+                    <div class="chart-placeholder">
+                        <div class="line-chart">
+                            <div class="chart-line"></div>
+                            <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); color: #64748b;">
+                                Line chart showing rating trends (Jan - Dec 2024)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>🥧 Sentiment Distribution</h3>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">📊</div>
+                            <div>Pie chart showing sentiment breakdown</div>
+                            <div style="margin-top: 15px; font-size: 12px;">
+                                <span style="color: #22c55e;">● Positive 68.5%</span> &nbsp;
+                                <span style="color: #f59e0b;">● Neutral 22.3%</span> &nbsp;
+                                <span style="color: #ef4444;">● Negative 9.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>📊 Reviews by Temple</h3>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">📊</div>
+                            <div>Bar chart showing review count by temple</div>
+                            <div style="margin-top: 15px; font-size: 12px; color: #64748b;">
+                                Top temples: Tirumala (3.2K), Tirupathi Local (2.8K), Meenakshi (2.5K)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>📊 Rating Distribution</h3>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">📊</div>
+                            <div>Histogram showing rating distribution (1-5 stars)</div>
+                            <div style="margin-top: 15px; font-size: 12px; color: #64748b;">
+                                5★: 45% | 4★: 32% | 3★: 15% | 2★: 5% | 1★: 3%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <div class="section-header">
+                <h2>Recent Reviews</h2>
+                <button class="export-btn">📥 Export Data (CSV/PDF)</button>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-rating">★★★★★</div>
+                    <div class="review-sentiment positive">Positive</div>
+                </div>
+                <div class="review-content">
+                    "Amazing experience! The virtual tour provided incredible insights into the temple's rich history and architecture. The audio narration was very informative and engaging."
+                </div>
+                <div class="review-meta">
+                    <span>🏛️ Tirumala Temples</span>
+                    <span>📅 Dec 15, 2024</span>
+                    <span>👤 User #12847</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-rating">★★★★☆</div>
+                    <div class="review-sentiment positive">Positive</div>
+                </div>
+                <div class="review-content">
+                    "Great content about the temple festivals and rituals. Would love to see more interactive features in future updates."
+                </div>
+                <div class="review-meta">
+                    <span>🏛️ Meenakshi Temple</span>
+                    <span>📅 Dec 14, 2024</span>
+                    <span>👤 User #12846</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-rating">★★★☆☆</div>
+                    <div class="review-sentiment neutral">Neutral</div>
+                </div>
+                <div class="review-content">
+                    "Good information but the app could be more user-friendly. Some features are hard to find."
+                </div>
+                <div class="review-meta">
+                    <span>🏛️ Tirupathi Local Temples Tour</span>
+                    <span>📅 Dec 13, 2024</span>
+                    <span>👤 User #12845</span>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn">← Previous</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">...</button>
+                <button class="page-btn">257</button>
+                <button class="page-btn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate real-time updates
+        setInterval(() => {
+            const statusDot = document.querySelector('.status-dot');
+            statusDot.style.animation = 'none';
+            setTimeout(() => {
+                statusDot.style.animation = 'pulse 2s infinite';
+            }, 10);
+        }, 5000);
+    </script>
+</body>
+</html>

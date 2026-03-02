@@ -1,0 +1,11 @@
+[
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules",
+    "retryCount": 2,
+    "timestamp": "2026-03-01T09:15:32.762Z",
+    "recommendedAction": "Review error details and retry. If the issue persists, check logs for more information or contact support."
+  }
+]

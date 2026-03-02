@@ -87,8 +87,8 @@ export function getDashboardConfig(): DashboardConfig {
     maxConnectionsPerUser: parseInt(process.env.MAX_CONNECTIONS_PER_USER || '10'),
     maxExportsPerHour: parseInt(process.env.MAX_EXPORTS_PER_HOUR || '5'),
 
-    // AWS Configuration
-    region: process.env.AWS_REGION || 'us-east-1'
+    // AWS Configuration - Default to ap-south-1 (Mumbai) for optimal performance in India
+    region: process.env.AWS_REGION || 'ap-south-1'
   };
 }
 

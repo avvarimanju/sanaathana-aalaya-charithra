@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 export default function WelcomeScreen({ navigation }: any) {
@@ -7,46 +7,59 @@ export default function WelcomeScreen({ navigation }: any) {
     <View style={styles.container}>
       <StatusBar style="light" />
       
-      {/* Logo/Icon */}
-      <View style={styles.logoContainer}>
-        <Text style={styles.logo}>🏛️</Text>
-        <Text style={styles.title}>Sanaathana Aalaya Charithra</Text>
-        <Text style={styles.subtitle}>Eternal Temple History</Text>
-      </View>
-
-      {/* Tagline */}
-      <Text style={styles.tagline}>
-        Experience Hindu Temple Heritage{'\n'}Through AI
-      </Text>
-
-      {/* Features */}
-      <View style={styles.features}>
-        <View style={styles.feature}>
-          <Text style={styles.featureIcon}>🤖</Text>
-          <Text style={styles.featureText}>AI-Powered Content</Text>
-        </View>
-        <View style={styles.feature}>
-          <Text style={styles.featureIcon}>🗣️</Text>
-          <Text style={styles.featureText}>10+ Languages</Text>
-        </View>
-        <View style={styles.feature}>
-          <Text style={styles.featureIcon}>📱</Text>
-          <Text style={styles.featureText}>Offline Ready</Text>
-        </View>
-      </View>
-
-      {/* Get Started Button */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('LanguageSelection')}
+      {/* Background Image - Shilathoranam, Tirumala */}
+      <ImageBackground
+        source={require('../../assets/Sahaja_Shila_Thoranam_Tirumala.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
       >
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+        {/* Overlay for better text readability */}
+        <View style={styles.overlay} />
+        
+        {/* Content */}
+        <View style={styles.content}>
+          {/* Logo/Icon */}
+          <View style={styles.logoContainer}>
+            <Text style={styles.logo}>🏛️</Text>
+            <Text style={styles.title}>Sanaathana Aalaya Charithra</Text>
+            <Text style={styles.subtitle}>Eternal Temple History</Text>
+          </View>
 
-      {/* Demo Mode Notice */}
-      <Text style={styles.demoNotice}>
-        Demo Mode - Using Mock Data
-      </Text>
+          {/* Tagline */}
+          <Text style={styles.tagline}>
+            Experience Hindu Temple Heritage{'\n'}Through AI
+          </Text>
+
+          {/* Features */}
+          <View style={styles.features}>
+            <View style={styles.feature}>
+              <Text style={styles.featureIcon}>🤖</Text>
+              <Text style={styles.featureText}>AI-Powered Content</Text>
+            </View>
+            <View style={styles.feature}>
+              <Text style={styles.featureIcon}>🗣️</Text>
+              <Text style={styles.featureText}>10+ Languages</Text>
+            </View>
+            <View style={styles.feature}>
+              <Text style={styles.featureIcon}>📱</Text>
+              <Text style={styles.featureText}>QR Code Access</Text>
+            </View>
+          </View>
+
+          {/* Get Started Button */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Login')}
+          >
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+
+          {/* Image Credit */}
+          <Text style={styles.imageCredit}>
+            Shilathoranam, Tirumala
+          </Text>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -54,7 +67,18 @@ export default function WelcomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FF6B35',
+  },
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255, 107, 53, 0.75)', // Orange overlay with transparency
+  },
+  content: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -71,11 +95,17 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     color: '#fff',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   subtitle: {
     fontSize: 24,
     color: '#fff',
     opacity: 0.9,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   tagline: {
     fontSize: 18,
@@ -83,6 +113,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 40,
     lineHeight: 28,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   features: {
     flexDirection: 'row',
@@ -102,6 +135,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   button: {
     backgroundColor: '#fff',
@@ -119,11 +155,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  demoNotice: {
+  imageCredit: {
     position: 'absolute',
     bottom: 20,
     color: '#fff',
     fontSize: 12,
-    opacity: 0.7,
+    opacity: 0.9,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
 });

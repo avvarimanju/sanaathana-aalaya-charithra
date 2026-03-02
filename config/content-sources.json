@@ -1,0 +1,141 @@
+{
+  "_instructions": "To add a new source, copy an existing source object and modify the fields. Save this file and the changes will be used for content generation.",
+  "_example": {
+    "id": "unique-id-lowercase",
+    "name": "Full Source Name",
+    "type": "government|temple_authority|research|ngo|scripture",
+    "url": "https://source-website.com",
+    "trustLevel": "high|medium-high|medium",
+    "categories": ["category1", "category2"],
+    "note": "Optional description"
+  },
+  "contentSources": {
+    "primary": [
+      {
+        "id": "asi",
+        "name": "Archaeological Survey of India",
+        "type": "government",
+        "url": "https://asi.nic.in",
+        "trustLevel": "high",
+        "categories": ["architecture", "history", "conservation"]
+      },
+      {
+        "id": "ttd",
+        "name": "Tirumala Tirupati Devasthanams",
+        "type": "temple_authority",
+        "url": "https://www.tirumala.org",
+        "trustLevel": "high",
+        "categories": ["tirumala", "rituals", "history"]
+      },
+      {
+        "id": "moc",
+        "name": "Ministry of Culture, Government of India",
+        "type": "government",
+        "url": "https://www.indiaculture.gov.in",
+        "trustLevel": "high",
+        "categories": ["culture", "heritage", "policy"]
+      },
+      {
+        "id": "ap_archaeology",
+        "name": "Andhra Pradesh State Archaeology",
+        "type": "state_government",
+        "trustLevel": "high",
+        "categories": ["andhra_pradesh", "temples", "monuments"]
+      },
+      {
+        "id": "karnataka_archaeology",
+        "name": "Karnataka State Archaeology",
+        "type": "state_government",
+        "trustLevel": "high",
+        "categories": ["karnataka", "temples", "monuments"]
+      }
+    ],
+    "secondary": [
+      {
+        "id": "ichr",
+        "name": "Indian Council of Historical Research",
+        "type": "research",
+        "trustLevel": "medium-high",
+        "categories": ["history", "research"]
+      },
+      {
+        "id": "intach",
+        "name": "Indian National Trust for Art and Cultural Heritage",
+        "type": "ngo",
+        "trustLevel": "medium-high",
+        "categories": ["heritage", "conservation"]
+      },
+      {
+        "id": "ccrt",
+        "name": "Centre for Cultural Resources and Training",
+        "type": "government",
+        "trustLevel": "medium-high",
+        "categories": ["culture", "education"]
+      }
+    ],
+    "traditional": [
+      {
+        "id": "agama_shastras",
+        "name": "Agama Shastras",
+        "type": "scripture",
+        "trustLevel": "high",
+        "categories": ["rituals", "architecture", "tradition"],
+        "note": "Traditional temple architecture and ritual texts"
+      },
+      {
+        "id": "sthala_puranas",
+        "name": "Sthala Puranas",
+        "type": "scripture",
+        "trustLevel": "medium",
+        "categories": ["mythology", "history", "legends"],
+        "note": "Temple-specific historical and mythological texts"
+      },
+      {
+        "id": "inscriptions",
+        "name": "Temple Inscriptions (Shilashasanas)",
+        "type": "primary_evidence",
+        "trustLevel": "high",
+        "categories": ["history", "epigraphy"],
+        "note": "Stone inscriptions at temple sites"
+      }
+    ]
+  },
+  "contentGenerationRules": {
+    "requirePrimarySource": true,
+    "minimumSources": 2,
+    "crossReferenceRequired": true,
+    "citationRequired": true,
+    "expertReviewRequired": true,
+    "updateFrequency": "quarterly"
+  },
+  "excludedSources": [
+    "wikipedia",
+    "personal_blogs",
+    "social_media",
+    "unverified_tourist_sites"
+  ],
+  "languageGuidelines": {
+    "useSanskritTerms": true,
+    "provideTranslations": true,
+    "respectTraditionalNames": true,
+    "avoidControversialTerms": true
+  },
+  "contentCategories": {
+    "architecture": {
+      "preferredSources": ["asi", "ap_archaeology", "karnataka_archaeology", "agama_shastras"]
+    },
+    "history": {
+      "preferredSources": ["asi", "ichr", "inscriptions"]
+    },
+    "rituals": {
+      "preferredSources": ["ttd", "agama_shastras", "temple_authorities"]
+    },
+    "mythology": {
+      "preferredSources": ["sthala_puranas", "traditional_texts"],
+      "requireDisclaimer": true
+    },
+    "art": {
+      "preferredSources": ["asi", "ccrt", "intach"]
+    }
+  }
+}

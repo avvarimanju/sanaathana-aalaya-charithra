@@ -37,7 +37,7 @@ AvvarI for Bharat is an AI-powered heritage site digitization platform designed 
 
 #### Acceptance Criteria
 
-1. THE Content_Generator SHALL support content generation in at least 10 Indian languages (Hindi, English, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi)
+1. THE Content_Generator SHALL support content generation in at least 10 Indian languages (English, Hindi, Telugu, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil)
 2. WHEN a user selects their preferred language, THE Content_Generator SHALL generate all subsequent content in that language
 3. WHEN generating multilingual content, THE Content_Generator SHALL preserve cultural context and historical accuracy across all languages
 4. WHEN language-specific content is unavailable, THE Content_Generator SHALL provide content in Hindi or English with a notification

@@ -56,7 +56,8 @@ export class ConfigLoader {
   private getDefaultConfig(): PreGenerationConfig {
     return {
       aws: {
-        region: process.env.AWS_REGION || 'us-east-1',
+        // Default to ap-south-1 (Mumbai) for optimal performance in India
+        region: process.env.AWS_REGION || 'ap-south-1',
         s3: {
           bucket: process.env.CONTENT_BUCKET || 'sanaathana-aalaya-charithra-content',
           encryption: 'AES256',

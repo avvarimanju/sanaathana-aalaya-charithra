@@ -110,7 +110,7 @@ This checkpoint validates that all implemented components work correctly both in
 
 ### Content Generation Scope
 - **Total Artifacts**: 49
-- **Languages**: 10 (English, Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi)
+- **Languages**: 10 (English, Hindi, Telugu, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil)
 - **Content Types**: 4 (audio_guide, video, infographic, qa_knowledge_base)
 - **Total Items**: 1,960 (49 × 10 × 4)
 

@@ -16,6 +16,14 @@ from datetime import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from handlers.temple_handler import handle_temple_request
+from handlers.artifact_handler import handle_artifact_request
+from handlers.content_job_handler import handle_content_job_request
+from handlers.analytics_handler import handle_analytics_request
+from handlers.user_handler import handle_user_request
+from handlers.config_handler import handle_config_request
+from handlers.moderation_handler import handle_moderation_request
+from handlers.cost_handler import handle_cost_request
+from handlers.payment_handler import handle_payment_request
 
 # Environment variables
 ADMIN_USERS_TABLE = os.environ.get("ADMIN_USERS_TABLE")
@@ -154,6 +162,38 @@ def route_request(
     # Temple management endpoints
     if path.startswith("/admin/temples"):
         return handle_temple_request(method, path, body, query_params, user_id)
+    
+    # Artifact management endpoints
+    if path.startswith("/admin/artifacts"):
+        return handle_artifact_request(method, path, body, query_params, user_id)
+    
+    # Content job monitoring endpoints
+    if path.startswith("/admin/content-jobs"):
+        return handle_content_job_request(method, path, body, query_params, user_id)
+    
+    # Analytics endpoints
+    if path.startswith("/admin/analytics"):
+        return handle_analytics_request(method, path, body, query_params, user_id)
+    
+    # User management endpoints
+    if path.startswith("/admin/users"):
+        return handle_user_request(method, path, body, query_params, user_id)
+    
+    # System configuration endpoints
+    if path.startswith("/admin/config"):
+        return handle_config_request(method, path, body, query_params, user_id)
+    
+    # Content moderation endpoints
+    if path.startswith("/admin/moderation"):
+        return handle_moderation_request(method, path, body, query_params, user_id)
+    
+    # Cost monitoring endpoints
+    if path.startswith("/admin/costs"):
+        return handle_cost_request(method, path, body, query_params, user_id)
+    
+    # Payment management endpoints
+    if path.startswith("/admin/payments"):
+        return handle_payment_request(method, path, body, query_params, user_id)
     
     # Default response for unimplemented endpoints
     return {

@@ -1,0 +1,63 @@
+BUILD FAILED AGAIN - CHECK LOGS NOW
+====================================
+
+Build ID: e66d9599-9701-4e5e-ac7c-12e593b0a04c
+
+VIEW DETAILED LOGS:
+-------------------
+
+https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds/e66d9599-9701-4e5e-ac7c-12e593b0a04c
+
+WHAT TO LOOK FOR:
+-----------------
+
+1. Open the URL above in your browser
+2. Look for the "Build complete hook" phase (it's failing there)
+3. Find RED error messages
+4. Look for specific error text like:
+   - "ENOENT: no such file or directory"
+   - "Module not found"
+   - "Gradle build failed"
+   - "Out of memory"
+   - Any specific package or dependency errors
+
+COMMON ISSUES:
+--------------
+
+Since assets are now in place, the error might be:
+
+1. **EAS Build Hook Issue**
+   - Check if there's a custom build hook in eas.json
+   - Check if there's an app.config.js or app.config.ts file
+
+2. **Dependency Issue**
+   - Some package might be incompatible with Expo SDK 54
+   - Check for peer dependency warnings
+
+3. **Configuration Issue**
+   - Something in app.json might be invalid
+   - Check for typos or incorrect values
+
+4. **Memory/Resource Issue (Free Tier)**
+   - Free tier might be timing out
+   - Try building with simpler profile
+
+NEXT STEPS:
+-----------
+
+1. **CHECK THE LOGS** at the URL above
+2. **COPY THE EXACT ERROR MESSAGE** from the "Build complete hook" phase
+3. **SHARE THE ERROR** so we can fix it
+
+ALTERNATIVE: Try Simpler Build
+-------------------------------
+
+If logs show memory/timeout issues, try the preview profile:
+
+eas build --platform android --profile preview
+
+This creates an APK (not AAB) which is simpler and might succeed.
+
+---
+
+IMPORTANT: We need the actual error message from the logs to proceed!

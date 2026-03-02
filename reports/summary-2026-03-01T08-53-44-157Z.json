@@ -1,0 +1,11 @@
+{
+  "totalItems": 1,
+  "succeeded": 0,
+  "failed": 1,
+  "skipped": 0,
+  "duration": 0.102,
+  "durationFormatted": "0s",
+  "startTime": "2026-03-01T08:53:44.157Z",
+  "endTime": "2026-03-01T08:53:44.259Z",
+  "successRate": 0
+}

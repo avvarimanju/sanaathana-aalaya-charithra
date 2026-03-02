@@ -1,0 +1,2 @@
+Artifact ID,Language,Content Type,Error,Retry Count,Timestamp,Recommended Action
+hanging-pillar,en,audio_guide,A dynamic import callback was invoked without --experimental-vm-modules,0,2026-03-01T14:10:54.731Z,"Review error details and retry. If the issue persists, check logs for more information or contact support."

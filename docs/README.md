@@ -1,65 +1,102 @@
-# Documentation Directory
+# Documentation Index
 
-Welcome to the Sanaathana Aalaya Charithra documentation!
+Welcome to the Sanaathana Aalaya Charithra documentation.
 
-## 📚 Start Here
+## Quick Links
 
-**[INDEX.md](./INDEX.md)** - Complete documentation index with descriptions and quick reference guide
+- [Quick Start Guide](getting-started/quick-start.md) - Get up and running in 5 minutes
+- [Local Development](getting-started/local-development.md) - Development workflow
+- [AWS Deployment](deployment/aws-deployment.md) - Deploy to AWS
+- [Test Guide](testing/test-guide.md) - Testing strategies
+- [Contributing Guide](../CONTRIBUTING.md) - Contribution guidelines
 
-## 📁 Directory Structure
+## Documentation Structure
+
+### Getting Started
+
+Complete guides for setting up and running the project locally.
+
+- [Quick Start](getting-started/quick-start.md) - 5-minute setup guide
+- [Local Development](getting-started/local-development.md) - Development workflow and best practices
+- [Environment Setup](getting-started/environment-setup.md) - Configure dev/staging/production environments
+
+### Deployment
+
+Guides for deploying to AWS and app stores.
+
+- [AWS Deployment](deployment/aws-deployment.md) - Deploy backend to AWS (staging/production)
+- [AWS Cost Breakdown](deployment/aws-cost-breakdown.md) - Detailed cost analysis
+- Mobile App Deployment - Deploy to Google Play and App Store (coming soon)
+- Admin Portal Deployment - Deploy to S3 + CloudFront (coming soon)
+
+### API Documentation
+
+Complete API reference and specifications.
+
+- Backend API Reference - Complete API documentation (coming soon)
+- API Endpoints - Endpoint specifications (coming soon)
+
+### Features
+
+Documentation for each major feature.
+
+- Temple Management - Temple CRUD operations (coming soon)
+- Pricing Calculator - Dynamic pricing system (coming soon)
+- State Management - State visibility control (coming soon)
+- Defect Tracking - Issue reporting system (coming soon)
+
+### Testing
+
+Testing strategies and guides.
+
+- [Test Guide](testing/test-guide.md) - Comprehensive testing guide
+- Test Coverage - Current test coverage (coming soon)
+
+### Architecture
+
+System architecture and design documentation.
+
+- System Overview - High-level architecture (coming soon)
+- Infrastructure - AWS infrastructure details (coming soon)
+- Data Flow - Data flow diagrams (coming soon)
+
+### Mobile App
+
+Mobile app specific documentation.
+
+- Setup - Mobile app setup guide (coming soon)
+- Features - Mobile app features (coming soon)
+- Deployment - App store deployment (coming soon)
+
+### Admin Portal
+
+Admin portal specific documentation.
+
+- Setup - Admin portal setup guide (coming soon)
+- Features - Admin portal features (coming soon)
+- Deployment - S3 + CloudFront deployment (coming soon)
+
+## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines.
+
+## Project Structure
 
 ```
-docs/
-├── INDEX.md              # Master index (START HERE)
-├── README.md             # This file
-│
-├── planning/             # Feature Planning & Enhancements
-│   ├── VIRTUAL_EXPLORATION_ENHANCEMENT.md
-│   └── ENHANCEMENT_SUMMARY.md
-│
-├── business/             # Business Decisions & Analysis
-│   ├── AWS_COST_ANALYSIS.md
-│   ├── PAYMENT_METHODS_COMPARISON.md
-│   └── RAZORPAY_VS_PHONEPE.md
-│
-├── technical/            # Technical Implementation Guides
-│   ├── CONTENT_GENERATION_EXPLAINED.md
-│   ├── CONTENT_ACCURACY_AND_SOURCES.md
-│   └── AUDIO_VIDEO_GENERATION_CAPABILITIES.md
-│
-├── architecture/         # System Architecture (empty - for future use)
-├── demo/                 # Demo Materials (empty - for future use)
-└── setup/                # Setup Guides (empty - for future use)
+Sanaathana-Aalaya-Charithra/
+├── admin-portal/          # Admin web application
+├── mobile-app/            # Mobile application
+├── src/                   # Backend Lambda functions
+├── infrastructure/        # AWS CDK infrastructure
+├── scripts/               # Utility scripts
+├── tests/                 # Test files
+├── docs/                  # Documentation (you are here)
+└── config/                # Configuration files
 ```
 
-## 🎯 Quick Access
+## Getting Help
 
-### Planning Documents
-- **Virtual Exploration** - Browse temples from home feature
-- **Enhancement Summary** - Quick status of enhancements
-
-### Business Documents
-- **AWS Cost Analysis** - Complete cost breakdown and pricing strategy
-- **Payment Methods** - Comparison of 10 payment gateways
-- **Razorpay vs PhonePe** - Why Razorpay is better than free UPI
-
-### Technical Documents
-- **Content Generation** - How AI generates content automatically
-- **Content Accuracy** - Sources, verification, and accuracy concerns
-- **Audio/Video Generation** - What AWS can and cannot generate
-
-## 💡 How to Use
-
-1. **Start with [INDEX.md](./INDEX.md)** for complete overview
-2. **Use search** to find specific topics
-3. **Bookmark** frequently used documents
-4. **Update** as project evolves
-
-## 🔗 Related
-
-- [Main README](../README.md) - Project overview
-- [DOCUMENTATION.md](../DOCUMENTATION.md) - Technical documentation
-
----
-
-**Tip:** All documents were created during Q&A sessions and contain detailed analysis, examples, and actionable insights.
+- Check the documentation in this directory
+- Search existing issues on GitHub
+- Use GitHub Discussions for questions
+- Contact maintainers (see README.md)

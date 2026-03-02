@@ -1,0 +1,64 @@
+FINAL SOLUTION - EAS BUILD FIX
+===============================
+
+PROBLEM IDENTIFIED:
+-------------------
+EAS is caching the parent directory structure even after you renamed package.json.
+The error "package.json does not exist in /home/expo/workingdir/build/mobile-app"
+means EAS uploaded the parent structure and is looking for package.json there.
+
+THE REAL FIX:
+-------------
+We need to tell EAS this is NOT a monorepo by adding explicit configuration.
+
+STEP 1: Update app.json
+------------------------
+Add this to mobile-app/app.json under the "expo" section:
+
+"extra": {
+  "eas": {
+    "projectId": "eb47f233-ddd2-4edb-92f5-60914d13af3c",
+    "build": {
+      "experimental": {
+        "npmToken": null
+      }
+    }
+  }
+}
+
+STEP 2: Clear EAS cache and rebuild
+------------------------------------
+cd mobile-app
+eas build --platform android --profile internal-testing --clear-cache
+
+The --clear-cache flag will force EAS to re-scan your project structure.
+
+STEP 3: If that still fails, try this alternative
+--------------------------------------------------
+Create a .gitignore in the PARENT directory that excludes everything except mobile-app:
+
+# In Sanaathana-Aalaya-Charithra/.gitignore, add:
+*
+!mobile-app/
+!mobile-app/**
+
+Then rebuild with --clear-cache.
+
+STEP 4: Nuclear option (if all else fails)
+-------------------------------------------
+Temporarily move mobile-app OUT of the parent directory:
+
+1. Move mobile-app to a sibling directory:
+   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+   move Sanaathana-Aalaya-Charithra\mobile-app mobile-app-temp
+
+2. Build from there:
+   cd mobile-app-temp
+   eas build --platform android --profile internal-testing
+
+3. Move it back after build succeeds:
+   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+   move mobile-app-temp Sanaathana-Aalaya-Charithra\mobile-app
+
+TRY STEP 2 FIRST (--clear-cache)!
+==================================

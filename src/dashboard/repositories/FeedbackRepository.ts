@@ -13,7 +13,8 @@ import {
   BatchWriteItemCommand,
   BatchWriteItemCommandInput,
   ScanCommand,
-  ScanCommandInput
+  ScanCommandInput,
+  GetItemCommand
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import {
@@ -496,5 +497,54 @@ export class FeedbackRepository {
 
     // Return original error for unexpected cases
     return error;
+  }
+
+  /**
+   * Query all feedback items matching filters (no pagination limit)
+   * Used for exports and batch processing
+   */
+  async queryAllFeedback(filters: FilterState): Promise<Feedback[]> {
+    const allItems: Feedback[] = [];
+    let lastEvaluatedKey: Record<string, any> | undefined;
+
+    do {
+      const result = await this.queryFeedback(filters, {
+        limit: 100,
+        lastEvaluatedKey
+      });
+
+      allItems.push(...result.items);
+      lastEvaluatedKey = result.lastEvaluatedKey;
+
+      // Safety limit
+      if (allItems.length > 100000) {
+        console.warn('Reached maximum feedback limit (100,000)');
+        break;
+      }
+    } while (lastEvaluatedKey);
+
+    return allItems;
+  }
+
+  /**
+   * Get feedback item by ID
+   */
+  async getFeedbackById(feedbackId: string): Promise<Feedback | null> {
+    try {
+      const result = await this.client.send(
+        new GetItemCommand({
+          TableName: this.tableName,
+          Key: marshall({ feedbackId })
+        })
+      );
+
+      if (!result.Item) {
+        return null;
+      }
+
+      return unmarshall(result.Item) as Feedback;
+    } catch (error) {
+      throw this.handleDynamoDBError(error);
+    }
   }
 }

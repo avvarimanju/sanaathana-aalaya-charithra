@@ -1,0 +1,19 @@
+# Lambda Layer Dependencies for Social Media Authentication
+# Requirements: 13.6
+
+# AWS SDK
+boto3>=1.34.0
+botocore>=1.34.0
+
+# JWT handling
+PyJWT>=2.8.0
+cryptography>=41.0.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Property-based testing (optional, for development)
+hypothesis>=6.92.0
+
+# Date/time utilities
+python-dateutil>=2.8.2

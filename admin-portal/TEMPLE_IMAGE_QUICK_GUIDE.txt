@@ -1,0 +1,184 @@
+═══════════════════════════════════════════════════════════════
+TEMPLE IMAGE UPLOAD - QUICK GUIDE
+═══════════════════════════════════════════════════════════════
+
+PROBLEM SOLVED:
+What if temple doesn't have a website or reliable image source?
+
+SOLUTION:
+Now you can upload images directly from your computer!
+
+═══════════════════════════════════════════════════════════════
+TWO OPTIONS TO ADD TEMPLE IMAGES
+═══════════════════════════════════════════════════════════════
+
+OPTION 1: UPLOAD FROM COMPUTER ⭐ RECOMMENDED
+────────────────────────────────────────────
+Best for:
+• Temples without websites
+• Photos you took yourself
+• Local temple images
+
+How to use:
+1. Click "Upload Image" button
+2. Select image from your computer
+3. Preview appears instantly
+4. Click "Create Temple" to save
+
+Supported formats: JPG, PNG, GIF, WebP
+Maximum size: 5MB
+
+OPTION 2: ENTER IMAGE URL
+────────────────────────────────────────────
+Best for:
+• Temples with existing online images
+• Images from Wikipedia, Google, etc.
+
+How to use:
+1. Find temple image online
+2. Right-click → "Copy image address"
+3. Paste URL in the input field
+4. Preview appears instantly
+5. Click "Create Temple" to save
+
+═══════════════════════════════════════════════════════════════
+FEATURES
+═══════════════════════════════════════════════════════════════
+
+✅ Upload from computer (max 5MB)
+✅ Enter image URL from web
+✅ Instant image preview
+✅ Remove and change image easily
+✅ File type validation (images only)
+✅ File size validation
+✅ Error messages for invalid files
+✅ Shows file name for uploaded files
+
+═══════════════════════════════════════════════════════════════
+HOW IT LOOKS
+═══════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│ Media & Status                                              │
+├─────────────────────────────────────────────────────────────┤
+│ Temple Image                                                │
+│                                                             │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │  [📤 Upload Image]                                      │ │
+│ │  Upload from your computer (max 5MB)                    │ │
+│ │                                                          │ │
+│ │                    OR                                    │ │
+│ │                                                          │ │
+│ │  [https://example.com/temple.jpg                    ]   │ │
+│ │  Enter image URL from the web                           │ │
+│ │                                                          │ │
+│ │  ┌──────────────────────────────┐                       │ │
+│ │  │                              │                       │ │
+│ │  │    [Image Preview]      [✕]  │                       │ │
+│ │  │                              │                       │ │
+│ │  └──────────────────────────────┘                       │ │
+│ │  Selected: temple-photo.jpg                             │ │
+│ └─────────────────────────────────────────────────────────┘ │
+│                                                             │
+│ Status *                                                    │
+│ [Active ▼]                                                  │
+└─────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+FOR PRODUCTION: AWS S3 INTEGRATION
+═══════════════════════════════════════════════════════════════
+
+Current Status:
+• UI is complete and working
+• Images stored temporarily in browser
+• For permanent storage, need AWS S3
+
+To implement S3 upload:
+1. Create S3 bucket: sanaathana-temple-images
+2. Install AWS SDK: npm install @aws-sdk/client-s3
+3. Create upload utility (see IMAGE_UPLOAD_GUIDE.md)
+4. Update TempleFormPage to use S3
+
+Cost: ~$7/year for 1000 temples (very affordable!)
+
+See full guide: IMAGE_UPLOAD_GUIDE.md
+
+═══════════════════════════════════════════════════════════════
+FOR HACKATHON DEMO
+═══════════════════════════════════════════════════════════════
+
+Current implementation is perfect for demo:
+✓ Shows upload UI
+✓ File selection works
+✓ Preview works
+✓ Validation works
+✓ Can demonstrate the flow
+
+S3 integration can be done after hackathon.
+
+═══════════════════════════════════════════════════════════════
+TESTING
+═══════════════════════════════════════════════════════════════
+
+1. Start Admin Portal:
+   cd admin-portal
+   npm run dev
+
+2. Navigate to Temples → Add New Temple
+
+3. Try uploading an image:
+   • Click "Upload Image"
+   • Select a photo
+   • See preview appear
+   • Click remove (✕) to change
+
+4. Try entering URL:
+   • Paste image URL
+   • See preview appear
+   • Clear URL to remove
+
+═══════════════════════════════════════════════════════════════
+TIPS
+═══════════════════════════════════════════════════════════════
+
+• Use high-quality images (at least 800×600)
+• Compress large images before upload
+• Use JPG for photos, PNG for graphics
+• Keep file size under 2MB for faster loading
+• Take photos in good lighting
+• Capture temple's best angle
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Issue: "File too large"
+→ Compress image or use smaller file
+
+Issue: "Invalid file type"
+→ Only image files allowed (JPG, PNG, etc.)
+
+Issue: "Image not displaying"
+→ Check if URL is accessible
+→ Try uploading file instead
+
+Issue: "Preview not showing"
+→ Wait a moment for preview to load
+→ Check browser console for errors
+
+═══════════════════════════════════════════════════════════════
+SUMMARY
+═══════════════════════════════════════════════════════════════
+
+Problem: Temple has no website or online images
+Solution: Upload directly from computer!
+
+✅ Upload button added
+✅ URL input still available
+✅ Preview works for both
+✅ Validation included
+✅ Ready for demo
+
+Next step: Integrate AWS S3 for permanent storage
+
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,13 @@
+{
+  "s3": {
+    "totalSizeBytes": 0,
+    "totalSizeFormatted": "0 Bytes",
+    "objectCount": 0,
+    "averageSizeBytes": 0
+  },
+  "dynamoDB": {
+    "itemCount": 0,
+    "estimatedSizeBytes": 0,
+    "estimatedSizeFormatted": "0 Bytes"
+  }
+}

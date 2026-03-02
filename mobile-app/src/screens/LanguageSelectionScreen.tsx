@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 
 const LANGUAGES = [
   { code: 'en', name: 'English', native: 'English', flag: '🇬🇧' },
   { code: 'hi', name: 'Hindi', native: 'हिंदी', flag: '🇮🇳' },
-  { code: 'ta', name: 'Tamil', native: 'தமிழ்', flag: '🇮🇳' },
   { code: 'te', name: 'Telugu', native: 'తెలుగు', flag: '🇮🇳' },
+  { code: 'sa', name: 'Samskrutham', native: 'संस्कृतम्', flag: '🕉️', note: 'Text only' },
   { code: 'bn', name: 'Bengali', native: 'বাংলা', flag: '🇮🇳' },
-  { code: 'mr', name: 'Marathi', native: 'मराठी', flag: '🇮🇳' },
-  { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી', flag: '🇮🇳' },
+  { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી', flag: '🇮🇳', note: 'Text only' },
   { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ', flag: '🇮🇳' },
   { code: 'ml', name: 'Malayalam', native: 'മലയാളം', flag: '🇮🇳' },
-  { code: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+  { code: 'mr', name: 'Marathi', native: 'मराठी', flag: '🇮🇳' },
+  { code: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ', flag: '🇮🇳', note: 'Text only' },
+  { code: 'ta', name: 'Tamil', native: 'தமிழ்', flag: '🇮🇳' },
 ];
 
 export default function LanguageSelectionScreen({ navigation }: any) {
@@ -23,7 +24,7 @@ export default function LanguageSelectionScreen({ navigation }: any) {
 
   const handleContinue = () => {
     // Store selected language (in real app, use AsyncStorage)
-    navigation.navigate('QRScanner', { language: selectedLanguage });
+    navigation.navigate('IndiaMap', { language: selectedLanguage });
   };
 
   return (
@@ -47,6 +48,9 @@ export default function LanguageSelectionScreen({ navigation }: any) {
             <View style={styles.languageInfo}>
               <Text style={styles.languageName}>{lang.name}</Text>
               <Text style={styles.languageNative}>{lang.native}</Text>
+              {lang.note && (
+                <Text style={styles.languageNote}>({lang.note})</Text>
+              )}
             </View>
             {selectedLanguage === lang.code && (
               <Text style={styles.checkmark}>✓</Text>
@@ -70,6 +74,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 20,
+    ...(Platform.OS === 'web' && {
+      height: '100vh' as any,
+      overflow: 'hidden' as any,
+    }),
   },
   title: {
     fontSize: 24,
@@ -84,6 +92,10 @@ const styles = StyleSheet.create({
   },
   languageList: {
     flex: 1,
+    ...(Platform.OS === 'web' && {
+      overflowY: 'auto' as any,
+      maxHeight: 'calc(100vh - 250px)' as any,
+    }),
   },
   languageItem: {
     flexDirection: 'row',
@@ -114,6 +126,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     marginTop: 2,
+  },
+  languageNote: {
+    fontSize: 11,
+    color: '#FF6B35',
+    marginTop: 2,
+    fontStyle: 'italic',
   },
   checkmark: {
     fontSize: 24,

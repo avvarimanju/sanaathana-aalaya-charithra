@@ -33,7 +33,8 @@ export class TranslationService {
   private readonly reverseLanguageMap: Record<string, Language>;
 
   constructor(region?: string) {
-    const awsRegion = region || process.env.AWS_REGION || 'us-east-1';
+    // Default to ap-south-1 (Mumbai) for optimal performance in India
+    const awsRegion = region || process.env.AWS_REGION || 'ap-south-1';
     
     this.translateClient = new TranslateClient({ region: awsRegion });
     this.comprehendClient = new ComprehendClient({ region: awsRegion });

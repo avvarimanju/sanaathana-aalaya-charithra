@@ -1,0 +1,64 @@
+═══════════════════════════════════════════════════════════════
+  QUICK GUIDE: Change Welcome Screen Background Image
+═══════════════════════════════════════════════════════════════
+
+FILE TO EDIT: mobile-app/src/screens/WelcomeScreen.tsx
+
+YOUR IMAGES:
+  ✓ Sahaja_Shila_Thoranam_Tirumala.jpg (Shilathoranam)
+  ✓ Nandi_Lepakshi_Temple_Hindupur.jpg (Lepakshi Nandi)
+
+───────────────────────────────────────────────────────────────
+CURRENTLY USING: Shilathoranam (Option 1)
+───────────────────────────────────────────────────────────────
+
+TO SWITCH TO LEPAKSHI NANDI:
+
+1. Open: mobile-app/src/screens/WelcomeScreen.tsx
+
+2. Find LINE 12 and change:
+   
+   FROM:
+   source={require('../assets/Sahaja_Shila_Thoranam_Tirumala.jpg')}
+   
+   TO:
+   source={require('../assets/Nandi_Lepakshi_Temple_Hindupur.jpg')}
+
+3. Find LINE 58 and change:
+   
+   FROM:
+   <Text style={styles.imageCredit}>
+     Shilathoranam, Tirumala
+   </Text>
+   
+   TO:
+   <Text style={styles.imageCredit}>
+     Monolithic Nandi, Lepakshi Temple
+   </Text>
+
+4. Save the file (Ctrl+S)
+
+5. App will auto-reload (if Metro bundler is running)
+
+───────────────────────────────────────────────────────────────
+TO SWITCH BACK TO SHILATHORANAM:
+───────────────────────────────────────────────────────────────
+
+1. LINE 12:
+   source={require('../assets/Sahaja_Shila_Thoranam_Tirumala.jpg')}
+
+2. LINE 58:
+   <Text style={styles.imageCredit}>
+     Shilathoranam, Tirumala
+   </Text>
+
+───────────────────────────────────────────────────────────────
+THAT'S IT! Just 2 lines to change.
+───────────────────────────────────────────────────────────────
+
+TIPS:
+• Test both images to see which looks better
+• Adjust overlay opacity if text is hard to read
+• Restart Metro bundler if image doesn't load
+
+See HOW_TO_CHANGE_WELCOME_IMAGE.md for detailed instructions.

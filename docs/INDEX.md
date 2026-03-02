@@ -210,6 +210,12 @@ Documents related to technical implementation and content generation.
 
 ### When to Use Which Document
 
+**Need overall project status?**
+→ Read `status/COMPLETE_PROJECT_STATUS.md`
+
+**Planning AWS deployment and costs?**
+→ Read `PROJECT_STATUS_AND_COST_ANALYSIS.md`
+
 **Planning a new feature?**
 → Check `planning/` folder
 
@@ -242,10 +248,51 @@ Documents related to technical implementation and content generation.
 
 ---
 
+## 📊 Project Status Documents
+
+### [Complete Project Status](./status/COMPLETE_PROJECT_STATUS.md)
+**Purpose:** Comprehensive project status report with completion percentages  
+**Topics:** What's complete, what's pending, AWS costs, timeline, next steps  
+**Created:** February 27, 2024  
+**Use When:**
+- Getting overall project status
+- Understanding what's been completed
+- Planning next steps
+- Reviewing AWS cost estimates
+- Presenting to stakeholders
+
+**Key Insights:**
+- Project is 70% complete
+- Mobile App: 90% complete
+- Admin Portal: 95% complete (pricing management just added)
+- Backend Services: 70% complete (4 core services done)
+- AWS Cost: $496/month (optimized)
+- Time to Production: 6-8 weeks
+
+### [Project Status and Cost Analysis](../PROJECT_STATUS_AND_COST_ANALYSIS.md)
+**Purpose:** Detailed AWS cost analysis for different deployment scenarios  
+**Topics:** Dev/Staging/Prod costs, optimization strategies, scaling projections  
+**Created:** February 27, 2024  
+**Use When:**
+- Planning AWS deployment
+- Budgeting for infrastructure
+- Comparing deployment scenarios
+- Understanding cost scaling
+
+**Key Insights:**
+- Scenario 1 (Dev+Staging+Prod): $427-648/month
+- Scenario 2 (Staging+Prod, Dev Local): $405-588/month ⭐ RECOMMENDED
+- Optimizations save $221/month
+- Scales to 100K users: $1,971/month
+
+---
+
 ## 📊 Document Status
 
 | Document | Status | Last Updated | Reviewed By |
 |----------|--------|--------------|-------------|
+| Complete Project Status | ✅ Complete | 2024-02-27 | - |
+| Project Status & Cost Analysis | ✅ Complete | 2024-02-27 | - |
 | Virtual Exploration Enhancement | ✅ Complete | 2024-02-23 | - |
 | Enhancement Summary | ✅ Complete | 2024-02-23 | - |
 | AWS Cost Analysis | ✅ Complete | 2026-02-25 | - |

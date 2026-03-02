@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2026-03-01T09:13:03.400Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "status": "failed",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules"
+  },
+  {
+    "timestamp": "2026-03-01T09:13:06.604Z",
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "video",
+    "status": "failed",
+    "error": "Validation failed: Video duration too short: ~1s (min: 60s)"
+  }
+]

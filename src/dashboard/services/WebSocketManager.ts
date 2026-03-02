@@ -48,16 +48,14 @@ export class WebSocketManager {
 
   constructor(
     dynamoClient: DynamoDBClient,
-    config: WebSocketManagerConfig
+    apiGatewayClient: ApiGatewayManagementApiClient,
+    connectionsTableName: string,
+    connectionTtlHours: number = 24
   ) {
     this.dynamoClient = dynamoClient;
-    this.connectionsTableName = config.connectionsTableName;
-    this.connectionTtlHours = config.connectionTtlHours || 24;
-
-    // Initialize API Gateway Management API client
-    this.apiGatewayClient = new ApiGatewayManagementApiClient({
-      endpoint: config.apiGatewayEndpoint
-    });
+    this.apiGatewayClient = apiGatewayClient;
+    this.connectionsTableName = connectionsTableName;
+    this.connectionTtlHours = connectionTtlHours;
   }
 
   /**
@@ -125,32 +123,44 @@ export class WebSocketManager {
   }
 
   /**
-   * Push update to specific connections
+   * Push update to specific connection or all connections
    * Sends dashboard updates to connected clients via WebSocket
    * 
    * Validates: Requirements 9.1, 9.4
    */
   async pushUpdate(
-    update: DashboardUpdate,
-    targetConnectionIds?: string[]
+    connectionIdOrUpdate: string | DashboardUpdate,
+    updateData?: DashboardUpdate
   ): Promise<void> {
-    let connections: WebSocketConnection[];
-
-    if (targetConnectionIds && targetConnectionIds.length > 0) {
-      // Get specific connections
-      connections = await this.getConnectionsByIds(targetConnectionIds);
+    // Handle both signatures: pushUpdate(connectionId, update) and pushUpdate(update, connectionIds)
+    if (typeof connectionIdOrUpdate === 'string') {
+      // Single connection: pushUpdate(connectionId, update)
+      const connectionId = connectionIdOrUpdate;
+      const update = updateData!;
+      await this.sendToConnection(connectionId, update);
     } else {
-      // Get all active connections
-      connections = await this.getAllConnections();
+      // Multiple connections: pushUpdate(update, connectionIds)
+      const update = connectionIdOrUpdate;
+      const targetConnectionIds = updateData as any as string[] | undefined;
+      
+      let connections: WebSocketConnection[];
+
+      if (targetConnectionIds && targetConnectionIds.length > 0) {
+        // Get specific connections
+        connections = await this.getConnectionsByIds(targetConnectionIds);
+      } else {
+        // Get all active connections
+        connections = await this.getAllConnections();
+      }
+
+      // Send update to each connection
+      const sendPromises = connections.map(connection =>
+        this.sendToConnection(connection.connectionId, update)
+      );
+
+      // Wait for all sends to complete (failures are handled individually)
+      await Promise.allSettled(sendPromises);
     }
-
-    // Send update to each connection
-    const sendPromises = connections.map(connection =>
-      this.sendToConnection(connection.connectionId, update)
-    );
-
-    // Wait for all sends to complete (failures are handled individually)
-    await Promise.allSettled(sendPromises);
   }
 
   /**
@@ -440,4 +450,50 @@ export class WebSocketManager {
 
     return new Error(`${context}: ${error.message || 'Unknown error'}`);
   }
+
+
+    /**
+     * Update subscription filters for a connection
+     * Requirement 7.5: Support filter persistence across sessions
+     *
+     * @param connectionId WebSocket connection ID
+     * @param filters New filter state
+     */
+    async updateSubscription(connectionId: string, filters: FilterState): Promise<void> {
+      try {
+        // Get existing connection
+        const getResult: GetItemCommandOutput = await this.dynamoClient.send(
+          new GetItemCommand({
+            TableName: this.connectionsTableName,
+            Key: marshall({ connectionId })
+          })
+        );
+
+        if (!getResult.Item) {
+          throw new Error(`Connection not found: ${connectionId}`);
+        }
+
+        const connection = unmarshall(getResult.Item) as WebSocketConnection;
+
+        // Update with new filters
+        const updatedConnection: WebSocketConnection = {
+          ...connection,
+          subscribedFilters: filters,
+          lastPingAt: Date.now()
+        };
+
+        await this.dynamoClient.send(
+          new PutItemCommand({
+            TableName: this.connectionsTableName,
+            Item: marshall(updatedConnection)
+          })
+        );
+
+        console.log('Subscription updated', { connectionId, filters });
+      } catch (error) {
+        console.error('Failed to update subscription', { connectionId, error });
+        throw error;
+      }
+    }
+
 }

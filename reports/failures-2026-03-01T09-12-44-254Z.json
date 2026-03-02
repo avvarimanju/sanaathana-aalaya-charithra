@@ -1,0 +1,38 @@
+[
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "audio_guide",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules",
+    "retryCount": 2,
+    "timestamp": "2026-03-01T09:12:49.165Z",
+    "recommendedAction": "Review error details and retry. If the issue persists, check logs for more information or contact support."
+  },
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "video",
+    "error": "Validation failed: Video duration too short: ~1s (min: 60s)",
+    "retryCount": 2,
+    "timestamp": "2026-03-01T09:12:52.154Z",
+    "recommendedAction": "Review artifact metadata for completeness and accuracy. Check that all required fields are present."
+  },
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "infographic",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules",
+    "retryCount": 2,
+    "timestamp": "2026-03-01T09:12:55.252Z",
+    "recommendedAction": "Review error details and retry. If the issue persists, check logs for more information or contact support."
+  },
+  {
+    "artifactId": "hanging-pillar",
+    "language": "en",
+    "contentType": "qa_knowledge_base",
+    "error": "A dynamic import callback was invoked without --experimental-vm-modules",
+    "retryCount": 2,
+    "timestamp": "2026-03-01T09:12:58.421Z",
+    "recommendedAction": "Review error details and retry. If the issue persists, check logs for more information or contact support."
+  }
+]

@@ -152,7 +152,7 @@ The system uses `config/pre-generation.yaml` for configuration:
 
 ```yaml
 aws:
-  region: us-east-1
+  region: ap-south-1  # Mumbai region for Indian users
   s3:
     bucket: sanaathana-aalaya-charithra-content-${AWS_ACCOUNT_ID}-${AWS_REGION}
     encryption: AES256
@@ -238,7 +238,7 @@ reporting:
 
 The system supports environment variable overrides:
 
-- `AWS_REGION`: AWS region (default: us-east-1)
+- `AWS_REGION`: AWS region (default: ap-south-1)
 - `AWS_PROFILE`: AWS credentials profile
 - `S3_BUCKET`: Content storage bucket name
 - `DYNAMODB_PROGRESS_TABLE`: Progress tracking table name

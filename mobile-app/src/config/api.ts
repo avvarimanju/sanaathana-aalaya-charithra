@@ -28,6 +28,13 @@ export const API_ENDPOINTS = {
   ANALYTICS_TRACK: `${API_BASE_URL}/analytics`,
   ANALYTICS_GET: `${API_BASE_URL}/analytics`,
   
+  // Defect Tracking
+  DEFECT_SUBMIT: `${API_BASE_URL}/defects`,
+  DEFECT_USER_LIST: (userId: string) => `${API_BASE_URL}/defects/user/${userId}`,
+  DEFECT_DETAILS: (defectId: string) => `${API_BASE_URL}/defects/${defectId}`,
+  NOTIFICATIONS_USER: (userId: string) => `${API_BASE_URL}/notifications/user/${userId}`,
+  NOTIFICATION_READ: (notificationId: string) => `${API_BASE_URL}/notifications/${notificationId}/read`,
+  
   // Health Check
   HEALTH: `${API_BASE_URL}/health`,
 };

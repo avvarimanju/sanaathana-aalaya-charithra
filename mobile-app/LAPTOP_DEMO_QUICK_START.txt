@@ -1,0 +1,262 @@
+═══════════════════════════════════════════════════════════════
+RUN MOBILE APP ON LAPTOP - QUICK START
+═══════════════════════════════════════════════════════════════
+
+YES! You can run your mobile app on laptop for testing and demo!
+
+═══════════════════════════════════════════════════════════════
+FASTEST METHOD (5 MINUTES) ⭐⭐⭐
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Start App
+─────────────────────────────────────────────────────────────
+cd mobile-app
+npm start
+
+STEP 2: Open in Browser
+─────────────────────────────────────────────────────────────
+Press 'w' in terminal
+(Browser opens automatically at http://localhost:19006)
+
+STEP 3: Enable Mobile View
+─────────────────────────────────────────────────────────────
+Press F12 (opens DevTools)
+Click device icon (top-left) or press Ctrl+Shift+M
+Select: iPhone 12 Pro or Pixel 5
+Ensure: Portrait orientation
+
+STEP 4: Make It Professional
+─────────────────────────────────────────────────────────────
+Press F12 again (hide DevTools)
+Press F11 (fullscreen mode)
+
+DONE! Your app now looks like a real phone! 📱
+
+═══════════════════════════════════════════════════════════════
+ALL OPTIONS COMPARISON
+═══════════════════════════════════════════════════════════════
+
+OPTION 1: WEB BROWSER ⭐⭐⭐ RECOMMENDED FOR DEMO
+────────────────────────────────────────────────────────────
+Setup time: 5 minutes
+Command: npm start → press 'w'
+Pros: Fast, easy, perfect for presentations
+Cons: Some features limited (camera)
+Best for: Hackathon demos, quick testing
+
+OPTION 2: ANDROID EMULATOR ⭐⭐ BEST FOR FULL TESTING
+────────────────────────────────────────────────────────────
+Setup time: 30-60 minutes (first time)
+Command: npm start → press 'a'
+Pros: Full Android experience, all features work
+Cons: Requires Android Studio, slower
+Best for: Complete testing, professional demos
+
+OPTION 3: WINDOWS SUBSYSTEM FOR ANDROID (WSA)
+────────────────────────────────────────────────────────────
+Setup time: 60+ minutes
+Requirements: Windows 11 only
+Pros: Native Android on Windows
+Cons: Complex setup, Win11 only
+Best for: Windows 11 users who want native Android
+
+═══════════════════════════════════════════════════════════════
+QUICK COMMANDS
+═══════════════════════════════════════════════════════════════
+
+# Start in browser
+cd mobile-app
+npm start
+Press 'w'
+
+# Start in Android emulator
+cd mobile-app
+npm start
+Press 'a'
+
+# Clear cache
+npm start -- --clear
+
+# Use different port
+npm start -- --port 19007
+
+═══════════════════════════════════════════════════════════════
+BROWSER SHORTCUTS
+═══════════════════════════════════════════════════════════════
+
+F12              → Open/close DevTools
+Ctrl+Shift+M     → Toggle mobile view
+F11              → Fullscreen mode
+Ctrl+0           → Reset zoom to 100%
+Ctrl+Shift+B     → Hide bookmarks bar
+Ctrl+Shift+I     → Open DevTools (alternative)
+
+═══════════════════════════════════════════════════════════════
+FOR HACKATHON DEMO
+═══════════════════════════════════════════════════════════════
+
+BEFORE PRESENTATION:
+─────────────────────────────────────────────────────────────
+1. cd mobile-app && npm start
+2. Press 'w' for web
+3. F12 → device icon → iPhone 12 Pro
+4. Test all screens work
+5. Practice navigation (3-5 times)
+
+DURING PRESENTATION:
+─────────────────────────────────────────────────────────────
+1. Press F11 (fullscreen)
+2. Demo key features:
+   • Login/signup
+   • Browse temples
+   • View artifacts
+   • Show QR scanning (screenshot)
+   • Payment flow
+3. Press F11 (exit fullscreen)
+4. Answer questions
+
+BACKUP PLAN:
+─────────────────────────────────────────────────────────────
+• Screenshots of key screens
+• Recorded demo video
+• Expo Go QR code (if judges have phones)
+
+═══════════════════════════════════════════════════════════════
+MAKE IT LOOK PROFESSIONAL
+═══════════════════════════════════════════════════════════════
+
+BEFORE DEMO:
+✓ Close unnecessary windows/tabs
+✓ Hide desktop icons
+✓ Set clean wallpaper
+✓ Disable notifications (Win+A → Focus Assist)
+✓ Charge laptop fully
+✓ Clear browser cache
+✓ Test audio/video
+
+DURING DEMO:
+✓ Use fullscreen mode (F11)
+✓ Hide bookmarks bar (Ctrl+Shift+B)
+✓ Zoom to 100% (Ctrl+0)
+✓ Use Chrome or Edge browser
+✓ Speak clearly and confidently
+
+═══════════════════════════════════════════════════════════════
+RECORDING YOUR DEMO
+═══════════════════════════════════════════════════════════════
+
+OPTION 1: Windows Game Bar (Built-in)
+Win+G → Click record button → Demo → Stop
+
+OPTION 2: OBS Studio (Free, Professional)
+Download: obsproject.com
+Add display capture → Start recording → Demo → Stop
+
+OPTION 3: Browser Extension
+Install: Loom or Screencastify
+Click extension → Start recording → Demo → Stop
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Issue: App not loading
+→ npm start -- --clear
+
+Issue: Port already in use
+→ npm start -- --port 19007
+
+Issue: Slow performance
+→ Close other apps, use web browser instead of emulator
+
+Issue: QR scanner not working
+→ Expected in browser, use emulator or show screenshot
+
+Issue: Metro bundler error
+→ Restart: Ctrl+C, then npm start
+
+═══════════════════════════════════════════════════════════════
+DEVICE OPTIONS IN BROWSER
+═══════════════════════════════════════════════════════════════
+
+Recommended devices for demo:
+• iPhone 12 Pro (390 × 844)
+• iPhone 14 Pro Max (430 × 932)
+• Pixel 5 (393 × 851)
+• Galaxy S20 Ultra (412 × 915)
+
+Choose based on:
+• Screen size preference
+• Aspect ratio
+• What looks best for your app
+
+═══════════════════════════════════════════════════════════════
+COMPLETE DEMO CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+SETUP (5 minutes before):
+[ ] Start backend server (if needed)
+[ ] cd mobile-app && npm start
+[ ] Press 'w' for web
+[ ] F12 → device icon → iPhone 12 Pro
+[ ] Test all screens
+[ ] Close unnecessary windows
+[ ] Disable notifications
+
+PRESENTATION:
+[ ] Press F11 for fullscreen
+[ ] Demo login/signup
+[ ] Show temple browsing
+[ ] Show artifact details
+[ ] Explain QR scanning
+[ ] Show payment flow
+[ ] Highlight key features
+[ ] Press F11 to exit
+
+BACKUP:
+[ ] Screenshots ready
+[ ] Demo video ready
+[ ] Expo QR code ready
+[ ] Slides ready
+
+═══════════════════════════════════════════════════════════════
+SUMMARY
+═══════════════════════════════════════════════════════════════
+
+CAN YOU RUN MOBILE APP ON LAPTOP?
+→ YES! Multiple ways available!
+
+FASTEST METHOD:
+→ Web browser (5 minutes)
+→ npm start → press 'w' → F12 → device icon → F11
+
+BEST FOR HACKATHON:
+→ Web browser with mobile view
+→ Looks professional
+→ Easy to present
+→ No complex setup
+
+BEST FOR TESTING:
+→ Android emulator
+→ All features work
+→ Most accurate
+
+═══════════════════════════════════════════════════════════════
+
+RECOMMENDED FOR YOUR DEMO:
+
+1. cd mobile-app
+2. npm start
+3. Press 'w'
+4. F12 → device icon → iPhone 12 Pro
+5. F11 for fullscreen
+6. Demo! 🎉
+
+Time: 5 minutes
+Result: Professional mobile app demo on laptop!
+
+═══════════════════════════════════════════════════════════════
+
+See full guide: RUN_ON_LAPTOP_GUIDE.md
+
+Good luck! 🚀

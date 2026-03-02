@@ -1,0 +1,60 @@
+REAL FIX - Package.json Error
+==============================
+
+The --working-dir flag doesn't exist. The real issue is different.
+
+ACTUAL PROBLEM:
+---------------
+The build is failing because EAS is looking for package.json in a subdirectory
+that doesn't exist in the uploaded build.
+
+REAL SOLUTION:
+--------------
+
+The issue is that you need to run the build from INSIDE the mobile-app folder
+(which you were doing correctly), but we need to make sure the project is
+properly initialized for EAS.
+
+Try this:
+
+1. Go back to mobile-app directory:
+   cd mobile-app
+
+2. Re-initialize EAS project:
+   eas init --id eb47f233-ddd2-4edb-92f5-60914d13af3c
+
+3. Then build:
+   eas build --platform android --profile internal-testing
+
+ALTERNATIVE: Check if there's a monorepo setup issue
+-----------------------------------------------------
+
+If the above doesn't work, the issue might be that EAS thinks this is a monorepo.
+
+Check if there's a package.json in the PARENT directory:
+   cd ..
+   ls package.json
+
+If there IS a package.json in the parent directory, that's the problem!
+EAS is treating this as a monorepo and looking for mobile-app as a workspace.
+
+QUICK FIX if parent has package.json:
+--------------------------------------
+
+Option 1: Remove/rename parent package.json temporarily
+Option 2: Add this to parent package.json:
+
+{
+  "private": true,
+  "workspaces": {
+    "packages": []
+  }
+}
+
+Then build from mobile-app directory.
+
+TRY THIS:
+---------
+
+cd mobile-app
+eas build --platform android --profile internal-testing

@@ -1,0 +1,36 @@
+TEMPORARY WORKAROUND FOR MONOREPO DETECTION
+============================================
+
+The parent directory has a package.json that's confusing EAS Build.
+
+SOLUTION: Temporarily rename it during build
+--------------------------------------------
+
+STEP 1: Rename parent package.json
+-----------------------------------
+cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+ren package.json package.json.backup
+
+STEP 2: Run the build
+---------------------
+cd mobile-app
+eas build --platform android --profile internal-testing
+
+STEP 3: Restore parent package.json (after build starts uploading)
+-------------------------------------------------------------------
+cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+ren package.json.backup package.json
+
+IMPORTANT:
+----------
+- You can restore the package.json as soon as the "Uploaded to EAS" message appears
+- The build happens on EAS servers, so local changes after upload don't matter
+- This is a temporary workaround until we find a permanent solution
+
+WHY THIS WORKS:
+---------------
+EAS scans your directory before uploading. By temporarily hiding the parent
+package.json, EAS won't detect it as a monorepo and will treat mobile-app
+as a standalone project.
+
+TRY THIS NOW! 🚀

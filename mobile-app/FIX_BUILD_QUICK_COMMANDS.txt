@@ -1,0 +1,68 @@
+BUILD FAILURE FIX - QUICK COMMANDS
+===================================
+
+PROBLEM: Build failed due to missing icon/splash screen assets
+
+SOLUTION: Generate default assets and rebuild
+
+COMMANDS:
+---------
+
+# Step 1: Generate default assets (EASIEST)
+cd mobile-app
+npx expo prebuild --clean
+
+# Step 2: Rebuild
+eas build --platform android --profile internal-testing
+
+---
+
+ALTERNATIVE: Check build logs first
+------------------------------------
+
+View detailed error logs:
+https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds/ac4d284d-781a-43a6-aa5e-6726a3dc61c2
+
+---
+
+WHAT WAS FIXED:
+---------------
+
+✅ Updated app.json to add:
+   - icon: "./assets/icon.png"
+   - splash.image: "./assets/splash.png"
+   - android.adaptiveIcon.foregroundImage: "./assets/adaptive-icon.png"
+
+❌ Still need to create the actual image files
+
+---
+
+NEXT STEPS:
+-----------
+
+1. Run: npx expo prebuild --clean
+   (This creates default icon/splash assets)
+
+2. Run: eas build --platform android --profile internal-testing
+   (This rebuilds your app)
+
+3. Wait 15-30 minutes for build to complete
+
+4. Download AAB file when ready
+
+---
+
+FILES CREATED:
+--------------
+
+- BUILD_FAILURE_TROUBLESHOOTING.md (detailed troubleshooting)
+- QUICK_FIX_BUILD_FAILURE.md (explanation of the fix)
+- CREATE_APP_ASSETS.md (how to create custom assets)
+- FIX_BUILD_QUICK_COMMANDS.txt (this file)
+
+---
+
+UPDATED FILES:
+--------------
+
+- app.json (added icon and splash references)

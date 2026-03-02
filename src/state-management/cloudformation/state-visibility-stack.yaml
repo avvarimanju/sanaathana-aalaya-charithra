@@ -1,0 +1,163 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'State Visibility Management - DynamoDB Table and Lambda Functions'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Environment name
+
+Resources:
+  # DynamoDB Table for State Visibility Settings
+  StateVisibilityTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'StateVisibilitySettings-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: SanaathanaAalayaCharithra
+        - Key: Component
+          Value: StateVisibility
+
+  # IAM Role for Lambda Functions
+  StateVisibilityLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'StateVisibilityLambdaRole-${Environment}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                Resource: !GetAtt StateVisibilityTable.Arn
+
+  # Lambda Function: Get State Visibility (Public)
+  GetStateVisibilityFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'GetStateVisibility-${Environment}'
+      Runtime: nodejs18.x
+      Handler: index.handler
+      Role: !GetAtt StateVisibilityLambdaRole.Arn
+      Timeout: 10
+      MemorySize: 256
+      Environment:
+        Variables:
+          STATE_VISIBILITY_TABLE_NAME: !Ref StateVisibilityTable
+          ENVIRONMENT: !Ref Environment
+      Code:
+        ZipFile: |
+          // Placeholder - deploy actual code from src/state-management/lambdas/getStateVisibility.ts
+          exports.handler = async (event) => {
+            return {
+              statusCode: 200,
+              body: JSON.stringify({ message: 'Deploy actual code' })
+            };
+          };
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: SanaathanaAalayaCharithra
+
+  # Lambda Function: Update State Visibility (Admin)
+  UpdateStateVisibilityFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'UpdateStateVisibility-${Environment}'
+      Runtime: nodejs18.x
+      Handler: index.handler
+      Role: !GetAtt StateVisibilityLambdaRole.Arn
+      Timeout: 10
+      MemorySize: 256
+      Environment:
+        Variables:
+          STATE_VISIBILITY_TABLE_NAME: !Ref StateVisibilityTable
+          ENVIRONMENT: !Ref Environment
+      Code:
+        ZipFile: |
+          // Placeholder - deploy actual code from src/state-management/lambdas/updateStateVisibility.ts
+          exports.handler = async (event) => {
+            return {
+              statusCode: 200,
+              body: JSON.stringify({ message: 'Deploy actual code' })
+            };
+          };
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: SanaathanaAalayaCharithra
+
+  # CloudWatch Log Groups
+  GetStateVisibilityLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/GetStateVisibility-${Environment}'
+      RetentionInDays: 30
+
+  UpdateStateVisibilityLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/UpdateStateVisibility-${Environment}'
+      RetentionInDays: 30
+
+Outputs:
+  StateVisibilityTableName:
+    Description: DynamoDB table name for state visibility settings
+    Value: !Ref StateVisibilityTable
+    Export:
+      Name: !Sub '${AWS::StackName}-TableName'
+
+  StateVisibilityTableArn:
+    Description: DynamoDB table ARN
+    Value: !GetAtt StateVisibilityTable.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-TableArn'
+
+  GetStateVisibilityFunctionArn:
+    Description: Get State Visibility Lambda Function ARN
+    Value: !GetAtt GetStateVisibilityFunction.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-GetFunctionArn'
+
+  UpdateStateVisibilityFunctionArn:
+    Description: Update State Visibility Lambda Function ARN
+    Value: !GetAtt UpdateStateVisibilityFunction.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-UpdateFunctionArn'

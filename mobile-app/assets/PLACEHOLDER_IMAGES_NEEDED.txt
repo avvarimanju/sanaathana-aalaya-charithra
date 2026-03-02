@@ -1,0 +1,46 @@
+PLACEHOLDER - IMAGES NEEDED
+
+Please add the following temple images to this folder:
+
+Required Images:
+================
+
+1. shilathoranam.jpg (CURRENT - Option 1)
+   - Shilathoranam natural rock arch, Tirumala
+   - Size: 1080 x 1920 pixels (portrait)
+   - Format: JPG
+   - Max file size: 500 KB
+
+2. garuda-hill.jpg (Option 2)
+   - Garuda resemblance hill on Tirumala hills
+   - Size: 1080 x 1920 pixels (portrait)
+   - Format: JPG
+   - Max file size: 500 KB
+
+3. venkateshwara-hill.jpg (Option 3)
+   - Venkateshwara Swamy resemblance hills (face of Swamy)
+   - Size: 1080 x 1920 pixels (portrait)
+   - Format: JPG
+   - Max file size: 500 KB
+
+4. lepakshi-nandi.jpg (Option 4)
+   - Monolithic Nandi bull at Lepakshi Temple
+   - Size: 1080 x 1920 pixels (portrait)
+   - Format: JPG
+   - Max file size: 500 KB
+
+Image Sources:
+==============
+- Use royalty-free images or images you have rights to
+- Ensure images are culturally respectful
+- High quality, well-lit, clear focus
+- Portrait orientation (vertical)
+
+After Adding Images:
+====================
+1. Delete this placeholder file
+2. Restart Metro bundler: npm start
+3. Test the app to see the images
+4. Switch between options to choose the best one
+
+See README.md in this folder for detailed instructions.

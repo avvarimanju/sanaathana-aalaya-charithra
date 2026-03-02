@@ -1,0 +1,17 @@
+{
+  "name": "state-visibility-api",
+  "version": "1.0.0",
+  "description": "State Visibility Management API - Local Development Server",
+  "main": "local-dev-server.js",
+  "scripts": {
+    "start": "node local-dev-server.js",
+    "dev": "nodemon local-dev-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

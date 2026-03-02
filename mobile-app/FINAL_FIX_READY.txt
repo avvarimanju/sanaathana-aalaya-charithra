@@ -1,0 +1,33 @@
+PROBLEM SOLVED!
+===============
+
+ROOT CAUSE IDENTIFIED:
+----------------------
+There's a package.json in the PARENT directory (Sanaathana-Aalaya-Charithra/).
+This made EAS think your project is a monorepo, so it was looking for mobile-app
+as a workspace package instead of treating it as the root.
+
+THE FIX:
+--------
+Created .easignore file in the parent directory to tell EAS to ignore the parent
+package.json and other folders.
+
+NOW BUILD AGAIN:
+----------------
+
+cd mobile-app
+eas build --platform android --profile internal-testing
+
+This should work now!
+
+WHAT WAS FIXED:
+---------------
+✅ Created .easignore in parent directory
+✅ Ignores parent package.json
+✅ Ignores other project folders (admin-portal, src, etc.)
+✅ Keeps only mobile-app for the build
+
+The build will now upload only the mobile-app folder without the confusing
+parent package.json that was causing the monorepo detection.
+
+GO AHEAD AND BUILD! 🚀

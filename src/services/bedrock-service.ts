@@ -39,7 +39,8 @@ export class BedrockService {
   private defaultConfig: BedrockConfig;
 
   constructor(config?: Partial<BedrockConfig>) {
-    const region = config?.region || process.env.AWS_REGION || 'us-east-1';
+    // Default to ap-south-1 (Mumbai) for optimal performance in India
+    const region = config?.region || process.env.AWS_REGION || 'ap-south-1';
     
     this.client = new BedrockRuntimeClient({ region });
     

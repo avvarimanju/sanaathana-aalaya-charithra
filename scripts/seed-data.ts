@@ -66,7 +66,7 @@ async function seedData() {
       },
       {
         siteId: 'tirumala-tirupati-andhra',
-        name: 'Tirumala Venkateswara Temple (TTD)',
+        name: 'Tirumala Temples & Tirupathi Temple Tours',
         location: {
           address: 'Tirumala Hills, Tirupati, Chittoor District, Andhra Pradesh 517504',
           city: 'Tirupati',

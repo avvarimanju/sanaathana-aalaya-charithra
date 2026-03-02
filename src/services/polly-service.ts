@@ -34,8 +34,9 @@ export class PollyService {
   private readonly defaultVoice: VoiceInfo;
 
   constructor(region?: string) {
+    // Default to ap-south-1 (Mumbai) for optimal performance in India
     this.client = new PollyClient({ 
-      region: region || process.env.AWS_REGION || 'us-east-1' 
+      region: region || process.env.AWS_REGION || 'ap-south-1' 
     });
 
     // Map languages to available Polly voices

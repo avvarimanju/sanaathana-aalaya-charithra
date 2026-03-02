@@ -1,0 +1,9 @@
+Metric,Value
+Total Items,1
+Succeeded,0
+Failed,1
+Skipped,0
+Duration,5s
+Start Time,2026-03-01T09:15:26.833Z
+End Time,2026-03-01T09:15:32.779Z
+Success Rate,0%

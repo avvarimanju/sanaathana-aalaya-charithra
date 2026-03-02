@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 interface Artifact {
@@ -33,7 +33,8 @@ interface TempleDetails {
 export default function TempleDetailsScreen({ route, navigation }: any) {
   const { templeId } = route.params;
   const [temple, setTemple] = useState<TempleDetails | null>(null);
-  const [isDownloaded, setIsDownloaded] = useState(false);
+  // DEFERRED TO PHASE 2: Offline Download Feature (Tasks 10-13)
+  // const [isDownloaded, setIsDownloaded] = useState(false);
 
   useEffect(() => {
     loadTempleDetails();
@@ -100,11 +101,14 @@ export default function TempleDetailsScreen({ route, navigation }: any) {
     });
   };
 
+  // DEFERRED TO PHASE 2: Offline Download Feature (Tasks 10-13)
+  /*
   const handleDownload = () => {
     // Handle download logic
     alert('Download started! You will be notified when complete.');
     setIsDownloaded(true);
   };
+  */
 
   if (!temple) {
     return (
@@ -164,18 +168,35 @@ export default function TempleDetailsScreen({ route, navigation }: any) {
 
         {/* Artifacts Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            🗿 Artifacts ({temple.artifacts.length})
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>
+              🗿 Artifacts ({temple.artifacts.length})
+            </Text>
+            <TouchableOpacity
+              style={styles.scanArtifactButton}
+              onPress={() => navigation.navigate('QRScanner')}
+            >
+              <Text style={styles.scanArtifactButtonText}>📷 Scan</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.sectionHint}>
+            Visit the temple and scan QR codes at each artifact for detailed audio guides
           </Text>
           
           {temple.artifacts.map(artifact => (
             <TouchableOpacity
               key={artifact.artifactId}
               style={styles.artifactCard}
-              onPress={() => navigation.navigate('ArtifactDetails', {
-                artifactId: artifact.artifactId,
-                templeId: temple.siteId,
-              })}
+              onPress={() => {
+                if (artifact.isUnlocked) {
+                  navigation.navigate('AudioGuide', {
+                    artifactId: artifact.artifactId,
+                    templeId: temple.siteId,
+                  });
+                } else {
+                  alert('Please unlock this temple or scan the QR code at the artifact location');
+                }
+              }}
             >
               <View style={styles.artifactIcon}>
                 <Text style={styles.artifactIconText}>
@@ -190,12 +211,25 @@ export default function TempleDetailsScreen({ route, navigation }: any) {
                 <Text style={styles.artifactDescription} numberOfLines={2}>
                   {artifact.description}
                 </Text>
+                <Text style={styles.artifactQR}>QR: {artifact.qrCode}</Text>
               </View>
               
-              <View style={styles.artifactLock}>
-                <Text style={styles.artifactLockIcon}>
-                  {artifact.isUnlocked ? '🔓' : '🔒'}
-                </Text>
+              <View style={styles.artifactActions}>
+                {artifact.isUnlocked ? (
+                  <TouchableOpacity
+                    style={styles.playButton}
+                    onPress={() => navigation.navigate('AudioGuide', {
+                      artifactId: artifact.artifactId,
+                      templeId: temple.siteId,
+                    })}
+                  >
+                    <Text style={styles.playButtonText}>▶️</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <View style={styles.artifactLock}>
+                    <Text style={styles.artifactLockIcon}>🔒</Text>
+                  </View>
+                )}
               </View>
             </TouchableOpacity>
           ))}
@@ -230,25 +264,25 @@ export default function TempleDetailsScreen({ route, navigation }: any) {
           </View>
         </View>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - HIDDEN FOR MVP */}
+        {/* All action buttons deferred to Phase 2 for proper implementation */}
+        {/*
         <View style={styles.actionButtons}>
           <TouchableOpacity
-            style={[styles.actionButton, isDownloaded && styles.actionButtonDisabled]}
-            onPress={handleDownload}
-            disabled={isDownloaded}
+            style={styles.actionButton}
+            onPress={() => {}}
           >
-            <Text style={styles.actionButtonText}>
-              {isDownloaded ? '✓ Downloaded' : '📥 Download All'}
-            </Text>
+            <Text style={styles.actionButtonText}>📥 Download All</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => {/* Handle favorite */}}
+            onPress={() => {}}
           >
             <Text style={styles.actionButtonText}>⭐ Add to Favorites</Text>
           </TouchableOpacity>
         </View>
+        */}
 
         <View style={{ height: 30 }} />
       </ScrollView>
@@ -260,6 +294,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+    ...(Platform.OS === 'web' && {
+      height: '100vh' as any,
+      overflow: 'hidden' as any,
+    }),
   },
   loadingContainer: {
     flex: 1,
@@ -291,6 +329,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    ...(Platform.OS === 'web' && {
+      overflowY: 'auto' as any,
+      height: 'calc(100vh - 200px)' as any,
+    }),
   },
   infoSection: {
     backgroundColor: '#fff',
@@ -452,5 +494,48 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  sectionHint: {
+    fontSize: 13,
+    color: '#999',
+    marginBottom: 15,
+    fontStyle: 'italic',
+  },
+  scanArtifactButton: {
+    backgroundColor: '#FF6B35',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  scanArtifactButtonText: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+  artifactQR: {
+    fontSize: 11,
+    color: '#999',
+    marginTop: 5,
+    fontFamily: 'monospace',
+  },
+  artifactActions: {
+    marginLeft: 10,
+  },
+  playButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#4CAF50',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  playButtonText: {
+    fontSize: 20,
   },
 });
