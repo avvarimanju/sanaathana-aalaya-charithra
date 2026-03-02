@@ -1,0 +1,52 @@
+FINAL STEPS - GITHUB ACTIONS BUILD
+===================================
+
+Your code is ready! Just 3 more steps:
+
+STEP 1: Get Expo Token (2 minutes)
+-----------------------------------
+1. Open: https://expo.dev/accounts/avvarimanju/settings/access-tokens
+2. Click "Create Token" button
+3. Name: GitHub Actions
+4. Click "Create"
+5. COPY THE TOKEN (it looks like: eas_abc123...)
+   ⚠️ Save it somewhere - it's only shown once!
+
+STEP 2: Add Token to GitHub (1 minute)
+---------------------------------------
+1. Open: https://github.com/avvarimanju/Sanaathana-Aalaya-Charithra/settings/secrets/actions
+2. Click "New repository secret"
+3. Name: EXPO_TOKEN
+4. Value: (paste the token from Step 1)
+5. Click "Add secret"
+
+STEP 3: Push and Build (30 seconds)
+------------------------------------
+Run this command from PowerShell:
+
+cd "C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app"
+git push origin main
+
+That's it! The build will start automatically!
+
+MONITOR BUILD:
+--------------
+Watch progress: https://github.com/avvarimanju/Sanaathana-Aalaya-Charithra/actions
+
+DOWNLOAD AAB:
+-------------
+When done: https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds
+
+WHY THIS WORKS:
+---------------
+- GitHub Actions runs on Ubuntu Linux
+- Linux has proper Unix file permissions
+- No Windows permission issues!
+- Build takes ~10-15 minutes
+
+TROUBLESHOOTING:
+----------------
+If build fails with "EXPO_TOKEN not found":
+- Make sure you completed Step 2 correctly
+- Token name must be exactly: EXPO_TOKEN (all caps)
+- Try pushing again after adding the secret
