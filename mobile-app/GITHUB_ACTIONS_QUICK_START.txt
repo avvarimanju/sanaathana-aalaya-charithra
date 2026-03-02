@@ -1,6 +1,9 @@
 GITHUB ACTIONS SETUP - QUICK START
 ===================================
 
+✅ WORKFLOW FILE CREATED AT: .github/workflows/eas-build.yml
+(Repository root - correct location!)
+
 STEP 1: Get Expo Token
 -----------------------
 1. Open: https://expo.dev/accounts/avvarimanju/settings/access-tokens
@@ -9,54 +12,47 @@ STEP 1: Get Expo Token
 4. Click "Create"
 5. COPY THE TOKEN (shown only once!)
 
-STEP 2: Create GitHub Repository
----------------------------------
-1. Go to: https://github.com/new
-2. Repository name: sanaathana-mobile-app
-3. Choose: Private
-4. Click "Create repository"
-
-STEP 3: Add Token to GitHub Secrets
+STEP 2: Add Token to GitHub Secrets
 ------------------------------------
-1. Go to your new repository
-2. Settings > Secrets and variables > Actions
-3. Click "New repository secret"
-4. Name: EXPO_TOKEN
-5. Value: (paste token from Step 1)
-6. Click "Add secret"
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/settings/secrets/actions
+2. Click "New repository secret"
+3. Name: EXPO_TOKEN
+4. Value: (paste token from Step 1)
+5. Click "Add secret"
 
-STEP 4: Push Code to GitHub
-----------------------------
-Run these commands from PowerShell in this directory:
+STEP 3: Commit and Push Workflow File
+--------------------------------------
+Run these commands from PowerShell:
 
-cd "C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app"
+cd "C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra"
 
-# Check git status
-git status
-
-# Add the workflow file
 git add .github/workflows/eas-build.yml
-
-# Commit
 git commit -m "Add GitHub Actions workflow for EAS build"
+git push
 
-# Add GitHub remote (replace YOUR_USERNAME with your GitHub username)
-git remote add github https://github.com/YOUR_USERNAME/sanaathana-mobile-app.git
-
-# Push to GitHub
-git push github master
-
-STEP 5: Trigger Build
+STEP 4: Monitor Build
 ----------------------
-Option A: Automatic (already triggered by push)
-Option B: Manual
-  1. Go to: https://github.com/YOUR_USERNAME/sanaathana-mobile-app/actions
-  2. Click "EAS Build" workflow
-  3. Click "Run workflow"
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/actions
+2. Click on the running workflow to see live logs
+3. Build takes ~10-15 minutes
 
-STEP 6: Download AAB
+STEP 5: Download AAB
 --------------------
 When build completes, download from:
 https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds
 
-DONE! The build runs on Linux, so no Windows permission issues!
+MANUAL TRIGGER (Optional)
+--------------------------
+Trigger builds without pushing code:
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra/actions
+2. Click "EAS Build" workflow
+3. Click "Run workflow" > Select "main" > "Run workflow"
+
+WHY THIS WORKS
+--------------
+✅ Runs on Ubuntu Linux (no Windows permission issues)
+✅ Workflow sets working-directory to mobile-app/ automatically
+✅ Only triggers when mobile-app/ files change
+✅ No need for WSL2 or local setup changes
+
+DONE! The build runs in the cloud on Linux servers!

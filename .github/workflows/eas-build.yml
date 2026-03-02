@@ -1,0 +1,42 @@
+name: EAS Build
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'mobile-app/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Android AAB
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Android AAB
+        run: eas build --platform android --profile internal-testing --non-interactive
+
+      - name: Upload build artifact info
+        if: always()
+        run: |
+          echo "Build completed. Check EAS dashboard for AAB file:"
+          echo "https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds"
