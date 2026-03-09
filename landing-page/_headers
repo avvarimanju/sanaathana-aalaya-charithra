@@ -1,0 +1,27 @@
+# Cloudflare Pages Headers Configuration
+# This file sets custom HTTP headers for specific paths
+
+# iOS Universal Links verification file
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: max-age=3600
+  Access-Control-Allow-Origin: *
+
+# Android App Links verification file
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: max-age=3600
+  Access-Control-Allow-Origin: *
+
+# All other .well-known files
+/.well-known/*
+  Content-Type: application/json
+  Cache-Control: max-age=3600
+
+# Main pages - cache for 1 hour
+/*
+  Cache-Control: public, max-age=3600
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin

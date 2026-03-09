@@ -1,0 +1,16 @@
+{
+  "name": "temple-heritage-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page for Sanaathana Aalaya Charithra QR code scans",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step needed for static site'"
+  },
+  "keywords": [
+    "temple",
+    "heritage",
+    "landing-page"
+  ],
+  "author": "Manjunath Venkata Avvari",
+  "license": "MIT"
+}
