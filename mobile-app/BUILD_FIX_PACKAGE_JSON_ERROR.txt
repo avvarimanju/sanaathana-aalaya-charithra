@@ -44,7 +44,7 @@ QUICK FIX COMMANDS:
 cd ..
 
 # OR if you're in mobile-app:
-cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra
 
 # Run build with working-dir flag
 eas build --platform android --profile internal-testing --working-dir mobile-app

@@ -1,0 +1,35 @@
+LOCAL EAS BUILD GUIDE - RECOMMENDED APPROACH
+============================================
+
+The GitHub Actions approach is having issues with the monorepo structure.
+Let's build locally from your Windows machine instead.
+
+STEPS:
+
+1. Open PowerShell and navigate to mobile-app directory:
+   cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app
+
+2. Make sure you're logged into Expo:
+   npx eas-cli login
+
+3. Build the AAB file:
+   npx eas-cli build --platform android --profile internal-testing
+
+4. The build will run on Expo's servers (not locally)
+   - It will show you a link to monitor progress
+   - Takes about 10-20 minutes
+   - When complete, you can download the AAB file
+
+5. Download the AAB from the Expo dashboard:
+   https://expo.dev/accounts/avvarimanju/projects/sanaathana-aalaya-charithra-mobile/builds
+
+WHY THIS WORKS BETTER:
+- EAS CLI running from the mobile-app directory knows the correct project structure
+- No GitHub Actions complexity
+- Direct control over the build process
+- Same result: AAB file ready for Play Store
+
+NEXT STEPS AFTER BUILD COMPLETES:
+- Download the .aab file
+- Upload to Google Play Console → Internal Testing
+- Add testers and test the app

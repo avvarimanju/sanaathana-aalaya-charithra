@@ -1,0 +1,44 @@
+===========================================
+  QUICK FIX FOR IPHONE EXPO GO ERROR
+===========================================
+
+ERROR: "Project is incompatible with this version of Expo Go"
+
+SOLUTION (Takes 1 minute):
+
+1. Open App Store on iPhone
+2. Search "Expo Go"
+3. Tap "Update"
+4. Wait for update to complete
+5. Scan QR code again
+
+THAT'S IT!
+
+===========================================
+
+WHY THIS HAPPENED:
+- Your project uses Expo SDK 55 (latest)
+- Your Expo Go app was older
+- They need to match
+
+AFTER UPDATE:
+- Scan QR code
+- App loads perfectly
+- Same as web version
+
+===========================================
+
+ALTERNATIVE (If update doesn't help):
+
+Use tunnel mode:
+  npx expo start --tunnel
+
+Then scan QR code again.
+
+===========================================
+
+WEB ALREADY WORKS:
+  npx expo start
+  Press 'w' for web browser
+
+===========================================

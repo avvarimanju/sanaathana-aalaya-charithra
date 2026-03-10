@@ -1,5 +1,30 @@
 {
+  "name": "sanaathana-aalaya-charithra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for Sanaathana Aalaya Charithra - Temple Heritage Platform",
+  "workspaces": [
+    "admin-portal",
+    "mobile-app",
+    "backend"
+  ],
+  "scripts": {
+    "build:all": "npm run build --workspaces --if-present",
+    "test:all": "npm run test --workspaces --if-present",
+    "clean:all": "npm run clean --workspaces --if-present",
+    "lint:all": "npm run lint --workspaces --if-present",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:admin": "npm run dev --workspace=admin-portal",
+    "dev:mobile": "npm run start --workspace=mobile-app"
+  },
   "dependencies": {
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "react-native-worklets-core": "^1.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

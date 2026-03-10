@@ -1,162 +1,253 @@
-# Unified Test Runner for All Components
-# Runs tests for Backend, Admin Portal, and Mobile App
+#!/usr/bin/env pwsh
+<#
+.SYNOPSIS
+    Run all test suites (unit, integration, and E2E tests)
 
-param(
-    [switch]$Coverage,
-    [switch]$Watch,
-    [switch]$Verbose
-)
+.DESCRIPTION
+    This script runs all test suites in sequence:
+    1. Unit tests (admin portal components)
+    2. Integration tests (backend API)
+    3. End-to-end tests (full workflows)
 
-$ErrorActionPreference = "Continue"
-$totalTests = 0
-$passedTests = 0
-$failedTests = 0
+.EXAMPLE
+    .\scripts\run-all-tests.ps1
+#>
 
+$ErrorActionPreference = "Stop"
+
+Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "  Running All Test Suites" -ForegroundColor Cyan
+Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host "  Sanaathana Aalaya Charithra" -ForegroundColor Cyan
-Write-Host "  Unified Test Runner" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
+
+$testResults = @{
+    unit = $false
+    integration = $false
+    e2e = $false
+}
+
+# ============================================================================
+# 1. Unit Tests (Admin Portal)
+# ============================================================================
+
+Write-Host "📋 Step 1: Running Unit Tests..." -ForegroundColor Yellow
+Write-Host "Testing admin portal components..." -ForegroundColor Gray
 Write-Host ""
 
-# Function to run tests in a directory
-function Run-Tests {
-    param(
-        [string]$Name,
-        [string]$Path,
-        [string]$Command
-    )
+try {
+    Push-Location admin-portal
     
-    Write-Host "Running $Name Tests..." -ForegroundColor Yellow
-    Write-Host "Location: $Path" -ForegroundColor Gray
-    Write-Host ""
+    Write-Host "Installing dependencies..." -ForegroundColor Gray
+    npm install --silent
     
-    if (-not (Test-Path $Path)) {
-        Write-Host "  SKIPPED: Directory not found" -ForegroundColor Yellow
-        Write-Host ""
-        return $false
+    Write-Host "Running unit tests..." -ForegroundColor Gray
+    npm test -- --coverage --watchAll=false
+    
+    $testResults.unit = $LASTEXITCODE -eq 0
+    
+    if ($testResults.unit) {
+        Write-Host "✅ Unit tests passed!" -ForegroundColor Green
+    } else {
+        Write-Host "❌ Unit tests failed!" -ForegroundColor Red
     }
     
-    Push-Location $Path
-    
+    Pop-Location
+} catch {
+    Write-Host "❌ Error running unit tests: $_" -ForegroundColor Red
+    $testResults.unit = $false
+    Pop-Location
+}
+
+Write-Host ""
+Write-Host "────────────────────────────────────────────────────────────" -ForegroundColor Gray
+Write-Host ""
+
+# ============================================================================
+# 2. Integration Tests (Backend API)
+# ============================================================================
+
+Write-Host "📋 Step 2: Running Integration Tests..." -ForegroundColor Yellow
+Write-Host "Testing backend API endpoints..." -ForegroundColor Gray
+Write-Host ""
+
+# Check if backend is running
+$backendRunning = $false
+try {
+    $response = Invoke-WebRequest -Uri "http://localhost:4000/health" -Method GET -TimeoutSec 2 -ErrorAction SilentlyContinue
+    $backendRunning = $response.StatusCode -eq 200
+} catch {
+    $backendRunning = $false
+}
+
+if (-not $backendRunning) {
+    Write-Host "⚠️  Backend server not running. Skipping integration tests." -ForegroundColor Yellow
+    Write-Host "Please start backend manually: npx tsx src/local-server/server.ts" -ForegroundColor Gray
+    $testResults.integration = $null
+} else {
+    Write-Host "✅ Backend server already running" -ForegroundColor Green
+}
+
+if ($testResults.integration -ne $null) {
     try {
-        if ($Verbose) {
-            Invoke-Expression $Command
+        Push-Location tests
+        
+        Write-Host "Installing test dependencies..." -ForegroundColor Gray
+        npm install --silent 2>&1 | Out-Null
+        
+        Write-Host "Running integration tests..." -ForegroundColor Gray
+        npm test -- --config jest.config.js
+        
+        $testResults.integration = $LASTEXITCODE -eq 0
+        
+        if ($testResults.integration) {
+            Write-Host "✅ Integration tests passed!" -ForegroundColor Green
         } else {
-            Invoke-Expression "$Command 2>&1" | Out-Null
+            Write-Host "❌ Integration tests failed!" -ForegroundColor Red
         }
         
-        if ($LASTEXITCODE -eq 0) {
-            Write-Host "  PASSED" -ForegroundColor Green
-            $script:passedTests++
-        } else {
-            Write-Host "  FAILED (Exit Code: $LASTEXITCODE)" -ForegroundColor Red
-            $script:failedTests++
-        }
-    }
-    catch {
-        Write-Host "  ERROR: $_" -ForegroundColor Red
-        $script:failedTests++
-    }
-    finally {
         Pop-Location
-        Write-Host ""
+    } catch {
+        Write-Host "❌ Error running integration tests: $_" -ForegroundColor Red
+        $testResults.integration = $false
+        Pop-Location
     }
-    
-    $script:totalTests++
-    return ($LASTEXITCODE -eq 0)
 }
 
-# 1. Backend Tests
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host "1. BACKEND TESTS" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "────────────────────────────────────────────────────────────" -ForegroundColor Gray
 Write-Host ""
 
-if ($Coverage) {
-    Run-Tests "Backend" "." "npm run test:coverage"
-} elseif ($Watch) {
-    Write-Host "Watch mode not supported for unified runner" -ForegroundColor Yellow
-    Write-Host "Run 'npm run test:watch' in root directory instead" -ForegroundColor Yellow
+# ============================================================================
+# 3. End-to-End Tests (Full Workflows)
+# ============================================================================
+
+Write-Host "📋 Step 3: Running End-to-End Tests..." -ForegroundColor Yellow
+Write-Host "Testing complete user workflows..." -ForegroundColor Gray
+Write-Host ""
+
+# Check if services are running
+$backendRunning = $false
+$adminRunning = $false
+
+try {
+    $response = Invoke-WebRequest -Uri "http://localhost:4000/health" -Method GET -TimeoutSec 2 -ErrorAction SilentlyContinue
+    $backendRunning = $response.StatusCode -eq 200
+} catch {
+    $backendRunning = $false
+}
+
+try {
+    $response = Invoke-WebRequest -Uri "http://localhost:5173" -Method GET -TimeoutSec 2 -ErrorAction SilentlyContinue
+    $adminRunning = $response.StatusCode -eq 200
+} catch {
+    $adminRunning = $false
+}
+
+if (-not $backendRunning -or -not $adminRunning) {
+    Write-Host "⚠️  Services not running. E2E tests require:" -ForegroundColor Yellow
+    Write-Host "   - Backend server on port 4000" -ForegroundColor Gray
+    Write-Host "   - Admin portal on port 5173" -ForegroundColor Gray
     Write-Host ""
+    Write-Host "Please start services manually:" -ForegroundColor Yellow
+    Write-Host "   Terminal 1: npx tsx src/local-server/server.ts" -ForegroundColor Gray
+    Write-Host "   Terminal 2: cd admin-portal && npm run dev" -ForegroundColor Gray
+    Write-Host ""
+    Write-Host "⏭️  Skipping E2E tests" -ForegroundColor Yellow
+    $testResults.e2e = $null
 } else {
-    Run-Tests "Backend" "." "npm test"
-}
-
-# 2. Admin Portal Tests
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host "2. ADMIN PORTAL TESTS" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host ""
-
-$adminPortalPath = "admin-portal"
-if (Test-Path $adminPortalPath) {
-    $packageJson = Get-Content "$adminPortalPath/package.json" -Raw | ConvertFrom-Json
+    Write-Host "✅ All services running" -ForegroundColor Green
     
-    if ($packageJson.scripts.test) {
-        if ($Coverage) {
-            Run-Tests "Admin Portal" $adminPortalPath "npm run test:coverage"
+    try {
+        Push-Location tests
+        
+        Write-Host "Installing Playwright..." -ForegroundColor Gray
+        npx playwright install --with-deps chromium
+        
+        Write-Host "Running E2E tests..." -ForegroundColor Gray
+        npx playwright test --project=chromium
+        
+        $testResults.e2e = $LASTEXITCODE -eq 0
+        
+        if ($testResults.e2e) {
+            Write-Host "✅ E2E tests passed!" -ForegroundColor Green
         } else {
-            Run-Tests "Admin Portal" $adminPortalPath "npm test"
+            Write-Host "❌ E2E tests failed!" -ForegroundColor Red
         }
-    } else {
-        Write-Host "Admin Portal Tests..." -ForegroundColor Yellow
-        Write-Host "  SKIPPED: No test command configured" -ForegroundColor Yellow
-        Write-Host "  Run: cd admin-portal && npm install --save-dev jest @testing-library/react" -ForegroundColor Gray
-        Write-Host ""
+        
+        Pop-Location
+    } catch {
+        Write-Host "❌ Error running E2E tests: $_" -ForegroundColor Red
+        $testResults.e2e = $false
+        Pop-Location
     }
-} else {
-    Write-Host "Admin Portal Tests..." -ForegroundColor Yellow
-    Write-Host "  SKIPPED: Directory not found" -ForegroundColor Yellow
-    Write-Host ""
 }
 
-# 3. Mobile App Tests
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host "3. MOBILE APP TESTS" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "  Test Results Summary" -ForegroundColor Cyan
+Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
 
-$mobileAppPath = "mobile-app"
-if (Test-Path $mobileAppPath) {
-    $packageJson = Get-Content "$mobileAppPath/package.json" -Raw | ConvertFrom-Json
-    
-    if ($packageJson.scripts.test) {
-        if ($Coverage) {
-            Run-Tests "Mobile App" $mobileAppPath "npm run test:coverage"
-        } else {
-            Run-Tests "Mobile App" $mobileAppPath "npm test"
-        }
-    } else {
-        Write-Host "Mobile App Tests..." -ForegroundColor Yellow
-        Write-Host "  SKIPPED: No test command configured" -ForegroundColor Yellow
-        Write-Host "  Run: cd mobile-app && npm install --save-dev jest @testing-library/react-native" -ForegroundColor Gray
-        Write-Host ""
-    }
+# Display results
+$allPassed = $true
+
+Write-Host "Unit Tests:        " -NoNewline
+if ($testResults.unit) {
+    Write-Host "✅ PASSED" -ForegroundColor Green
 } else {
-    Write-Host "Mobile App Tests..." -ForegroundColor Yellow
-    Write-Host "  SKIPPED: Directory not found" -ForegroundColor Yellow
-    Write-Host ""
+    Write-Host "❌ FAILED" -ForegroundColor Red
+    $allPassed = $false
 }
 
-# Summary
+Write-Host "Integration Tests: " -NoNewline
+if ($testResults.integration) {
+    Write-Host "✅ PASSED" -ForegroundColor Green
+} elseif ($null -eq $testResults.integration) {
+    Write-Host "⏭️  SKIPPED" -ForegroundColor Yellow
+} else {
+    Write-Host "❌ FAILED" -ForegroundColor Red
+    $allPassed = $false
+}
+
+Write-Host "E2E Tests:         " -NoNewline
+if ($testResults.e2e) {
+    Write-Host "✅ PASSED" -ForegroundColor Green
+} elseif ($null -eq $testResults.e2e) {
+    Write-Host "⏭️  SKIPPED" -ForegroundColor Yellow
+} else {
+    Write-Host "❌ FAILED" -ForegroundColor Red
+    $allPassed = $false
+}
+
 Write-Host ""
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host "TEST SUMMARY" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Total Test Suites: $totalTests" -ForegroundColor White
-Write-Host "Passed: $passedTests" -ForegroundColor Green
-Write-Host "Failed: $failedTests" -ForegroundColor Red
+Write-Host "────────────────────────────────────────────────────────────" -ForegroundColor Gray
 Write-Host ""
 
-if ($failedTests -eq 0 -and $passedTests -gt 0) {
-    Write-Host "ALL TESTS PASSED!" -ForegroundColor Green
+if ($allPassed) {
+    Write-Host "🎉 All tests passed!" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Next steps:" -ForegroundColor Cyan
+    Write-Host "  • Review test coverage reports" -ForegroundColor Gray
+    Write-Host "  • Check for any warnings" -ForegroundColor Gray
+    Write-Host "  • Commit your changes" -ForegroundColor Gray
+} else {
+    Write-Host "⚠️  Some tests failed. Please review the errors above." -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "Troubleshooting:" -ForegroundColor Cyan
+    Write-Host "  • Check test logs for error details" -ForegroundColor Gray
+    Write-Host "  • Verify all services are running" -ForegroundColor Gray
+    Write-Host "  • Review TESTING_GUIDE.md for help" -ForegroundColor Gray
+}
+
+Write-Host ""
+Write-Host "View detailed reports:" -ForegroundColor Cyan
+Write-Host "  • Unit test coverage:  admin-portal/coverage/lcov-report/index.html" -ForegroundColor Gray
+Write-Host "  • E2E test report:     npx playwright show-report test-results/e2e-report" -ForegroundColor Gray
+Write-Host ""
+
+# Exit with appropriate code
+if ($allPassed) {
     exit 0
-} elseif ($failedTests -gt 0) {
-    Write-Host "SOME TESTS FAILED" -ForegroundColor Red
+} else {
     exit 1
-} else {
-    Write-Host "NO TESTS RUN" -ForegroundColor Yellow
-    exit 0
 }

@@ -1,0 +1,91 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║   SANAATHANA AALAYA CHARITHRA - MOBILE APP                     ║
+║   Quick Start Guide                                            ║
+║   Date: March 9, 2026                                          ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+✅ ALL DEPENDENCIES INSTALLED - READY TO TEST!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 QUICK START (Choose One)
+
+Option 1: Use Start Script (Recommended)
+   cd mobile-app
+   .\start-app.ps1
+
+Option 2: Manual Start
+   cd mobile-app
+   npx expo start
+   
+   Then press:
+   'w' = Web browser (easiest!)
+   'a' = Android emulator
+   'i' = iOS simulator (Mac only)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 TESTING DEEP LINKS
+
+⚠️  Deep links ONLY work in standalone builds!
+
+Build Command:
+   eas build --platform android --profile preview
+
+After installing the app, test with:
+   https://charithra.org/temple/test
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT'S CONFIGURED
+
+✅ Domain: charithra.org (live)
+✅ Android verification: Deployed and validated
+✅ iOS verification: Created (waiting for Apple approval)
+✅ Keystore: Generated and backed up
+✅ Deep linking: Configured in app
+✅ Dependencies: expo-linking, @expo/metro-runtime
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  IMPORTANT NOTES
+
+• SDK Version: Project uses SDK 52 (keep it!)
+• Expo Go: Cannot use (SDK 54 on phone vs SDK 52 in project)
+• Deep Links: Only work in standalone builds, not Expo Go
+• Keystore: NEVER lose charithra-release.keystore file!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 MORE INFO
+
+• Full guide: READY_TO_TEST.md
+• Deep linking: DEEP_LINKING_SETUP_COMPLETE.md
+• Testing guide: TEST_APP_NOW.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 RECOMMENDED FLOW
+
+1. Test on web first (quick check)
+   npx expo start → press 'w'
+
+2. Build standalone app (for deep links)
+   eas build --platform android --profile preview
+
+3. Install and test deep links
+   Click: https://charithra.org/temple/test
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ready to start? Run:
+   cd mobile-app
+   .\start-app.ps1
+
+Or:
+   cd mobile-app
+   npx expo start
+
+Happy testing! 🚀

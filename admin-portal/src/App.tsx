@@ -15,6 +15,7 @@ import PricingManagementPage from './pages/PricingManagementPage';
 import PriceCalculatorPage from './pages/PriceCalculatorPage';
 import StateManagementPage from './pages/StateManagementPage';
 import TempleDetailPage from './pages/TempleDetailPage';
+import TrustedSourcesPage from './pages/TrustedSourcesPage';
 
 const App: React.FC = () => {
   return (
@@ -148,6 +149,16 @@ const App: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <StateManagementPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/trusted-sources"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <TrustedSourcesPage />
               </Layout>
             </ProtectedRoute>
           }

@@ -20,7 +20,7 @@ STEP-BY-STEP FINAL SOLUTION:
 
 1. Copy mobile-app to a CLEAN location (not move, COPY)
    
-   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+   cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS
    Copy-Item -Recurse Sanaathana-Aalaya-Charithra\mobile-app C:\Temp\mobile-app-build
 
 2. Navigate to the clean location

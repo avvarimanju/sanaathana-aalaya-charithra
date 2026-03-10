@@ -8,7 +8,7 @@ SOLUTION: Temporarily move mobile-app OUT of the parent directory
 
 STEP 1: Move mobile-app to a sibling directory
 -----------------------------------------------
-cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS
 move Sanaathana-Aalaya-Charithra\mobile-app mobile-app-temp
 
 STEP 2: Build from the new location
@@ -22,7 +22,7 @@ Once you see "√ Uploaded to EAS", the build will continue on EAS servers.
 
 STEP 4: Move it back (after upload completes)
 ----------------------------------------------
-cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS
 move mobile-app-temp Sanaathana-Aalaya-Charithra\mobile-app
 
 WHY THIS WORKS:

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { templeApi } from '../api/templeApi';
+import EntryFeeManager, { EntryFeeOption } from '../components/EntryFeeManager';
 import './TempleFormPage.css';
 
 interface TempleFormData {
@@ -19,6 +20,7 @@ interface TempleFormData {
   imageUrl: string;
   accessMode: 'FREE' | 'PAID' | 'HYBRID';
   status: 'active' | 'inactive';
+  entryFeeOptions?: EntryFeeOption[];
 }
 
 const TempleFormPage: React.FC = () => {
@@ -42,6 +44,17 @@ const TempleFormPage: React.FC = () => {
     imageUrl: '',
     accessMode: 'FREE',
     status: 'active',
+    entryFeeOptions: [
+      {
+        id: '1',
+        type: 'FREE',
+        name: 'General Entry',
+        price: 0,
+        currency: 'INR',
+        description: '',
+        bookingRequired: false
+      }
+    ]
   });
 
   const [loading, setLoading] = useState(false);
@@ -60,6 +73,13 @@ const TempleFormPage: React.FC = () => {
     setFetchingData(true);
     try {
       const temple = await templeApi.getTemple(templeId);
+      
+      // Migrate old accessMode to entryFeeOptions if needed
+      let entryFeeOptions = (temple as any).entryFeeOptions;
+      if (!entryFeeOptions || entryFeeOptions.length === 0) {
+        entryFeeOptions = migrateAccessModeToEntryFeeOptions(temple.accessMode);
+      }
+      
       setFormData({
         name: temple.name,
         location: temple.location,
@@ -71,6 +91,7 @@ const TempleFormPage: React.FC = () => {
         imageUrl: (temple as any).imageUrl || '',
         accessMode: temple.accessMode,
         status: temple.status,
+        entryFeeOptions: entryFeeOptions
       });
       if ((temple as any).imageUrl) {
         setImagePreview((temple as any).imageUrl);
@@ -80,6 +101,63 @@ const TempleFormPage: React.FC = () => {
       console.error(err);
     } finally {
       setFetchingData(false);
+    }
+  };
+
+  // Helper function to migrate old accessMode to new entryFeeOptions
+  const migrateAccessModeToEntryFeeOptions = (accessMode: string): EntryFeeOption[] => {
+    switch (accessMode) {
+      case 'FREE':
+        return [{
+          id: '1',
+          type: 'FREE',
+          name: 'General Entry',
+          price: 0,
+          currency: 'INR',
+          description: 'Free entry',
+          bookingRequired: false
+        }];
+      case 'PAID':
+        return [{
+          id: '1',
+          type: 'PAID',
+          name: 'Entry Fee',
+          price: 0,
+          currency: 'INR',
+          description: 'Paid entry',
+          bookingRequired: false
+        }];
+      case 'HYBRID':
+        return [
+          {
+            id: '1',
+            type: 'FREE',
+            name: 'General Entry',
+            price: 0,
+            currency: 'INR',
+            description: 'Free entry',
+            bookingRequired: false
+          },
+          {
+            id: '2',
+            type: 'PAID',
+            name: 'Special Entry',
+            price: 0,
+            currency: 'INR',
+            description: 'Paid entry',
+            bookingRequired: false
+          }
+        ];
+      default:
+        return [{
+          id: '1',
+          type: 'FREE',
+          name: 'General Entry',
+          price: 0,
+          currency: 'INR',
+          description: '',
+          bookingRequired: false
+        }];
     }
   };
 
@@ -144,34 +222,27 @@ const TempleFormPage: React.FC = () => {
       // TODO: If imageFile exists, upload to S3 first
       // For now, we'll use the imageUrl field
       
+      const templeData = {
+        name: formData.name,
+        description: formData.description,
+        location: formData.location,
+        accessMode: formData.accessMode,
+        status: formData.status,
+        ...(formData.deity && { deity: formData.deity }),
+        ...(formData.historicalSignificance && { historicalSignificance: formData.historicalSignificance }),
+        ...(formData.architecturalStyle && { architecturalStyle: formData.architecturalStyle }),
+        ...(formData.builtYear && { builtYear: formData.builtYear }),
+        ...(formData.imageUrl && { imageUrl: formData.imageUrl }),
+        ...(formData.entryFeeOptions && { entryFeeOptions: formData.entryFeeOptions })
+      };
+      
       if (isEditMode && id) {
         // Update existing temple
-        await templeApi.updateTemple(id, {
-          name: formData.name,
-          description: formData.description,
-          location: formData.location,
-          accessMode: formData.accessMode,
-          status: formData.status,
-          ...(formData.deity && { deity: formData.deity }),
-          ...(formData.historicalSignificance && { historicalSignificance: formData.historicalSignificance }),
-          ...(formData.architecturalStyle && { architecturalStyle: formData.architecturalStyle }),
-          ...(formData.builtYear && { builtYear: formData.builtYear }),
-          ...(formData.imageUrl && { imageUrl: formData.imageUrl })
-        } as any);
+        await templeApi.updateTemple(id, templeData as any);
         alert('Temple updated successfully!');
       } else {
         // Create new temple
-        await templeApi.createTemple({
-          name: formData.name,
-          description: formData.description,
-          location: formData.location,
-          accessMode: formData.accessMode,
-          ...(formData.deity && { deity: formData.deity }),
-          ...(formData.historicalSignificance && { historicalSignificance: formData.historicalSignificance }),
-          ...(formData.architecturalStyle && { architecturalStyle: formData.architecturalStyle }),
-          ...(formData.builtYear && { builtYear: formData.builtYear }),
-          ...(formData.imageUrl && { imageUrl: formData.imageUrl })
-        } as any);
+        await templeApi.createTemple(templeData as any);
         alert('Temple created successfully!');
       }
       
@@ -191,7 +262,7 @@ const TempleFormPage: React.FC = () => {
   return (
     <div className="temple-form-page">
       <div className="page-header">
-        <h1>{isEditMode ? '✏️ Edit Temple' : '➕ Add New Temple'}</h1>
+        <h1>{isEditMode ? '✏️ Edit Temple' : '➕ New Temple'}</h1>
         <p>{isEditMode ? 'Update temple information' : 'Add a new temple to the system'}</p>
       </div>
 
@@ -424,6 +495,14 @@ const TempleFormPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="form-section">
+          <h2>Entry Fee Information</h2>
+          <EntryFeeManager
+            options={formData.entryFeeOptions || []}
+            onChange={(options) => setFormData({ ...formData, entryFeeOptions: options })}
+          />
+        </div>
+
         <div className="form-actions">
           <button
             type="button"
@@ -434,7 +513,7 @@ const TempleFormPage: React.FC = () => {
             Cancel
           </button>
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Saving...' : isEditMode ? 'Update Temple' : 'Create Temple'}
+            {loading ? 'Saving...' : isEditMode ? 'Save' : 'Create'}
           </button>
         </div>
       </form>

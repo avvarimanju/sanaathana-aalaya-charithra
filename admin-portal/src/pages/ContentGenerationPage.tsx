@@ -288,7 +288,7 @@ const ContentGenerationPage: React.FC = () => {
               onClick={handleGenerate}
               disabled={generating || !selectedArtifact}
             >
-              {generating ? '⏳ Generating...' : '🚀 Generate Content'}
+              {generating ? '⏳ Generating...' : '🚀 Generate'}
             </button>
           </div>
 
@@ -318,7 +318,7 @@ const ContentGenerationPage: React.FC = () => {
           ) : jobs.length === 0 ? (
             <div className="empty-state">
               <p>No content generation jobs yet.</p>
-              <p>Create your first job in the Generate Content tab.</p>
+              <p>Create your first job in the Generate tab.</p>
             </div>
           ) : (
             <div className="jobs-table">

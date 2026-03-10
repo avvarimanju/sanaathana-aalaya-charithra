@@ -80,13 +80,17 @@ Sanaathana Aalaya Charithra is an AI-powered platform that provides immersive, m
 
 ```
 Sanaathana-Aalaya-Charithra/
+├── .github/                   # CI/CD workflows
+├── .kiro/                     # Kiro configuration
+│
 ├── admin-portal/              # Admin web application (React + Vite)
 │   ├── src/
 │   │   ├── api/              # API client layer
 │   │   ├── components/       # React components
 │   │   ├── pages/            # Page components
 │   │   └── types/            # TypeScript types
-│   └── package.json
+│   ├── package.json
+│   └── README.md
 │
 ├── mobile-app/                # Mobile application (React Native + Expo)
 │   ├── src/
@@ -94,29 +98,34 @@ Sanaathana-Aalaya-Charithra/
 │   │   ├── screens/          # Screen components
 │   │   ├── navigation/       # Navigation setup
 │   │   └── api/              # API client
-│   └── package.json
+│   ├── package.json
+│   └── README.md
 │
-├── src/                       # Backend Lambda functions
-│   ├── temple-pricing/       # Temple pricing service
+├── backend/                   # Backend API (AWS Lambda)
+│   ├── src/                  # Backend source code
+│   │   ├── temple-pricing/   # Temple pricing service
+│   │   ├── state-management/ # State visibility service
+│   │   ├── auth/             # Authentication
 │   │   ├── lambdas/          # Lambda handlers
-│   │   └── types/            # TypeScript types
-│   ├── state-management/     # State visibility service
-│   ├── local-server/         # Local development server
-│   └── shared/               # Shared utilities
+│   │   ├── local-server/     # Local development server
+│   │   └── utils/            # Utilities
+│   ├── infrastructure/       # AWS CDK infrastructure code
+│   ├── template.yaml         # SAM template
+│   ├── cdk.json             # CDK configuration
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── README.md
 │
-├── infrastructure/            # AWS CDK infrastructure code
-│   ├── lib/                  # CDK constructs
-│   └── bin/                  # CDK app entry
+├── shared/                    # Shared code across apps
+│   ├── types/                # TypeScript interfaces
+│   ├── utils/                # Utility functions
+│   ├── constants/            # Shared constants
+│   └── README.md
 │
-├── scripts/                   # Utility scripts
+├── scripts/                   # Build and deployment scripts
 │   ├── deployment/           # Deployment scripts
 │   ├── development/          # Development scripts
 │   └── testing/              # Test scripts
-│
-├── tests/                     # Test files
-│   ├── unit/                 # Unit tests
-│   ├── integration/          # Integration tests
-│   └── e2e/                  # End-to-end tests
 │
 ├── docs/                      # Documentation
 │   ├── getting-started/      # Setup guides
@@ -128,53 +137,63 @@ Sanaathana-Aalaya-Charithra/
 │   ├── mobile-app/           # Mobile app docs
 │   └── admin-portal/         # Admin portal docs
 │
+├── tests/                     # Integration tests
 ├── config/                    # Configuration files
+├── data/                      # Data files
 ├── docker-compose.yml         # LocalStack setup
-├── template.yaml              # SAM template
-├── cdk.json                   # CDK configuration
-└── package.json               # Root dependencies
+├── package.json               # Root workspace config
+├── tsconfig.json              # Root TypeScript config
+└── README.md
 ```
+
+**Note:** This is a monorepo structure. See [REORGANIZATION_GUIDE.md](REORGANIZATION_GUIDE.md) for details on the recent reorganization.
 
 ## Quick Start
 
-Get started in 5 minutes with local development:
+Get the development environment running with a single command:
 
 ### Prerequisites
 
-- Docker Desktop (for LocalStack)
-- Node.js 18+
-- AWS CLI (for LocalStack interaction)
-- Git
+- **Docker Desktop** - Required for LocalStack (must be running)
+- **Node.js 18+** - JavaScript runtime
+- **Git** - Version control
 
-### 1. Start LocalStack
+### Start Development Environment
 
 ```powershell
-docker-compose up -d
+.\scripts\start-dev-environment.ps1
 ```
 
-### 2. Initialize Database
+This script will:
+1. Check Docker Desktop is running
+2. Start LocalStack container
+3. Initialize DynamoDB tables
+4. Start backend API server (port 4000)
+5. Start admin portal (port 5173)
+
+**Access Points:**
+- Admin Portal: http://localhost:5173
+- Backend API: http://localhost:4000
+- Health Check: http://localhost:4000/health
+
+### Important: Startup Sequence
+
+⚠️ The backend server MUST be running before the admin portal can load data. The startup script handles this automatically.
+
+If you start services manually, always start the backend server first:
 
 ```powershell
-.\scripts\init-local-db.ps1
-```
+# Manual startup (not recommended)
+# 1. Start backend first
+cd backend
+npm start
 
-### 3. Start Backend Server
-
-```powershell
-.\scripts\start-local-backend.ps1
-```
-
-### 4. Start Admin Portal
-
-```powershell
+# 2. Then start admin portal
 cd admin-portal
-npm install
 npm run dev
 ```
 
-Open http://localhost:5173
-
-### 5. Start Mobile App (Optional)
+### Start Mobile App (Optional)
 
 ```powershell
 cd mobile-app
@@ -286,6 +305,68 @@ npm run lint
 ```powershell
 npm run type-check
 ```
+
+## Troubleshooting
+
+### Backend Connection Errors
+
+**Problem:** Admin portal shows "Error Loading Temples - Failed to load temples. Please try again."
+
+**Cause:** Backend API server is not running on port 4000.
+
+**Solution:**
+1. Use the startup script: `.\scripts\start-dev-environment.ps1`
+2. Or manually start backend first: `cd backend && npm start`
+3. Verify backend is running: http://localhost:4000/health
+
+**Browser Console Error:** `ERR_CONNECTION_REFUSED` for `http://localhost:4000/api/*`
+
+This confirms the backend server is not accessible. Always ensure the backend starts before the admin portal.
+
+### Docker Desktop Not Running
+
+**Problem:** Startup script fails with Docker-related errors.
+
+**Solution:**
+1. Start Docker Desktop
+2. Wait for Docker to fully initialize
+3. Run the startup script again
+
+### Port Already in Use
+
+**Problem:** Error: "Port 4000 is already in use" or "Port 5173 is already in use"
+
+**Solution:**
+1. Find and stop the process using the port:
+   ```powershell
+   # Find process on port 4000
+   netstat -ano | findstr :4000
+   
+   # Kill the process (replace PID with actual process ID)
+   taskkill /PID <PID> /F
+   ```
+2. Or use different ports in configuration files
+
+### LocalStack Connection Issues
+
+**Problem:** Backend can't connect to LocalStack DynamoDB.
+
+**Solution:**
+1. Verify LocalStack is running: `docker ps`
+2. Restart LocalStack: `docker-compose restart`
+3. Re-initialize database: `.\scripts\init-local-db.ps1`
+
+### Admin Portal Loads But No Data
+
+**Problem:** Admin portal loads but all sections show loading or error states.
+
+**Solution:**
+1. Check backend health: http://localhost:4000/health
+2. Check browser console for specific API errors
+3. Verify DynamoDB tables are initialized: `.\scripts\init-local-db.ps1`
+4. Restart backend server
+
+For more troubleshooting help, see [Local Development Guide](docs/getting-started/local-development.md).
 
 ## Contributing
 

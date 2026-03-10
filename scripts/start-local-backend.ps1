@@ -38,15 +38,15 @@ if (-not $localstackRunning) {
 Write-Host "LocalStack is running" -ForegroundColor Green
 
 # Install dependencies if needed
-if (-not (Test-Path "src/local-server/node_modules")) {
+if (-not (Test-Path "backend/src/local-server/node_modules")) {
     Write-Host "Installing dependencies..." -ForegroundColor Cyan
-    Set-Location src/local-server
+    Set-Location backend/src/local-server
     npm install
-    Set-Location ../..
+    Set-Location ../../..
 }
 
 # Start the server
 Write-Host "Starting server on http://localhost:4000..." -ForegroundColor Cyan
 Write-Host "Using DynamoDB endpoint: $ENDPOINT" -ForegroundColor Yellow
-Set-Location src/local-server
+Set-Location backend/src/local-server
 npm start

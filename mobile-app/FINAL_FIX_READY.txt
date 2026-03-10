@@ -11,7 +11,7 @@ NEXT STEPS:
 -----------
 
 1. Commit and push the changes:
-   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+   cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra
    git add .
    git commit -m "Fix EAS CLI version constraint and workflow"
    git push origin main

@@ -24,6 +24,7 @@ export interface Temple {
   status: 'active' | 'inactive';
   activeArtifactCount: number;
   qrCodeCount?: number;
+  imageUrl?: string;
   createdAt: string;
   createdBy: string;
   updatedAt: string;
@@ -36,6 +37,7 @@ export interface CreateTempleRequest {
   description: string;
   location: Location;
   accessMode: 'FREE' | 'PAID' | 'HYBRID';
+  imageUrl?: string;
 }
 
 export interface UpdateTempleRequest {
@@ -44,6 +46,7 @@ export interface UpdateTempleRequest {
   location?: Location;
   accessMode?: 'FREE' | 'PAID' | 'HYBRID';
   status?: 'active' | 'inactive';
+  imageUrl?: string;
 }
 
 export interface TempleGroup {
@@ -194,3 +197,13 @@ export class TempleApi {
 
 // Export singleton instance
 export const templeApi = new TempleApi();
+
+// Standalone function exports for backward compatibility
+export async function getArtifacts(params?: {
+  templeId?: string;
+  status?: 'active' | 'inactive';
+  type?: string;
+  limit?: number;
+}): Promise<{ items: Artifact[]; total: number }> {
+  return templeApi.listArtifacts(params);
+}

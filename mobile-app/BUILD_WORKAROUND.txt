@@ -8,7 +8,7 @@ SOLUTION: Temporarily rename it during build
 
 STEP 1: Rename parent package.json
 -----------------------------------
-cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra
 ren package.json package.json.backup
 
 STEP 2: Run the build
@@ -18,7 +18,7 @@ eas build --platform android --profile internal-testing
 
 STEP 3: Restore parent package.json (after build starts uploading)
 -------------------------------------------------------------------
-cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra
+cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra
 ren package.json.backup package.json
 
 IMPORTANT:

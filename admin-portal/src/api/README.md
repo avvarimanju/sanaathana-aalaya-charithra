@@ -375,6 +375,6 @@ This API client implements the following requirements:
 
 ## Related Files
 
-- `mobile-app/src/services/defect-api.service.ts` - Mobile app API client
+- `../../mobile-app/src/services/defect-api.service.ts` - Mobile app API client
 - `src/defect-tracking/services/DefectService.ts` - Backend service implementation
 - `infrastructure/stacks/DefectTrackingStack.ts` - Infrastructure definition

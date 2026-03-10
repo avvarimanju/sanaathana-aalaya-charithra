@@ -1,0 +1,272 @@
+================================================================================
+                    TEMPLE DATA - QUICK START GUIDE
+================================================================================
+
+QUESTION: How do we get the list of 1,000 temples?
+ANSWER:   Multiple options - automated, manual, or hybrid approach.
+
+================================================================================
+                         OPTION 1: USE SAMPLE DATA (FASTEST)
+================================================================================
+
+We've created a sample dataset with 50 famous temples!
+
+Location: data/temples-sample.json
+
+What's included:
+  • 50 most famous Hindu temples across India
+  • Complete data: name, location, deity, built year, style
+  • GPS coordinates for maps
+  • Brief descriptions
+
+Next steps:
+  1. Review the sample: cat data/temples-sample.json
+  2. Generate AI content: .\scripts\generate-content-locally.ps1 -InputFile "data/temples-sample.json" -TempleCount 50
+  3. Cost: $0.46 (50 temples × $0.0092)
+  4. Time: 2 minutes
+
+================================================================================
+                    OPTION 2: FETCH FROM WIKIDATA (AUTOMATED)
+================================================================================
+
+Get 1,000 temples automatically from Wikidata!
+
+Command:
+  .\scripts\fetch-temples-from-wikidata.ps1 -Count 1000 -OutputFile "data/temples.json"
+
+What you get:
+  • 1,000+ Hindu temples from across India
+  • Names, locations, deities, coordinates
+  • Structured JSON format
+  • Ready for AI content generation
+
+Time: 5-10 minutes
+Cost: FREE
+Quality: Good (verified data from Wikipedia)
+
+Next steps:
+  1. Fetch temples: .\scripts\fetch-temples-from-wikidata.ps1 -Count 1000
+  2. Review data: cat data/temples.json
+  3. Generate AI content: .\scripts\generate-content-locally.ps1 -InputFile "data/temples.json" -TempleCount 1000
+  4. Cost: $9.20 (1,000 temples × $0.0092)
+
+================================================================================
+                    OPTION 3: MANUAL COMPILATION (MOST ACCURATE)
+================================================================================
+
+Create your own temple list with best quality data.
+
+Steps:
+  1. Create Excel/CSV with columns:
+     - Temple ID
+     - Temple Name
+     - State
+     - City
+     - Deity
+     - Built Year
+     - Architectural Style
+     - Latitude
+     - Longitude
+     - Description
+
+  2. Sources to use:
+     - Wikipedia articles
+     - Temple official websites
+     - Tourism department websites
+     - Archaeological Survey of India
+     - Temple books and guides
+
+  3. Convert to JSON format
+  4. Generate AI content
+
+Time: 1-4 weeks (depending on detail level)
+Cost: FREE (your time)
+Quality: Excellent (you control accuracy)
+
+================================================================================
+                    OPTION 4: HYBRID APPROACH (RECOMMENDED)
+================================================================================
+
+Combine automated + manual for best results!
+
+Step 1: Fetch 1,000 temples from Wikidata (10 minutes)
+  .\scripts\fetch-temples-from-wikidata.ps1 -Count 1000
+
+Step 2: Manually enrich top 100 temples (1 week)
+  - Add better descriptions
+  - Add historical details
+  - Add architectural information
+  - Verify accuracy
+
+Step 3: Generate AI content for all 1,000 temples
+  .\scripts\generate-content-locally.ps1 -InputFile "data/temples.json" -TempleCount 1000
+
+Result:
+  • 1,000 temples with AI-generated content
+  • Top 100 have enhanced quality
+  • Rest have good baseline quality
+
+Time: 1 week
+Cost: $9.20 (AI generation)
+Quality: Excellent for top 100, Good for rest
+
+================================================================================
+                         WHAT DATA DO YOU NEED?
+================================================================================
+
+MINIMUM REQUIRED (for AI to generate content):
+  ✓ Temple Name
+  ✓ State
+  ✓ City
+  ✓ Deity
+
+RECOMMENDED (for better AI content):
+  ✓ Built Year
+  ✓ Architectural Style
+  ✓ Brief Description
+  ✓ GPS Coordinates
+
+OPTIONAL (for enhanced content):
+  • Built By (king/ruler)
+  • Historical Context
+  • Festivals
+  • Timings
+  • Entry Fee
+  • Website
+  • Phone Number
+
+================================================================================
+                         SAMPLE DATA FORMAT
+================================================================================
+
+{
+  "templeId": "temple_001",
+  "name": "Brihadeeswarar Temple",
+  "state": "Tamil Nadu",
+  "city": "Thanjavur",
+  "deity": "Lord Shiva",
+  "built": "1010 CE",
+  "builtBy": "Raja Raja Chola I",
+  "style": "Dravidian",
+  "latitude": 10.7825,
+  "longitude": 79.1317,
+  "description": "UNESCO World Heritage Site, one of the largest temples"
+}
+
+================================================================================
+                         RECOMMENDED WORKFLOW
+================================================================================
+
+WEEK 1: Start with Sample Data
+───────────────────────────────────────────────────────────
+Day 1: Review sample data (50 temples)
+Day 2: Generate AI content for 50 temples
+Day 3: Review generated content quality
+Day 4: Deploy to test environment
+Day 5: Test mobile app with real data
+
+Cost: $0.46
+Result: Working app with 50 temples
+
+
+WEEK 2: Expand to 200 Temples
+───────────────────────────────────────────────────────────
+Day 1: Fetch 200 temples from Wikidata
+Day 2: Review and clean data
+Day 3: Generate AI content for 200 temples
+Day 4: Review content quality
+Day 5: Deploy to staging
+
+Cost: $1.84
+Result: App with 200 temples
+
+
+MONTH 2: Complete 1,000 Temples
+───────────────────────────────────────────────────────────
+Week 1: Fetch 1,000 temples from Wikidata
+Week 2: Manually enrich top 100 temples
+Week 3: Generate AI content for all 1,000
+Week 4: Review, test, and deploy
+
+Cost: $9.20
+Result: Production app with 1,000 temples
+
+================================================================================
+                         QUICK COMMANDS
+================================================================================
+
+# Use sample data (50 temples)
+cat data/temples-sample.json
+.\scripts\generate-content-locally.ps1 -InputFile "data/temples-sample.json" -TempleCount 50
+
+# Fetch from Wikidata (1,000 temples)
+.\scripts\fetch-temples-from-wikidata.ps1 -Count 1000 -OutputFile "data/temples.json"
+
+# Fetch temples from specific state
+.\scripts\fetch-temples-from-wikidata.ps1 -Count 500 -State "Tamil Nadu"
+
+# Generate AI content
+.\scripts\generate-content-locally.ps1 -InputFile "data/temples.json" -TempleCount 1000 -Model sonnet
+
+# Validate temple data
+.\scripts\validate-temple-data.ps1 -InputFile "data/temples.json"
+
+================================================================================
+                         COST BREAKDOWN
+================================================================================
+
+Sample Data (50 temples):
+  Data Collection: FREE (already provided)
+  AI Generation: $0.46
+  Total: $0.46
+
+Wikidata (1,000 temples):
+  Data Collection: FREE (automated)
+  AI Generation: $9.20
+  Total: $9.20
+
+Manual (1,000 temples):
+  Data Collection: FREE (your time: 1 month)
+  AI Generation: $9.20
+  Total: $9.20
+
+Hybrid (1,000 temples):
+  Data Collection: FREE (automated + 1 week manual)
+  AI Generation: $9.20
+  Total: $9.20
+
+================================================================================
+                         NEXT STEPS
+================================================================================
+
+IMMEDIATE (Today):
+  1. Review sample data: cat data/temples-sample.json
+  2. Decide which approach to use
+  3. Wait for AWS Bedrock access (24-48 hours)
+
+SHORT TERM (This Week):
+  1. Test with sample data (50 temples)
+  2. Generate AI content
+  3. Review quality
+  4. Decide on expansion strategy
+
+LONG TERM (Next Month):
+  1. Expand to 1,000 temples
+  2. Generate all AI content
+  3. Deploy to production
+  4. Add photos and videos
+
+================================================================================
+                         SUPPORT & DOCUMENTATION
+================================================================================
+
+Detailed Guide: HOW_TO_GET_TEMPLE_DATA.md
+Sample Data: data/temples-sample.json
+Fetch Script: scripts/fetch-temples-from-wikidata.ps1
+Generate Script: scripts/generate-content-locally.ps1
+
+================================================================================
+Last Updated: March 3, 2026
+Status: Ready to use
+Next: Choose your approach and start collecting data!
+================================================================================

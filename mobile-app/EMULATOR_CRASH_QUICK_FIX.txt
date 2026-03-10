@@ -1,0 +1,37 @@
+EMULATOR CRASHED - QUICK FIX
+============================
+
+ERROR: "Process has terminated"
+
+QUICK FIXES (Try in order):
+
+1. USE SIMPLER DEVICE
+   - Delete Pixel 9 Pro XL
+   - Create new: Pixel 5
+   - Android 13 (API 33)
+   - RAM: 2048 MB
+   - This works on most laptops!
+
+2. REDUCE RAM
+   - Edit emulator
+   - Advanced Settings
+   - RAM: 2048 MB (not 4096)
+   - Storage: 2048 MB
+
+3. ENABLE VIRTUALIZATION
+   - Restart laptop
+   - Press F2 during boot (or F10/Del)
+   - Find "Virtualization" or "VT-x"
+   - Enable it
+   - Save and restart
+
+4. USE WEB BROWSER INSTEAD
+   cd Sanaathana-Aalaya-Charithra/mobile-app
+   npx expo start --clear
+   Press 'w' for web
+   
+   No emulator needed!
+   Works perfectly!
+
+BEST SOLUTION FOR YOU:
+Use web browser (option 4) - it's easier and no crashes!

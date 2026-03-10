@@ -16,21 +16,49 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sanaathana.aalayacharithra"
+      "bundleIdentifier": "com.charithra.app",
+      "associatedDomains": [
+        "applinks:charithra.org"
+      ]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FF6B35"
       },
-      "package": "com.sanaathana.aalayacharithra",
+      "package": "com.charithra.app",
       "versionCode": 1,
       "permissions": [
         "CAMERA",
         "RECORD_AUDIO"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "charithra.org",
+              "pathPrefix": "/temple"
+            },
+            {
+              "scheme": "https",
+              "host": "charithra.org",
+              "pathPrefix": "/artifact"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
       ]
     },
-    "web": {},
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/icon.png"
+    },
     "extra": {
       "eas": {
         "projectId": "eb47f233-ddd2-4edb-92f5-60914d13af3c"

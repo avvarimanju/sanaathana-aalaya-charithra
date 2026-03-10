@@ -1,6 +1,9 @@
 // Jest setup file for Mobile App tests
 import '@testing-library/jest-native/extend-expect';
 
+// Fix for React 19 compatibility with react-test-renderer
+global.IS_REACT_ACT_ENVIRONMENT = true;
+
 // Mock react-native-gesture-handler
 jest.mock('react-native-gesture-handler', () => ({
   Swipeable: 'Swipeable',

@@ -1,0 +1,82 @@
+╔════════════════════════════════════════════════════════════════╗
+║          BUILD AAB FOR PLAY STORE - QUICK START               ║
+╚════════════════════════════════════════════════════════════════╝
+
+📍 LOCATION: C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app
+
+🚀 ONE COMMAND TO BUILD:
+
+    .\build-aab.ps1
+
+⏱️  TIME: 10-20 minutes (first time), 2-5 minutes (subsequent)
+
+📦 OUTPUT: android\app\build\outputs\bundle\release\app-release.aab
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ WHAT YOU NEED:
+   • Android Studio installed ✓
+   • Keystore file (sanaathana-release-key.keystore) ✓
+   • Keystore passwords (you'll be prompted)
+
+❌ WHAT YOU DON'T NEED:
+   • Docker running
+   • Backend API running
+   • expo.dev account
+   • Internet (after first build)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 STEP BY STEP:
+
+1. Open PowerShell
+2. cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app
+3. .\build-aab.ps1
+4. Enter keystore passwords when prompted
+5. Wait 10-20 minutes
+6. Done! AAB file is ready
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 IF BUILD FAILS:
+
+Error: "JAVA_HOME is not set"
+→ The script handles this automatically. If still fails:
+  $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
+
+Error: "Keystore password incorrect"
+→ Delete android\keystore.properties and run script again
+
+Error: Build hangs
+→ Be patient! First build downloads ~500MB of dependencies
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 AFTER BUILD SUCCEEDS:
+
+1. Go to: https://play.google.com/console
+2. Create app (if first time)
+3. Go to: Testing → Internal testing
+4. Create new release
+5. Upload: app-release.aab
+6. Add release notes
+7. Roll out to testers
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 QUICK TIPS:
+
+• First build is slow (downloads dependencies)
+• Subsequent builds are fast (uses cache)
+• You can build offline after first time
+• No need to move backend code
+• Docker not required for building
+• Build works independently of backend
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 MORE INFO: See BUILD_AAB_COMPLETE_GUIDE.md
+
+╔════════════════════════════════════════════════════════════════╗
+║  Ready? Just run: .\build-aab.ps1                             ║
+╚════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,324 @@
+================================================================================
+                    CONTENT FORMATS QUICK REFERENCE
+================================================================================
+
+QUESTION: What formats are pre-generated?
+ANSWER:   Only TEXT is pre-generated. Audio is on-demand. Others are manual.
+
+================================================================================
+                         CONTENT FORMAT MATRIX
+================================================================================
+
+Format          | Pre-Generated? | How Generated?        | Cost per Temple
+----------------|----------------|-----------------------|------------------
+TEXT            | ✓ YES          | AWS Bedrock (AI)      | $0.0092
+AUDIO           | ✗ NO           | On-demand (TTS)       | $0.000016
+PHOTOS          | ✗ NO           | Manual upload         | $0 (storage only)
+VIDEOS          | ✗ NO           | Manual upload         | $0 (storage only)
+INFOGRAPHICS    | ✗ NO           | Manual creation       | $0 (storage only)
+
+================================================================================
+                         GENERATION WORKFLOW
+================================================================================
+
+TEXT (Pre-Generated):
+───────────────────────────────────────────────────────────
+Admin clicks "Generate Content"
+    ↓
+AWS Bedrock generates 4 sections:
+  • About (150-200 words)
+  • History (250-300 words)
+  • Significance (200-250 words)
+  • Architecture (250-300 words)
+    ↓
+Saved to DynamoDB
+    ↓
+DONE - Available to all users immediately
+
+
+AUDIO (On-Demand):
+───────────────────────────────────────────────────────────
+User clicks "Play Audio" button
+    ↓
+Check if audio exists in S3 cache
+    ↓
+If cached → Stream from S3 (FREE)
+    ↓
+If not cached:
+  Generate with Google TTS
+  Save to S3
+  Stream to user
+    ↓
+Next user gets cached version (FREE)
+
+
+PHOTOS (Manual Upload):
+───────────────────────────────────────────────────────────
+Admin uploads photos via Admin Portal
+    ↓
+Saved to S3 bucket
+    ↓
+Available to users immediately
+
+
+VIDEOS (Manual Upload or YouTube):
+───────────────────────────────────────────────────────────
+Option A: Admin uploads video to S3 (EXPENSIVE)
+Option B: Admin adds YouTube link (FREE)
+    ↓
+Displayed in app
+
+
+INFOGRAPHICS (Manual Creation):
+───────────────────────────────────────────────────────────
+Admin creates infographic (Canva, Figma)
+    ↓
+Uploads as image to S3
+    ↓
+Displayed in app gallery
+
+================================================================================
+                         COST COMPARISON
+================================================================================
+
+For 1,000 Temples:
+
+Format          | One-Time Cost | Monthly Storage | Monthly Delivery
+----------------|---------------|-----------------|------------------
+TEXT            | $9.20         | $0.01           | $0.04
+AUDIO           | $0.14         | $0.20           | $0.30
+PHOTOS          | $0            | $1.00           | $0.10
+VIDEOS (S3)     | $0            | $230.00         | $100.00
+VIDEOS (YouTube)| $0            | $0              | $0
+INFOGRAPHICS    | $0            | $0.50           | $0.10
+
+================================================================================
+                    RECOMMENDED CONFIGURATIONS
+================================================================================
+
+OPTION 1: MINIMAL (MVP Testing)
+───────────────────────────────────────────────────────────
+✓ Text only
+✗ No audio
+✗ No photos
+✗ No videos
+✗ No infographics
+
+Cost: $9.20 one-time + $0.05/month
+Best for: Testing, proof of concept
+
+
+OPTION 2: STANDARD (RECOMMENDED for Launch)
+───────────────────────────────────────────────────────────
+✓ Text (pre-generated)
+✓ Audio (on-demand, 9 languages)
+✓ Photos (2-3 per temple, manual upload)
+✗ No videos
+✗ No infographics
+
+Cost: $9.34 one-time + $1.65/month
+Best for: Production launch, good UX
+
+
+OPTION 3: ENHANCED (Full Featured)
+───────────────────────────────────────────────────────────
+✓ Text (pre-generated)
+✓ Audio (on-demand, 9 languages)
+✓ Photos (5-10 per temple, manual upload)
+✓ Videos (YouTube embeds - FREE)
+✗ No infographics
+
+Cost: $9.34 one-time + $1.65/month
+Best for: Rich media experience
+
+
+OPTION 4: PREMIUM (Everything)
+───────────────────────────────────────────────────────────
+✓ Text (pre-generated)
+✓ Audio (on-demand, 9 languages)
+✓ Photos (10+ per temple)
+✓ Videos (S3 storage)
+✓ Infographics
+
+Cost: $9.34 one-time + $332.25/month
+Best for: High-budget apps
+⚠️  WARNING: Very expensive due to video storage!
+
+================================================================================
+                         WHAT USERS SEE
+================================================================================
+
+In Mobile App - Temple Detail Screen:
+
+┌─────────────────────────────────────┐
+│ Brihadeeswarar Temple               │
+│                                     │
+│ [Hero Photo] ← Manual upload        │
+│                                     │
+│ 📖 About                            │
+│ [Text content] ← Pre-generated      │
+│ [🔊 Listen] ← On-demand audio      │
+│                                     │
+│ 📜 History                          │
+│ [Text content] ← Pre-generated      │
+│ [🔊 Listen] ← On-demand audio      │
+│                                     │
+│ 📸 Photo Gallery                    │
+│ [Photos] ← Manual uploads           │
+│                                     │
+│ 🎥 Videos (if enabled)              │
+│ [YouTube embed] ← Manual link       │
+│                                     │
+└─────────────────────────────────────┘
+
+================================================================================
+                    HOW TO CHOOSE FORMATS
+================================================================================
+
+Ask yourself:
+
+1. What's your budget?
+   Low budget → Text only
+   Medium budget → Text + Audio
+   High budget → Text + Audio + Photos + Videos
+
+2. What's your timeline?
+   Quick launch → Text only (auto-generated)
+   Normal launch → Text + Audio (mostly auto)
+   Long timeline → Everything (includes manual work)
+
+3. What's your team size?
+   Solo/Small → Text + Audio (minimal manual work)
+   Medium team → Add photos (some manual work)
+   Large team → Everything (lots of manual work)
+
+4. What's your user expectation?
+   Basic info → Text only
+   Good experience → Text + Audio
+   Premium experience → Everything
+
+================================================================================
+                    GENERATION COMMANDS
+================================================================================
+
+Generate TEXT content:
+───────────────────────────────────────────────────────────
+.\scripts\generate-content-locally.ps1 -TempleCount 1000 -Model sonnet
+
+Cost: $9.20 one-time
+Time: 60 minutes
+Output: JSON files with text content
+
+
+Enable AUDIO generation:
+───────────────────────────────────────────────────────────
+# Set in environment variables
+ENABLE_AUDIO_GENERATION=true
+AUDIO_GENERATE_ON_DEMAND=true
+
+Cost: $0.000016 per audio (first time), FREE after caching
+Generated: When user clicks "Play Audio"
+
+
+Upload PHOTOS:
+───────────────────────────────────────────────────────────
+# Via Admin Portal
+1. Login to Admin Portal
+2. Go to Temple Management
+3. Select temple
+4. Upload photos (drag & drop)
+
+Cost: Storage only (~$0.001 per temple)
+
+
+Add VIDEOS:
+───────────────────────────────────────────────────────────
+Option A: YouTube embeds (RECOMMENDED)
+  1. Find temple video on YouTube
+  2. Copy video URL
+  3. Add to temple in Admin Portal
+  Cost: FREE
+
+Option B: Upload to S3 (EXPENSIVE)
+  1. Upload video file via Admin Portal
+  2. Stored in S3
+  Cost: ~$0.23 per temple per month
+
+
+Create INFOGRAPHICS:
+───────────────────────────────────────────────────────────
+1. Create infographic in Canva/Figma
+2. Export as PNG/JPG
+3. Upload via Admin Portal
+Cost: Storage only (~$0.0005 per temple)
+
+================================================================================
+                         KEY DECISIONS
+================================================================================
+
+DECISION 1: Which model for text generation?
+───────────────────────────────────────────────────────────
+Haiku:  $0.60 for 1,000 temples (cheaper, good quality)
+Sonnet: $9.20 for 1,000 temples (expensive, excellent quality)
+
+Recommendation: Use Sonnet for production
+
+
+DECISION 2: Enable audio?
+───────────────────────────────────────────────────────────
+YES - Adds $0.14 one-time + $0.50/month
+     Great for accessibility and user experience
+
+NO  - Save $0.64/month
+     Users can only read text
+
+
+DECISION 3: Upload photos?
+───────────────────────────────────────────────────────────
+YES - Adds $1.10/month
+     Much better visual appeal
+
+NO  - Save $1.10/month
+     Text-only experience
+
+
+DECISION 4: Include videos?
+───────────────────────────────────────────────────────────
+YouTube embeds: FREE - RECOMMENDED
+S3 storage: $330/month - NOT RECOMMENDED (too expensive)
+
+NO videos: Save bandwidth, simpler app
+
+
+DECISION 5: Create infographics?
+───────────────────────────────────────────────────────────
+YES - Adds $0.60/month + manual work
+     Nice visual elements
+
+NO  - Save time and money
+     Text and photos are enough
+
+================================================================================
+                         FINAL RECOMMENDATION
+================================================================================
+
+For Your Project (1,000 Temples):
+
+✓ TEXT: Pre-generate with Sonnet ($9.20 one-time)
+✓ AUDIO: Enable on-demand generation ($0.14 one-time + $0.50/month)
+✓ PHOTOS: Upload 2-3 per temple manually ($1.10/month)
+✓ VIDEOS: Use YouTube embeds (FREE)
+✗ INFOGRAPHICS: Skip for now (not essential)
+
+TOTAL COST:
+  One-time: $9.34
+  Monthly: $1.65
+
+USER EXPERIENCE: Excellent
+MAINTENANCE: Low
+SCALABILITY: High
+
+================================================================================
+Last Updated: March 3, 2026
+Status: Architecture Decision Document
+================================================================================

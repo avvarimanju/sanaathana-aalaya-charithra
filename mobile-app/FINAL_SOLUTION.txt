@@ -49,7 +49,7 @@ STEP 4: Nuclear option (if all else fails)
 Temporarily move mobile-app OUT of the parent directory:
 
 1. Move mobile-app to a sibling directory:
-   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+   cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS
    move Sanaathana-Aalaya-Charithra\mobile-app mobile-app-temp
 
 2. Build from there:
@@ -57,7 +57,7 @@ Temporarily move mobile-app OUT of the parent directory:
    eas build --platform android --profile internal-testing
 
 3. Move it back after build succeeds:
-   cd C:\Users\avvar\OneDrive\LEARNING\Hack2Skill
+   cd C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS
    move mobile-app-temp Sanaathana-Aalaya-Charithra\mobile-app
 
 TRY STEP 2 FIRST (--clear-cache)!

@@ -10,6 +10,7 @@ export * from './calculatorApi';
 export * from './contentApi';
 export * from './userApi';
 export * from './defectApi';
+export * from './trustedSourcesApi';
 
 // Re-export singleton instances for convenience
 export { apiClient } from './client';

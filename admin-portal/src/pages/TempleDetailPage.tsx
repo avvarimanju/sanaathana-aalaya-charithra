@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { templeApi, Temple } from '../api/templeApi';
+import { formatDate } from '../utils/dateFormatter';
 import './TempleDetailPage.css';
 
 const TempleDetailPage: React.FC = () => {
@@ -51,7 +52,7 @@ const TempleDetailPage: React.FC = () => {
           <h2>Temple Not Found</h2>
           <p>{error || "The temple you're looking for doesn't exist."}</p>
           <button className="btn-primary" onClick={() => navigate('/temples')}>
-            Back to Temples
+            ← Back
           </button>
         </div>
       </div>
@@ -65,14 +66,14 @@ const TempleDetailPage: React.FC = () => {
       {/* Header */}
       <div className="page-header">
         <button className="btn-back" onClick={() => navigate('/temples')}>
-          ← Back to Temples
+          ← Back
         </button>
         <div className="header-actions">
           <button className="btn-secondary" onClick={() => navigate(`/temples/${id}/edit`)}>
-            ✏️ Edit Temple
+            ✏️ Edit
           </button>
           <button className="btn-secondary" onClick={() => navigate(`/artifacts?temple=${id}`)}>
-            📿 Manage Artifacts
+            📿 Artifacts
           </button>
         </div>
       </div>
@@ -207,11 +208,11 @@ const TempleDetailPage: React.FC = () => {
               <div className="timeline">
                 <div className="timeline-item">
                   <span className="timeline-label">Created:</span>
-                  <span className="timeline-value">{new Date(temple.createdAt).toLocaleDateString()}</span>
+                  <span className="timeline-value">{formatDate(temple.createdAt)}</span>
                 </div>
                 <div className="timeline-item">
                   <span className="timeline-label">Last Updated:</span>
-                  <span className="timeline-value">{new Date(temple.updatedAt).toLocaleDateString()}</span>
+                  <span className="timeline-value">{formatDate(temple.updatedAt)}</span>
                 </div>
               </div>
             </div>
@@ -225,7 +226,7 @@ const TempleDetailPage: React.FC = () => {
               <h3>Artifacts Coming Soon</h3>
               <p>Artifact management will be integrated in the next phase</p>
               <button className="btn-primary" onClick={() => navigate(`/artifacts?temple=${id}`)}>
-                Manage Artifacts
+                View Artifacts
               </button>
             </div>
           </div>

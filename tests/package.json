@@ -1,0 +1,27 @@
+{
+  "name": "sanaathana-aalaya-charithra-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Integration and E2E tests",
+  "scripts": {
+    "test": "jest --config config/jest.config.js",
+    "test:unit": "jest --config config/jest.config.js --selectProjects unit",
+    "test:integration": "jest --config config/jest.config.js --selectProjects integration",
+    "test:property": "jest --config config/jest.config.js --selectProjects property-based",
+    "test:watch": "jest --config config/jest.config.js --watch",
+    "test:coverage": "jest --config config/jest.config.js --coverage",
+    "test:e2e": "playwright test --config config/playwright.config.ts",
+    "test:e2e:ui": "playwright test --config config/playwright.config.ts --ui",
+    "test:e2e:headed": "playwright test --config config/playwright.config.ts --headed",
+    "test:e2e:debug": "playwright test --config config/playwright.config.ts --debug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "axios": "^1.6.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  }
+}

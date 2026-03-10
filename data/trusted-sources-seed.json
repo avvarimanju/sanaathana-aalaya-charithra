@@ -1,0 +1,500 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-03T00:00:00Z",
+  "verifiedBy": "admin@sanaathana.org",
+  "sources": [
+    {
+      "sourceName": "Hindu Religious & Charitable Endowments (HR&CE) Tamil Nadu",
+      "sourceUrl": "https://www.hrce.tn.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Tamil Nadu"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official state authority managing Hindu temples in Tamil Nadu",
+        "managementBody": "Government of Tamil Nadu",
+        "contactEmail": "hrce@tn.gov.in"
+      }
+    },
+    {
+      "sourceName": "Tamil Nadu Tourism",
+      "sourceUrl": "https://www.tamilnadutourism.tn.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Tamil Nadu"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Tamil Nadu temples",
+        "managementBody": "Government of Tamil Nadu"
+      }
+    },
+    {
+      "sourceName": "Endowments Department, Government of Andhra Pradesh",
+      "sourceUrl": "https://www.apendowments.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Andhra Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official state authority managing Hindu temples in Andhra Pradesh",
+        "managementBody": "Government of Andhra Pradesh"
+      }
+    },
+    {
+      "sourceName": "Tirumala Tirupati Devasthanams (TTD)",
+      "sourceUrl": "https://www.tirumala.org",
+      "sourceType": "state_authority",
+      "applicableStates": ["Andhra Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Sri Venkateswara Swamy Temple and TTD managed temples",
+        "managementBody": "Tirumala Tirupati Devasthanams"
+      }
+    },
+    {
+      "sourceName": "Andhra Pradesh Tourism",
+      "sourceUrl": "https://aptourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Andhra Pradesh"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Andhra Pradesh temples",
+        "managementBody": "Government of Andhra Pradesh"
+      }
+    },
+    {
+      "sourceName": "Muzrai Department, Government of Karnataka",
+      "sourceUrl": "https://muzrai.karnataka.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Karnataka"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official state authority managing Hindu temples in Karnataka",
+        "managementBody": "Government of Karnataka"
+      }
+    },
+    {
+      "sourceName": "Karnataka Tourism",
+      "sourceUrl": "https://www.karnatakatourism.org",
+      "sourceType": "state_authority",
+      "applicableStates": ["Karnataka"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Karnataka temples",
+        "managementBody": "Government of Karnataka"
+      }
+    },
+    {
+      "sourceName": "Travancore Devaswom Board",
+      "sourceUrl": "https://www.tdb.kerala.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Kerala"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Manages temples in Travancore region including Padmanabhaswamy Temple",
+        "managementBody": "Government of Kerala"
+      }
+    },
+    {
+      "sourceName": "Cochin Devaswom Board",
+      "sourceUrl": "https://www.cochindevaswomboard.org",
+      "sourceType": "state_authority",
+      "applicableStates": ["Kerala"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Manages temples in Cochin region of Kerala",
+        "managementBody": "Government of Kerala"
+      }
+    },
+    {
+      "sourceName": "Malabar Devaswom Board",
+      "sourceUrl": "https://malabardevaswomboard.org",
+      "sourceType": "state_authority",
+      "applicableStates": ["Kerala"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Manages temples in Malabar region of Kerala",
+        "managementBody": "Government of Kerala"
+      }
+    },
+    {
+      "sourceName": "Guruvayur Devaswom",
+      "sourceUrl": "https://guruvayurdevaswom.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Kerala"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Sri Krishna Temple, Guruvayur",
+        "managementBody": "Guruvayur Devaswom"
+      }
+    },
+    {
+      "sourceName": "Sabarimala Temple Official",
+      "sourceUrl": "https://sabarimala.kerala.gov.in",
+      "sourceType": "temple_official",
+      "applicableStates": ["Kerala"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Sabarimala Sree Dharma Sastha Temple",
+        "managementBody": "Travancore Devaswom Board"
+      }
+    },
+    {
+      "sourceName": "Kerala Tourism",
+      "sourceUrl": "https://www.keralatourism.org",
+      "sourceType": "state_authority",
+      "applicableStates": ["Kerala"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Kerala temples",
+        "managementBody": "Government of Kerala"
+      }
+    },
+    {
+      "sourceName": "Endowments Department, Government of Telangana",
+      "sourceUrl": "https://www.endowments.telangana.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Telangana"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official state authority managing Hindu temples in Telangana",
+        "managementBody": "Government of Telangana"
+      }
+    },
+    {
+      "sourceName": "Telangana Tourism",
+      "sourceUrl": "https://www.telanganatourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Telangana"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Telangana temples",
+        "managementBody": "Government of Telangana"
+      }
+    },
+    {
+      "sourceName": "Maharashtra Tourism",
+      "sourceUrl": "https://www.maharashtratourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Maharashtra"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Maharashtra temples",
+        "managementBody": "Government of Maharashtra"
+      }
+    },
+    {
+      "sourceName": "Shree Siddhivinayak Ganapati Temple Trust",
+      "sourceUrl": "https://www.siddhivinayak.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Maharashtra"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Siddhivinayak Temple, Mumbai",
+        "managementBody": "Shree Siddhivinayak Ganapati Temple Trust"
+      }
+    },
+    {
+      "sourceName": "Shree Somnath Trust",
+      "sourceUrl": "https://www.somnath.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Gujarat"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Somnath Jyotirlinga Temple",
+        "managementBody": "Shree Somnath Trust"
+      }
+    },
+    {
+      "sourceName": "Shree Dwarkadhish Temple",
+      "sourceUrl": "https://dwarkadhish.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Gujarat"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Dwarkadhish Temple",
+        "managementBody": "Shree Dwarkadhish Temple Trust"
+      }
+    },
+    {
+      "sourceName": "Gujarat Tourism",
+      "sourceUrl": "https://www.gujarattourism.com",
+      "sourceType": "state_authority",
+      "applicableStates": ["Gujarat"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Gujarat temples",
+        "managementBody": "Government of Gujarat"
+      }
+    },
+    {
+      "sourceName": "Shree Jagannath Temple Administration, Puri",
+      "sourceUrl": "https://jagannath.nic.in",
+      "sourceType": "temple_official",
+      "applicableStates": ["Odisha"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Jagannath Temple, Puri",
+        "managementBody": "Shree Jagannath Temple Administration"
+      }
+    },
+    {
+      "sourceName": "Odisha Tourism",
+      "sourceUrl": "https://www.odishatourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Odisha"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Odisha temples",
+        "managementBody": "Government of Odisha"
+      }
+    },
+    {
+      "sourceName": "Shri Kashi Vishwanath Temple Trust",
+      "sourceUrl": "https://shrikashivishwanath.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Uttar Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Kashi Vishwanath Temple, Varanasi",
+        "managementBody": "Shri Kashi Vishwanath Temple Trust"
+      }
+    },
+    {
+      "sourceName": "Uttar Pradesh Tourism",
+      "sourceUrl": "https://www.uptourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Uttar Pradesh"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Uttar Pradesh temples",
+        "managementBody": "Government of Uttar Pradesh"
+      }
+    },
+    {
+      "sourceName": "Badrinath-Kedarnath Temple Committee",
+      "sourceUrl": "https://badarikedar.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Uttarakhand"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Badrinath and Kedarnath temples",
+        "managementBody": "Badrinath-Kedarnath Temple Committee"
+      }
+    },
+    {
+      "sourceName": "Uttarakhand Tourism",
+      "sourceUrl": "https://uttarakhandtourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Uttarakhand"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Uttarakhand temples",
+        "managementBody": "Government of Uttarakhand"
+      }
+    },
+    {
+      "sourceName": "Mahakaleshwar Temple, Ujjain",
+      "sourceUrl": "https://www.mahakaleshwar.nic.in",
+      "sourceType": "temple_official",
+      "applicableStates": ["Madhya Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Mahakaleshwar Jyotirlinga Temple",
+        "managementBody": "Mahakaleshwar Temple Committee"
+      }
+    },
+    {
+      "sourceName": "Madhya Pradesh Tourism",
+      "sourceUrl": "https://www.mptourism.com",
+      "sourceType": "state_authority",
+      "applicableStates": ["Madhya Pradesh"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Madhya Pradesh temples",
+        "managementBody": "Government of Madhya Pradesh"
+      }
+    },
+    {
+      "sourceName": "Shiromani Gurdwara Parbandhak Committee (SGPC)",
+      "sourceUrl": "https://sgpc.net",
+      "sourceType": "state_authority",
+      "applicableStates": ["Punjab"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Manages Sri Harmandir Sahib (Golden Temple) and other Gurdwaras",
+        "managementBody": "SGPC"
+      }
+    },
+    {
+      "sourceName": "Punjab Tourism",
+      "sourceUrl": "https://punjabtourism.punjab.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Punjab"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Punjab temples",
+        "managementBody": "Government of Punjab"
+      }
+    },
+    {
+      "sourceName": "Rajasthan Tourism",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Rajasthan"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Rajasthan temples",
+        "managementBody": "Government of Rajasthan"
+      }
+    },
+    {
+      "sourceName": "West Bengal Tourism",
+      "sourceUrl": "https://wbtourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["West Bengal"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for West Bengal temples",
+        "managementBody": "Government of West Bengal"
+      }
+    },
+    {
+      "sourceName": "Kamakhya Temple Official",
+      "sourceUrl": "https://kamakhyatemple.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Assam"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Kamakhya Temple, Guwahati",
+        "managementBody": "Kamakhya Temple Committee"
+      }
+    },
+    {
+      "sourceName": "Assam Tourism",
+      "sourceUrl": "https://tourism.assam.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Assam"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Assam temples",
+        "managementBody": "Government of Assam"
+      }
+    },
+    {
+      "sourceName": "Delhi Tourism",
+      "sourceUrl": "https://www.delhitourism.gov.in",
+      "sourceType": "state_authority",
+      "applicableStates": ["Delhi"],
+      "trustScore": 8,
+      "metadata": {
+        "description": "Official tourism website for Delhi temples",
+        "managementBody": "Government of Delhi"
+      }
+    },
+    {
+      "sourceName": "Akshardham Temple Official",
+      "sourceUrl": "https://akshardham.com",
+      "sourceType": "temple_official",
+      "applicableStates": ["Delhi"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Akshardham Temple, Delhi",
+        "managementBody": "BAPS Swaminarayan Sanstha"
+      }
+    },
+    {
+      "sourceName": "Archaeological Survey of India (ASI)",
+      "sourceUrl": "https://asi.nic.in",
+      "sourceType": "heritage_authority",
+      "trustScore": 10,
+      "metadata": {
+        "description": "National authority for heritage temples and monuments",
+        "managementBody": "Government of India"
+      }
+    },
+    {
+      "sourceName": "Ministry of Tourism, Government of India",
+      "sourceUrl": "https://tourism.gov.in",
+      "sourceType": "heritage_authority",
+      "trustScore": 9,
+      "metadata": {
+        "description": "National tourism authority",
+        "managementBody": "Government of India"
+      }
+    },
+    {
+      "sourceName": "Incredible India",
+      "sourceUrl": "https://www.incredibleindia.org",
+      "sourceType": "heritage_authority",
+      "trustScore": 9,
+      "metadata": {
+        "description": "Official tourism portal of India",
+        "managementBody": "Government of India"
+      }
+    },
+    {
+      "sourceName": "Arulmigu Meenakshi Sundareswarar Temple",
+      "sourceUrl": "https://www.maduraimeenakshi.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Tamil Nadu"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Meenakshi Temple, Madurai",
+        "managementBody": "Arulmigu Meenakshi Sundareswarar Temple"
+      }
+    },
+    {
+      "sourceName": "Sri Ranganathaswamy Temple, Srirangam",
+      "sourceUrl": "https://www.srirangam.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Tamil Nadu"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Ranganathaswamy Temple, Srirangam",
+        "managementBody": "Sri Ranganathaswamy Temple"
+      }
+    },
+    {
+      "sourceName": "Sri Kalahasteeswara Swamy Temple",
+      "sourceUrl": "https://www.srikalahasti.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Andhra Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Kalahasteeswara Swamy Temple",
+        "managementBody": "Sri Kalahasteeswara Swamy Devasthanam"
+      }
+    },
+    {
+      "sourceName": "Sri Bhramaramba Mallikarjuna Swamy Temple, Srisailam",
+      "sourceUrl": "https://www.srisailadevasthanam.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Andhra Pradesh"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Srisailam Temple",
+        "managementBody": "Srisailam Devasthanam"
+      }
+    },
+    {
+      "sourceName": "Sri Krishna Matha, Udupi",
+      "sourceUrl": "https://www.udupi-krishna.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Karnataka"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Krishna Temple, Udupi",
+        "managementBody": "Sri Krishna Matha"
+      }
+    },
+    {
+      "sourceName": "Sri Murudeshwara Temple",
+      "sourceUrl": "https://murudeshwara.org",
+      "sourceType": "temple_official",
+      "applicableStates": ["Karnataka"],
+      "trustScore": 10,
+      "metadata": {
+        "description": "Official website for Murudeshwara Temple",
+        "managementBody": "Murudeshwara Temple Trust"
+      }
+    }
+  ]
+}

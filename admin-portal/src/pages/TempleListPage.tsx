@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { templeApi, Temple } from '../api/templeApi';
+import { apiClient } from '../api/client';
 import './TempleListPage.css';
 
 const TempleListPage: React.FC = () => {
@@ -11,6 +12,18 @@ const TempleListPage: React.FC = () => {
   const [temples, setTemples] = useState<Temple[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isConnectionError, setIsConnectionError] = useState(false);
+
+  // List of valid Indian states
+  const indianStates = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand',
+    'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+    'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+    'Jammu and Kashmir', 'Ladakh', 'Delhi', 'Puducherry'
+  ];
 
   // Fetch temples from API
   useEffect(() => {
@@ -20,12 +33,28 @@ const TempleListPage: React.FC = () => {
   const loadTemples = async () => {
     setLoading(true);
     setError(null);
+    setIsConnectionError(false);
     
     try {
+      // Check backend health first
+      const isAvailable = await apiClient.isBackendAvailable();
+      if (!isAvailable) {
+        setError('Backend server is not running. Please start the backend server on port 4000.');
+        setIsConnectionError(true);
+        setLoading(false);
+        return;
+      }
+
       const response = await templeApi.listTemples();
       setTemples(response.items);
-    } catch (err) {
-      setError('Failed to load temples. Please try again.');
+    } catch (err: any) {
+      // Check if it's a connection error
+      if (err.isConnectionRefused || err.message?.includes('Backend server is not running')) {
+        setError('Backend server is not running. Please start the backend server on port 4000.');
+        setIsConnectionError(true);
+      } else {
+        setError('Failed to load temples. Please try again.');
+      }
       console.error('Error loading temples:', err);
     } finally {
       setLoading(false);
@@ -45,6 +74,15 @@ const TempleListPage: React.FC = () => {
   const totalArtifacts = temples.reduce((sum, t) => sum + (t.activeArtifactCount || 0), 0);
   const totalScans = temples.reduce((sum, t) => sum + (t.qrCodeCount || 0), 0);
 
+  // Get unique states that have temples (only valid Indian states)
+  const availableStates = Array.from(
+    new Set(
+      temples
+        .map(t => t.location.state)
+        .filter(state => indianStates.includes(state))
+    )
+  ).sort();
+
   // Show loading state
   if (loading) {
     return (
@@ -62,11 +100,16 @@ const TempleListPage: React.FC = () => {
     return (
       <div className="temple-list-page">
         <div className="error-state">
-          <div className="error-icon">⚠️</div>
-          <h2>Error Loading Temples</h2>
+          <div className="error-icon">{isConnectionError ? '🔌' : '⚠️'}</div>
+          <h2>{isConnectionError ? 'Backend Server Not Running' : 'Error Loading Temples'}</h2>
           <p>{error}</p>
+          {isConnectionError && (
+            <p className="error-hint">
+              💡 Tip: Run <code>.\scripts\start-dev-environment.ps1</code> to start all services
+            </p>
+          )}
           <button className="btn-primary" onClick={loadTemples}>
-            Retry
+            🔄 Retry
           </button>
         </div>
       </div>
@@ -81,7 +124,7 @@ const TempleListPage: React.FC = () => {
           <p>Manage Hindu temples and their information</p>
         </div>
         <button className="btn-primary" onClick={() => navigate('/temples/new')}>
-          ➕ Add New Temple
+          ➕ New Temple
         </button>
       </div>
 
@@ -121,8 +164,9 @@ const TempleListPage: React.FC = () => {
         <div className="filter-controls">
           <select value={filterState} onChange={(e) => setFilterState(e.target.value)}>
             <option value="all">All States</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <option value="Karnataka">Karnataka</option>
+            {availableStates.map(state => (
+              <option key={state} value={state}>{state}</option>
+            ))}
           </select>
           <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
             <option value="all">All Status</option>
@@ -161,7 +205,7 @@ const TempleListPage: React.FC = () => {
                 className="btn-secondary"
                 onClick={() => navigate(`/temples/${temple.templeId}`)}
               >
-                View Details
+                View
               </button>
               <button
                 className="btn-icon"

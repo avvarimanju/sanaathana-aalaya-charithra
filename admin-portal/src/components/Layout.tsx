@@ -22,6 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { path: '/temples', label: 'Temples', icon: '🛕' },
     { path: '/artifacts', label: 'Artifacts', icon: '🗿' },
     { path: '/states', label: 'State Management', icon: '🗺️' },
+    { path: '/trusted-sources', label: 'Trusted Sources', icon: '🔗' },
     { path: '/pricing', label: 'Pricing', icon: '💰' },
     { path: '/price-calculator', label: 'Price Calculator', icon: '🧮' },
     { path: '/content', label: 'Content Generation', icon: '✨' },

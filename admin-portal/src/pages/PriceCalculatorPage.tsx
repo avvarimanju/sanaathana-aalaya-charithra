@@ -242,7 +242,7 @@ const PriceCalculatorPage: React.FC = () => {
               </div>
 
               <button className="btn-primary btn-large" onClick={handleSimulate}>
-                Test Formula (Simulation)
+                Simulate
               </button>
             </div>
           </div>
@@ -253,7 +253,7 @@ const PriceCalculatorPage: React.FC = () => {
         <div className="simulation-tab">
           {!showSimulation ? (
             <div className="empty-state">
-              <p>Configure a formula in the "Formula Configuration" tab and click "Test Formula" to see simulation results.</p>
+              <p>Configure a formula in the "Formula Configuration" tab and click "Simulate" to see results.</p>
             </div>
           ) : (
             <>
@@ -313,7 +313,7 @@ const PriceCalculatorPage: React.FC = () => {
                   Cancel
                 </button>
                 <button className="btn-primary btn-large" onClick={handleApplyFormula}>
-                  Apply Formula to All Entities
+                  Apply Formula
                 </button>
               </div>
             </>

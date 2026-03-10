@@ -186,7 +186,7 @@ const UserManagementPage: React.FC = () => {
         <div className="header-actions">
           {activeTab === 'admin' && (
             <button className="btn-primary" onClick={() => setShowAddModal(true)}>
-              ➕ Add Dashboard User
+              ➕ New User
             </button>
           )}
         </div>
@@ -422,7 +422,7 @@ const UserManagementPage: React.FC = () => {
       {showAddModal && (
         <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Add Dashboard User</h2>
+            <h2>New User</h2>
             <form onSubmit={handleCreateUser}>
               <div className="form-group">
                 <label>Name *</label>
@@ -460,7 +460,7 @@ const UserManagementPage: React.FC = () => {
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">
-                  Create User
+                  Create
                 </button>
               </div>
             </form>

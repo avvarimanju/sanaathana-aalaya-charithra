@@ -1,0 +1,32 @@
+[
+  {
+    "Message": "Tests failed for Admin Portal",
+    "Timestamp": "2026-03-08T12:45:34.8819936+05:30",
+    "Level": "ERROR"
+  },
+  {
+    "Message": "Build failed for Admin Portal",
+    "Timestamp": "2026-03-08T12:45:54.7116546+05:30",
+    "Level": "ERROR"
+  },
+  {
+    "Message": "Admin Portal ready for local dev (http://localhost:5173)",
+    "Timestamp": "2026-03-08T12:45:54.7975441+05:30",
+    "Level": "SUCCESS"
+  },
+  {
+    "Message": "Tests failed for Mobile App",
+    "Timestamp": "2026-03-08T12:45:59.6056633+05:30",
+    "Level": "ERROR"
+  },
+  {
+    "Message": "Mobile App ready for local dev (expo start)",
+    "Timestamp": "2026-03-08T12:45:59.6260128+05:30",
+    "Level": "SUCCESS"
+  },
+  {
+    "Message": "Backend ready for local dev (http://localhost:4000)",
+    "Timestamp": "2026-03-08T12:45:59.6745071+05:30",
+    "Level": "SUCCESS"
+  }
+]

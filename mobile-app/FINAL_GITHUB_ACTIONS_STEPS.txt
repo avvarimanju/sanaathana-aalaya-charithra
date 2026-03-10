@@ -24,7 +24,7 @@ STEP 3: Push and Build (30 seconds)
 ------------------------------------
 Run this command from PowerShell:
 
-cd "C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app"
+cd "C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app"
 git push origin main
 
 That's it! The build will start automatically!

@@ -15,6 +15,7 @@ import {
   Notification,
   NotificationType,
 } from '../services/defect-api.service';
+import { formatRelativeTime } from '../utils/dateFormatter';
 
 /**
  * Notification type icons and colors
@@ -116,32 +117,7 @@ export default function NotificationsScreen({ route, navigation }: Notifications
     });
   };
 
-  /**
-   * Format timestamp to readable date
-   */
-  const formatTimeAgo = (timestamp: string): string => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-
-    if (diffMins < 1) {
-      return 'Just now';
-    } else if (diffMins < 60) {
-      return `${diffMins}m ago`;
-    } else if (diffHours < 24) {
-      return `${diffHours}h ago`;
-    } else if (diffDays < 7) {
-      return `${diffDays}d ago`;
-    } else {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-      });
-    }
-  };
+  // Date formatting function removed - now using imported formatRelativeTime from ../utils/dateFormatter
 
   /**
    * Render notification item
@@ -192,7 +168,7 @@ export default function NotificationsScreen({ route, navigation }: Notifications
           </Text>
 
           {/* Timestamp */}
-          <Text style={styles.notificationTime}>{formatTimeAgo(item.createdAt)}</Text>
+          <Text style={styles.notificationTime}>{formatRelativeTime(item.createdAt)}</Text>
         </View>
 
         {/* Chevron */}
@@ -274,7 +250,7 @@ export default function NotificationsScreen({ route, navigation }: Notifications
         renderItem={renderNotificationItem}
         keyExtractor={(item: Notification) => item.notificationId}
         contentContainerStyle={styles.listContent}
-        ListEmptyComponent={renderEmptyState}
+        ListEmptyComponent={renderEmptyState()}
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}

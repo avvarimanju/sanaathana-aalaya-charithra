@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanaathana Aalaya Charithra - Interactive Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+
+        
+        .header {
+            background: #FF6B35;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100% - 120px);
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .nav-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn {
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #e55a2b;
+        }
+        
+        .btn-secondary {
+            background: #004E89;
+        }
+        
+        .btn-secondary:hover {
+            background: #003d6b;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        
+        .temple-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .state-btn {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .state-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .info-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        
+        .info-panel h2 {
+            color: #FF6B35;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-panel li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .info-panel li:hover {
+            color: #FF6B35;
+        }
+        
+        .splash {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7B801 100%);
+            color: white;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+
+            
+            <!-- Splash Screen -->
+            <div class="screen active" id="splash">
+                <div class="splash">
+                    <div class="logo">🕉️</div>
+                    <div class="app-title">
+                        Sanaathana Aalaya<br>Charithra
+                    </div>
+                    <p style="margin-top: 20px; opacity: 0.8;">Loading...</p>
+                </div>
+            </div>
+            
+            <!-- Welcome Screen -->
+            <div class="screen" id="welcome">
+                <div class="content" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="text-align: right; padding: 10px;">
+                        <button onclick="showScreen('home')" style="background: none; border: none; color: #FF6B35; cursor: pointer; font-size: 16px;">Skip</button>
+                    </div>
+                    <div style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 80px; margin-bottom: 20px;">🏛️</div>
+                        <h2 style="color: #FF6B35; margin-bottom: 15px;">Discover Sacred Temples</h2>
+                        <p style="color: #757575; padding: 0 30px;">Explore thousands of Hindu temples across India with rich history and cultural significance</p>
+                        <div style="margin-top: 30px;">
+                            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #FF6B35; margin: 0 5px;"></span>
+                            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #ddd; margin: 0 5px;"></span>
+                            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #ddd; margin: 0 5px;"></span>
+                        </div>
+                    </div>
+                    <div style="padding: 20px;">
+                        <button class="btn" onclick="showScreen('home')">Get Started →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Screen -->
+            <div class="screen" id="home">
+                <div class="header">
+                    <span style="font-size: 24px; cursor: pointer;" onclick="showScreen('menu')">☰</span>
+                    <span style="font-weight: bold;">Sanaathana Aalaya</span>
+                    <span style="font-size: 20px; cursor: pointer;" onclick="showScreen('search')">🔍</span>
+                </div>
+                <div class="content">
+                    <h3 style="margin-bottom: 15px;">Featured Temple</h3>
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div class="temple-image">🏛️ Temple Image</div>
+                        <h4>Brihadeeswarar Temple</h4>
+                        <p style="color: #757575; font-size: 14px;">📍 Thanjavur, Tamil Nadu</p>
+                        <p style="color: #F7B801; margin-top: 5px;">⭐ 4.8 (1,234 reviews)</p>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 15px;">Explore by State</h3>
+                    <div class="state-grid">
+                        <div class="state-btn" onclick="showScreen('state-list')">
+                            <div style="font-size: 24px; margin-bottom: 5px;">🏛️</div>
+                            <div style="font-size: 12px;">Tamil Nadu</div>
+                        </div>
+                        <div class="state-btn" onclick="showScreen('state-list')">
+                            <div style="font-size: 24px; margin-bottom: 5px;">🏛️</div>
+                            <div style="font-size: 12px;">Karnataka</div>
+                        </div>
+                        <div class="state-btn" onclick="showScreen('india-map')">
+                            <div style="font-size: 24px; margin-bottom: 5px;">🗺️</div>
+                            <div style="font-size: 12px;">View Map</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 15px;">Popular Temples</h3>
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <h4>Tirupati Temple</h4>
+                        <p style="color: #757575; font-size: 14px;">Andhra Pradesh</p>
+                    </div>
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <h4>Meenakshi Temple</h4>
+                        <p style="color: #757575; font-size: 14px;">Tamil Nadu</p>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- India Map Screen -->
+            <div class="screen" id="india-map">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('home')">← Explore by State</span>
+                </div>
+                <div class="content" style="text-align: center;">
+                    <h3 style="margin-bottom: 20px;">Select a State</h3>
+                    <div style="background: #f5f5f5; padding: 40px; border-radius: 12px; margin: 20px 0;">
+                        <div style="font-size: 120px;">🗺️</div>
+                        <p style="color: #757575; margin-top: 20px;">Interactive India Map</p>
+                        <p style="color: #757575; font-size: 14px;">Tap a state to explore temples</p>
+                    </div>
+                    <button class="btn" onclick="showScreen('state-list')">View as List</button>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')" style="background: #f5f5f5;">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- State List Screen -->
+            <div class="screen" id="state-list">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('home')">← Tamil Nadu</span>
+                    <span style="font-size: 14px;">234 temples</span>
+                </div>
+                <div class="content">
+                    <input type="text" placeholder="🔍 Search temples..." style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 20px;">
+                    
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">🏛️</div>
+                            <div style="flex: 1;">
+                                <h4>Brihadeeswarar Temple</h4>
+                                <p style="color: #757575; font-size: 14px;">Thanjavur</p>
+                                <p style="color: #F7B801; margin-top: 5px; font-size: 14px;">⭐ 4.8 💬 1.2k</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">🏛️</div>
+                            <div style="flex: 1;">
+                                <h4>Meenakshi Temple</h4>
+                                <p style="color: #757575; font-size: 14px;">Madurai</p>
+                                <p style="color: #F7B801; margin-top: 5px; font-size: 14px;">⭐ 4.9 💬 2.5k</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">🏛️</div>
+                            <div style="flex: 1;">
+                                <h4>Ramanathaswamy Temple</h4>
+                                <p style="color: #757575; font-size: 14px;">Rameswaram</p>
+                                <p style="color: #F7B801; margin-top: 5px; font-size: 14px;">⭐ 4.7 💬 980</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Temple Detail Screen -->
+            <div class="screen" id="temple-detail">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('state-list')">←</span>
+                    <span></span>
+                    <div>
+                        <span style="margin: 0 10px; cursor: pointer;">📤</span>
+                        <span style="margin: 0 10px; cursor: pointer;" onclick="alert('Saved!')">⭐</span>
+                        <span style="margin: 0 10px; cursor: pointer;" onclick="alert('Playing audio...')">🔊</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="temple-image" style="height: 200px; font-size: 60px;">🏛️</div>
+                    
+                    <h2 style="margin: 15px 0 10px;">Brihadeeswarar Temple</h2>
+                    <p style="color: #F7B801; margin-bottom: 5px;">⭐ 4.8 (1,234 reviews)</p>
+                    <p style="color: #757575;">📍 Thanjavur, Tamil Nadu</p>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="margin-bottom: 10px;">About</h4>
+                        <p style="color: #757575; font-size: 14px; line-height: 1.6;">
+                            Built in 1010 CE by Raja Raja Chola I, this magnificent temple is a UNESCO World Heritage Site and one of the largest temples in India...
+                        </p>
+                        <button style="background: none; border: none; color: #FF6B35; cursor: pointer; margin-top: 10px;">Read More →</button>
+                    </div>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="margin-bottom: 10px;">History</h4>
+                        <p style="color: #757575; font-size: 14px; line-height: 1.6;">
+                            The temple represents the pinnacle of Chola architecture and engineering. It was completed in 1010 CE...
+                        </p>
+                        <button style="background: none; border: none; color: #FF6B35; cursor: pointer; margin-top: 10px;">Read More →</button>
+                    </div>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="margin-bottom: 10px;">📸 Gallery</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                            <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;"></div>
+                            <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;"></div>
+                            <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="margin-bottom: 10px;">⏰ Timings</h4>
+                        <p style="color: #757575; font-size: 14px;">Morning: 6:00 AM - 12:30 PM</p>
+                        <p style="color: #757575; font-size: 14px;">Evening: 4:00 PM - 8:30 PM</p>
+                    </div>
+                    
+                    <button class="btn">🗺️ Get Directions</button>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Screen -->
+            <div class="screen" id="search">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('home')">←</span>
+                    <input type="text" placeholder="🔍 Search temples..." style="flex: 1; margin: 0 10px; padding: 8px; border: 1px solid #fff; border-radius: 8px;">
+                </div>
+                <div class="content">
+                    <h4 style="margin-bottom: 15px;">Recent Searches</h4>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('temple-detail')">• Tirupati</div>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('temple-detail')">• Meenakshi</div>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('temple-detail')">• Somnath</div>
+                    
+                    <h4 style="margin: 30px 0 15px;">Popular Searches</h4>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('state-list')">• Shiva temples</div>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('state-list')">• Vishnu temples</div>
+                    <div style="color: #757575; padding: 10px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('state-list')">• Tamil Nadu temples</div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Saved Temples Screen -->
+            <div class="screen" id="saved">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('home')">← Saved Temples</span>
+                    <span style="font-size: 14px;">12 temples</span>
+                </div>
+                <div class="content">
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4>Brihadeeswarar Temple</h4>
+                                <p style="color: #757575; font-size: 14px;">Tamil Nadu</p>
+                                <p style="color: #999; font-size: 12px; margin-top: 5px;">Saved 2 days ago</p>
+                            </div>
+                            <span style="cursor: pointer; font-size: 20px;" onclick="event.stopPropagation(); alert('Removed!')">×</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card" onclick="showScreen('temple-detail')">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4>Meenakshi Temple</h4>
+                                <p style="color: #757575; font-size: 14px;">Tamil Nadu</p>
+                                <p style="color: #999; font-size: 12px; margin-top: 5px;">Saved 1 week ago</p>
+                            </div>
+                            <span style="cursor: pointer; font-size: 20px;" onclick="event.stopPropagation(); alert('Removed!')">×</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary" onclick="alert('All saved temples cleared!')">Clear All</button>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item" onclick="showScreen('home')">
+                        <div style="font-size: 20px;">🏠</div>
+                        <div style="font-size: 10px;">Home</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('india-map')">
+                        <div style="font-size: 20px;">🗺️</div>
+                        <div style="font-size: 10px;">Map</div>
+                    </div>
+                    <div class="nav-item" onclick="showScreen('saved')" style="background: #f5f5f5;">
+                        <div style="font-size: 20px;">⭐</div>
+                        <div style="font-size: 10px;">Saved</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Menu Screen -->
+            <div class="screen" id="menu">
+                <div class="header">
+                    <span style="cursor: pointer;" onclick="showScreen('home')">← Menu</span>
+                </div>
+                <div class="content">
+                    <div style="text-align: center; padding: 20px 0; border-bottom: 1px solid #e0e0e0;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👤</div>
+                        <h4>Guest User</h4>
+                        <p style="color: #757575; font-size: 14px;">guest@example.com</p>
+                    </div>
+                    
+                    <div style="padding: 20px 0;">
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('home')">🏠 Home</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('india-map')">🗺️ Explore by Map</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('saved')">⭐ Saved Temples</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="showScreen('search')">🔍 Search</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('Language selector')">🌐 Language (English)</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('Theme toggle')">🎨 Theme (Light)</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('About page')">ℹ️ About</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('Contact form')">📧 Contact Us</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('Privacy policy')">🔒 Privacy Policy</div>
+                        <div style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; cursor: pointer;" onclick="alert('Settings')">⚙️ Settings</div>
+                        <div style="padding: 15px 0; cursor: pointer; color: #F44336;" onclick="alert('Logged out')">🚪 Logout</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Info Panel -->
+        <div class="info-panel">
+            <h2>📱 Interactive Wireframe</h2>
+            <p style="color: #757575; margin-bottom: 20px;">Click on any element to navigate through the app screens.</p>
+            
+            <h3 style="margin-bottom: 10px; color: #004E89;">Available Screens:</h3>
+            <ul>
+                <li onclick="showScreen('splash')">Splash Screen</li>
+                <li onclick="showScreen('welcome')">Welcome Screen</li>
+                <li onclick="showScreen('home')">Home Screen</li>
+                <li onclick="showScreen('india-map')">India Map</li>
+                <li onclick="showScreen('state-list')">State Temples List</li>
+                <li onclick="showScreen('temple-detail')">Temple Detail</li>
+                <li onclick="showScreen('search')">Search</li>
+                <li onclick="showScreen('saved')">Saved Temples</li>
+                <li onclick="showScreen('menu')">Menu</li>
+            </ul>
+            
+            <div style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-radius: 8px;">
+                <h4 style="margin-bottom: 10px;">💡 Tips:</h4>
+                <ul style="padding-left: 20px; color: #757575; font-size: 14px;">
+                    <li>Click cards to view details</li>
+                    <li>Use bottom navigation</li>
+                    <li>Click back arrows to return</li>
+                    <li>Explore all interactive elements</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #FF6B35; color: white; border-radius: 8px; text-align: center;">
+                <p style="font-size: 14px; margin-bottom: 10px;">Current Screen:</p>
+                <p id="current-screen" style="font-weight: bold; font-size: 18px;">Splash Screen</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-advance from splash to welcome after 2 seconds
+        setTimeout(() => {
+            showScreen('welcome');
+        }, 2000);
+        
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update current screen indicator
+            const screenNames = {
+                'splash': 'Splash Screen',
+                'welcome': 'Welcome Screen',
+                'home': 'Home Screen',
+                'india-map': 'India Map',
+                'state-list': 'State Temples List',
+                'temple-detail': 'Temple Detail',
+                'search': 'Search',
+                'saved': 'Saved Temples',
+                'menu': 'Menu'
+            };
+            
+            document.getElementById('current-screen').textContent = screenNames[screenId] || screenId;
+        }
+    </script>
+</body>
+</html>

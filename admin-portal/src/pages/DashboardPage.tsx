@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DashboardPage.css';
 
 const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
   // Mock data - in production, fetch from API
   const stats = {
     temples: 25,
@@ -96,10 +98,18 @@ const DashboardPage: React.FC = () => {
       <div className="quick-actions">
         <h2>Quick Actions</h2>
         <div className="action-buttons">
-          <button className="action-btn">➕ Add Temple</button>
-          <button className="action-btn">🗿 Add Artifact</button>
-          <button className="action-btn">✨ Generate Content</button>
-          <button className="action-btn">📊 View Analytics</button>
+          <button className="action-btn" onClick={() => navigate('/temples/new')}>
+            ➕ New Temple
+          </button>
+          <button className="action-btn" onClick={() => navigate('/artifacts')}>
+            🗿 New Artifact
+          </button>
+          <button className="action-btn" onClick={() => navigate('/content')}>
+            ✨ Generate Content
+          </button>
+          <button className="action-btn" onClick={() => navigate('/analytics')}>
+            📊 Analytics
+          </button>
         </div>
       </div>
     </div>

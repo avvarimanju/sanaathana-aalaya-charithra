@@ -11,9 +11,9 @@ adaptive-icon.png → mobile-app/assets/adaptive-icon.png
 FULL PATHS:
 -----------
 
-C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\icon.png
-C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\splash.png
-C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra\mobile-app\assets\adaptive-icon.png
+C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app\assets\icon.png
+C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app\assets\splash.png
+C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra\mobile-app\assets\adaptive-icon.png
 
 IMAGE REQUIREMENTS:
 -------------------

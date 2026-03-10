@@ -26,7 +26,7 @@ STEP 3: Commit and Push Workflow File
 --------------------------------------
 Run these commands from PowerShell:
 
-cd "C:\Users\avvar\OneDrive\LEARNING\Hack2Skill\Sanaathana-Aalaya-Charithra"
+cd "C:\Users\avvar\OneDrive\LEARNING\MANJU_PROJECTS\Sanaathana-Aalaya-Charithra"
 
 git add .github/workflows/eas-build.yml
 git commit -m "Add GitHub Actions workflow for EAS build"

@@ -1,0 +1,74 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║              🔧 NETWORK ERROR - QUICK FIX 🔧                      ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+
+ERROR YOU SAW:
+--------------
+TypeError: fetch failed
+
+
+WHAT IT MEANS:
+--------------
+Expo can't reach the internet (firewall/proxy/offline)
+
+
+THE FIX (Choose One):
+----------------------
+
+  ✅ OPTION 1 - Use Updated Script:
+  
+     cd Sanaathana-Aalaya-Charithra/mobile-app
+     ./START_NOW.ps1
+     
+     (Script now includes --offline flag)
+
+
+  ✅ OPTION 2 - Manual Command:
+  
+     cd Sanaathana-Aalaya-Charithra/mobile-app
+     npx expo start --web --offline
+
+
+  ✅ OPTION 3 - Localhost Only:
+  
+     cd Sanaathana-Aalaya-Charithra/mobile-app
+     npx expo start --web --localhost
+
+
+WHY THIS WORKS:
+---------------
+The --offline flag tells Expo to skip internet checks
+and run using local cache only.
+
+You still get:
+  ✅ Full app functionality
+  ✅ Hot reload
+  ✅ Web browser access
+  ✅ DevTools
+
+
+WHAT YOU'RE MISSING:
+--------------------
+  ❌ Automatic updates (not needed for development)
+  ❌ Expo Go QR code (web still works!)
+
+
+RECOMMENDED:
+------------
+Always use --offline for faster startup:
+
+  npx expo start --web --offline
+
+
+TRY IT NOW:
+-----------
+  cd Sanaathana-Aalaya-Charithra/mobile-app
+  ./START_NOW.ps1
+
+The script has been updated to include --offline automatically!
+
+
+═══════════════════════════════════════════════════════════════════

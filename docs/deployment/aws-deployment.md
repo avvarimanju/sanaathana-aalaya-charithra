@@ -214,7 +214,7 @@ eas submit --platform android --profile production
 eas submit --platform ios --profile production
 ```
 
-See [Mobile App Deployment](../mobile-app/deployment.md) for detailed app store submission process.
+See [Mobile App Deployment](../../mobile-app/deployment.md) for detailed app store submission process.
 
 ## Database Migration
 

@@ -15,6 +15,7 @@ import {
   DefectSummary,
   DefectStatus,
 } from '../services/defect-api.service';
+import { formatDate } from '../utils/dateFormatter';
 
 /**
  * Status badge color mapping
@@ -147,11 +148,7 @@ export default function MyDefectsScreen({ route, navigation }: MyDefectsScreenPr
    * Render defect item
    */
   const renderDefectItem = ({ item }: { item: DefectSummary }) => {
-    const createdDate = new Date(item.createdAt).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    const createdDate = formatDate(item.createdAt);
 
     return (
       <TouchableOpacity
@@ -296,7 +293,7 @@ export default function MyDefectsScreen({ route, navigation }: MyDefectsScreenPr
         renderItem={renderDefectItem}
         keyExtractor={(item) => item.defectId}
         contentContainerStyle={styles.listContent}
-        ListEmptyComponent={renderEmptyState}
+        ListEmptyComponent={renderEmptyState()}
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}

@@ -383,9 +383,9 @@ export const createAdminDefectAPIClient = (config: AdminAPIConfig): AdminDefectA
 };
 
 // Export default instance with placeholder URL (should be configured in app)
-// Use environment variable that works in both Vite and Jest
+// Use environment variable for Vite
 const getBaseUrl = (): string => {
-  return process.env.VITE_API_BASE_URL || 'https://api.example.com';
+  return import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 };
 
 export const adminDefectApi = new AdminDefectAPIClient({

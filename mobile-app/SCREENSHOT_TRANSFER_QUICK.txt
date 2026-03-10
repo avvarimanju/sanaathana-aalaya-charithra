@@ -1,0 +1,31 @@
+PHONE TO DESKTOP SCREENSHOT TRANSFER
+====================================
+
+EASIEST METHOD (NO SETUP):
+1. Connect phone to laptop with USB cable
+2. Open File Explorer (Windows Explorer)
+3. Click on your phone name
+4. Go to: Internal Storage → DCIM → Screenshots
+5. Copy screenshots to Desktop
+6. Done!
+
+ALTERNATIVE (NO CABLE):
+1. Send screenshot to yourself on WhatsApp
+2. Open WhatsApp on desktop
+3. Download screenshot
+4. Done!
+
+WHY USE EMULATOR?
+✅ Screenshots already on desktop (instant)
+✅ Easy to share
+✅ Fast for development
+
+WHY USE REAL PHONE?
+✅ Real performance testing
+✅ Actual touch experience
+✅ Real network/battery behavior
+
+BEST PRACTICE:
+- Daily development: Use emulator
+- Final testing: Use real phone
+- Both are important!

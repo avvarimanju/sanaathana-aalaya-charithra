@@ -1,0 +1,44 @@
+MOBILE APP - FULL CLEAN REINSTALL
+==================================
+
+The React Navigation packages have conflicts.
+Need to do a complete clean install.
+
+STEPS (Run these commands):
+
+1. STOP EXPO
+   Press Ctrl + C in the terminal
+
+2. DELETE NODE_MODULES
+   cd Sanaathana-Aalaya-Charithra/mobile-app
+   rm -rf node_modules
+
+3. DELETE PACKAGE-LOCK
+   rm package-lock.json
+
+4. CLEAN NPM CACHE
+   npm cache clean --force
+
+5. REINSTALL EVERYTHING
+   npm install --legacy-peer-deps
+
+6. START EXPO FRESH
+   npx expo start --clear
+
+7. PRESS 'w' FOR WEB
+
+This will take 2-3 minutes but should fix all package issues.
+
+ALTERNATIVE - If you want to test NOW:
+Just use the old simple App.tsx that was working before:
+
+cd Sanaathana-Aalaya-Charithra/mobile-app
+# Rename current App.tsx
+mv App.tsx App-WithNavigation.tsx
+# Use the backup
+cp App-BACKUP.tsx App.tsx
+# Restart
+npx expo start --clear
+# Press 'w'
+
+This will show the simple test screen that was working before.

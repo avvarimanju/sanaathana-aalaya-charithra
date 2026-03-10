@@ -153,7 +153,7 @@ const ArtifactListPage: React.FC = () => {
           <p>Manage temple artifacts and their content</p>
         </div>
         <button className="btn-primary" onClick={() => navigate('/artifacts/new')}>
-          ➕ Add New Artifact
+          ➕ New Artifact
         </button>
       </div>
 

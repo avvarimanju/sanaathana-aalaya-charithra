@@ -166,10 +166,10 @@ Write-Host ""
 
 # Backend dependencies
 Write-Host "  Installing backend dependencies..." -ForegroundColor Cyan
-if (-not (Test-Path "src/local-server/node_modules")) {
-    Set-Location src/local-server
+if (-not (Test-Path "backend/src/local-server/node_modules")) {
+    Set-Location backend/src/local-server
     npm install --silent
-    Set-Location ../..
+    Set-Location ../../..
     Write-Host "  SUCCESS: Backend dependencies installed" -ForegroundColor Green
 } else {
     Write-Host "  INFO: Backend dependencies already installed" -ForegroundColor Cyan

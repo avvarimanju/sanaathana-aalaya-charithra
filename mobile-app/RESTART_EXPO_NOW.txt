@@ -1,0 +1,34 @@
+MOBILE APP NOT LOADING - RESTART NEEDED
+========================================
+
+The app installed React Navigation packages but Expo needs a restart.
+
+STEPS:
+
+1. STOP EXPO (in the terminal where it's running)
+   Press: Ctrl + C
+
+2. START EXPO WITH CLEAN CACHE
+   cd Sanaathana-Aalaya-Charithra/mobile-app
+   npx expo start --clear
+
+3. WAIT FOR "Metro waiting..." message
+
+4. PRESS 'w' for web browser
+
+5. App should load now!
+
+WHY THIS HAPPENS:
+- We installed new packages (@react-navigation/native-stack, bottom-tabs)
+- Expo's cache still has old code
+- --clear flag clears the cache
+- Fresh start picks up new packages
+
+ALTERNATIVE - If still not working:
+1. Stop Expo (Ctrl + C)
+2. Delete node_modules:
+   rm -rf node_modules
+3. Reinstall:
+   npm install --legacy-peer-deps
+4. Start fresh:
+   npx expo start --clear

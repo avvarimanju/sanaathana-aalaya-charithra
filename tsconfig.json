@@ -28,11 +28,21 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@models/*": ["src/models/*"],
-      "@services/*": ["src/services/*"],
-      "@utils/*": ["src/utils/*"],
-      "@lambdas/*": ["src/lambdas/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@lambdas/*": [
+        "src/lambdas/*"
+      ]
     }
   },
   "include": [
@@ -45,5 +55,6 @@
     "coverage",
     "**/*.test.ts",
     "**/*.spec.ts"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }

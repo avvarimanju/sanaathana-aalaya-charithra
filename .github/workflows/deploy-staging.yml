@@ -31,14 +31,18 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
       
       - name: Install dependencies
+        working-directory: backend
         run: npm ci
       
       - name: Run tests
+        working-directory: backend
         run: npm test
       
       - name: Build Lambda functions
+        working-directory: backend
         run: npm run build
       
       - name: Deploy to AWS Lambda

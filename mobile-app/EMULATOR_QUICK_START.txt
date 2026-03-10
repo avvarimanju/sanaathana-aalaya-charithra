@@ -1,0 +1,33 @@
+ANDROID EMULATOR - QUICK START
+==============================
+
+WHAT IS IT?
+A virtual Android phone running on your laptop for testing
+
+SETUP (5 MINUTES):
+1. Open Android Studio
+2. Click ⋮ (three dots) → Device Manager
+3. Click "Create Device"
+4. Select: Pixel 8 → Next
+5. Download: Android 15 (API 35) → Next
+6. Click: Finish
+7. Click ▶️ (Play) to start emulator
+
+RUN YOUR APP:
+cd Sanaathana-Aalaya-Charithra/mobile-app
+npx expo start --clear
+Press 'a' for Android
+
+DONE! Your app opens in the virtual phone.
+
+WHY PIXEL 8 & ANDROID 15?
+- Latest Android version (Oct 2024)
+- Most realistic testing experience
+- Catches issues early
+- Google Play Store recommends latest API
+
+TIPS:
+- First boot takes 2 minutes
+- Keep emulator running while developing
+- Changes appear instantly (hot reload)
+- Press Ctrl+M for dev menu
