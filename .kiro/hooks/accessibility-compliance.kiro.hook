@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Accessibility Compliance Validation",
+  "description": "Validates WCAG 2.1 AA compliance for inclusive access to Hindu temple heritage across all platforms",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "mobile-app/**/*.tsx",
+      "admin-portal/**/*.tsx",
+      "landing-page/**/*.html",
+      "**/*.css"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "UI or styling code has been modified. Please validate WCAG 2.1 AA accessibility compliance: 1) Screen reader compatibility for temple descriptions and audio guides, 2) Keyboard navigation support, 3) Color contrast ratios (minimum 4.5:1), 4) Alternative text for temple images and artifacts, 5) Audio guide transcripts and captions, 6) Font size and zoom support up to 200%, 7) Focus indicators and navigation landmarks, 8) Voice control compatibility for QR scanning. Ensure temple heritage is accessible to users with disabilities while preserving cultural authenticity and educational value."
+  }
+}

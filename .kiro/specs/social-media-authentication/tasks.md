@@ -33,7 +33,7 @@ This implementation plan breaks down the social media authentication feature int
     - Implement encrypt_refresh_token() and decrypt_refresh_token() functions
     - _Requirements: 10.5_
 
-  - [ ]* 2.2 Write property test for encryption round trip
+  - [x] 2.2 Write property test for encryption round trip
     - **Property 15: Refresh Token Encryption Round Trip**
     - **Validates: Requirements 10.5**
 
@@ -43,11 +43,11 @@ This implementation plan breaks down the social media authentication feature int
     - Implement validate_redirect_uri() with whitelist checking
     - _Requirements: 1.2, 2.2, 3.2, 4.2, 5.2, 6.2, 7.2, 10.6_
 
-  - [ ]* 2.4 Write property tests for token validation
+  - [x] 2.4 Write property tests for token validation
     - **Property 2: Token Signature Validation**
     - **Validates: Requirements 1.2, 2.2, 3.2, 4.2, 5.2, 6.2, 7.2**
 
-  - [ ]* 2.5 Write property test for redirect URI validation
+  - [x] 2.5 Write property test for redirect URI validation
     - **Property 16: Redirect URL Whitelist Validation**
     - **Validates: Requirements 10.6**
 
@@ -57,7 +57,7 @@ This implementation plan breaks down the social media authentication feature int
     - Implement sliding window rate limiting (5 attempts per 15 minutes)
     - _Requirements: 10.3, 10.4_
 
-  - [ ]* 2.7 Write property test for rate limiting enforcement
+  - [x] 2.7 Write property test for rate limiting enforcement
     - **Property 14: Rate Limiting Enforcement**
     - **Validates: Requirements 10.3, 10.4**
 
@@ -68,7 +68,7 @@ This implementation plan breaks down the social media authentication feature int
     - Implement common OAuth helper methods
     - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1_
 
-  - [ ]* 3.2 Write unit tests for base provider
+  - [x] 3.2 Write unit tests for base provider
     - Test abstract method enforcement
     - Test common helper methods
     - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1_
@@ -99,7 +99,7 @@ This implementation plan breaks down the social media authentication feature int
     - Handle Apple private relay email addresses
     - _Requirements: 4.1, 4.2, 4.3, 4.6_
 
-  - [ ]* 4.5 Write property test for Apple private relay email
+  - [x] 4.5 Write property test for Apple private relay email
     - **Property 6: Apple Private Relay Email Storage**
     - **Validates: Requirements 4.6**
 
@@ -127,7 +127,7 @@ This implementation plan breaks down the social media authentication feature int
     - Load OAuth credentials from Secrets Manager
     - _Requirements: 13.2_
 
-  - [ ]* 4.10 Write unit tests for each provider
+  - [x] 4.10 Write unit tests for each provider
     - Test provider-specific OAuth endpoints
     - Test provider-specific token validation
     - Test provider-specific user info extraction
@@ -144,11 +144,11 @@ This implementation plan breaks down the social media authentication feature int
     - Implement validate_token() for ID token validation
     - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2_
 
-  - [ ]* 6.2 Write property test for OAuth flow initiation
+  - [x] 6.2 Write property test for OAuth flow initiation
     - **Property 1: OAuth Flow Initiation**
     - **Validates: Requirements 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1**
 
-  - [ ]* 6.3 Write property test for invalid token error handling
+  - [x] 6.3 Write property test for invalid token error handling
     - **Property 5: Invalid Token Error Handling**
     - **Validates: Requirements 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5**
 
@@ -160,19 +160,19 @@ This implementation plan breaks down the social media authentication feature int
     - Implement validate_access_token() for token verification
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
 
-  - [ ]* 6.3 Write property test for session token generation
+  - [x] 6.3 Write property test for session token generation
     - **Property 4: Session Token Generation**
     - **Validates: Requirements 1.4, 2.4, 3.4, 4.4, 5.4, 6.4, 7.4, 8.1, 8.2**
 
-  - [ ]* 6.4 Write property test for token refresh round trip
+  - [x] 6.4 Write property test for token refresh round trip
     - **Property 7: Token Refresh Round Trip**
     - **Validates: Requirements 8.3, 8.4, 8.5**
 
-  - [ ]* 6.5 Write property test for invalid refresh token error
+  - [x] 6.5 Write property test for invalid refresh token error
     - **Property 8: Invalid Refresh Token Error Handling**
     - **Validates: Requirements 8.6**
 
-  - [ ]* 6.6 Write property test for session revocation
+  - [x] 6.6 Write property test for session revocation
     - **Property 9: Session Revocation**
     - **Validates: Requirements 8.7**
 
@@ -186,31 +186,31 @@ This implementation plan breaks down the social media authentication feature int
     - Implement update_profile_from_provider() to sync latest provider data
     - _Requirements: 1.3, 2.3, 3.3, 4.3, 5.3, 6.3, 7.3, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 11.1, 11.2, 11.3, 11.4, 11.5_
 
-  - [ ]* 6.8 Write property test for profile creation or retrieval
+  - [x] 6.8 Write property test for profile creation or retrieval
     - **Property 3: Profile Creation or Retrieval**
     - **Validates: Requirements 1.3, 2.3, 3.3, 4.3, 5.3, 6.3, 7.3**
 
-  - [ ]* 6.9 Write property test for profile field extraction
+  - [x] 6.9 Write property test for profile field extraction
     - **Property 17: Profile Field Extraction**
     - **Validates: Requirements 11.1, 11.2, 11.3, 11.4**
 
-  - [ ]* 6.10 Write property test for profile update on sign-in
+  - [x] 6.10 Write property test for profile update on sign-in
     - **Property 18: Profile Update on Sign-In**
     - **Validates: Requirements 11.5**
 
-  - [ ]* 6.11 Write property test for provider linking
+  - [x] 6.11 Write property test for provider linking
     - **Property 10: Provider Linking**
     - **Validates: Requirements 9.1, 9.2**
 
-  - [ ]* 6.12 Write property test for duplicate provider linking prevention
+  - [~] 6.12 Write property test for duplicate provider linking prevention
     - **Property 11: Duplicate Provider Linking Prevention**
     - **Validates: Requirements 9.3**
 
-  - [ ]* 6.13 Write property test for multi-provider authentication
+  - [~] 6.13 Write property test for multi-provider authentication
     - **Property 12: Multi-Provider Authentication**
     - **Validates: Requirements 9.4**
 
-  - [ ]* 6.14 Write property test for provider unlinking
+  - [~] 6.14 Write property test for provider unlinking
     - **Property 13: Provider Unlinking**
     - **Validates: Requirements 9.5**
 
@@ -227,7 +227,7 @@ This implementation plan breaks down the social media authentication feature int
     - Add CloudWatch logging for all operations
     - _Requirements: 1.1-7.6, 10.1, 10.2, 12.1, 13.4, 13.6_
 
-  - [ ]* 8.2 Write integration tests for auth handler
+  - [ ] 8.2 Write integration tests for auth handler
     - Test OAuth flow end-to-end with mock providers
     - Test error scenarios (invalid tokens, rate limiting)
     - Test CloudWatch logging
@@ -241,7 +241,7 @@ This implementation plan breaks down the social media authentication feature int
     - Implement error handling with standardized error codes
     - _Requirements: 8.3, 8.4, 8.5, 8.6, 8.7, 12.2, 12.4_
 
-  - [ ]* 8.4 Write integration tests for token handler
+  - [ ] 8.4 Write integration tests for token handler
     - Test token refresh flow
     - Test signout flow
     - Test error scenarios
@@ -256,7 +256,7 @@ This implementation plan breaks down the social media authentication feature int
     - Implement error handling with standardized error codes
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 12.3_
 
-  - [ ]* 8.6 Write integration tests for profile handler
+  - [ ] 8.6 Write integration tests for profile handler
     - Test account linking flow
     - Test account unlinking flow
     - Test profile retrieval
@@ -272,15 +272,15 @@ This implementation plan breaks down the social media authentication feature int
     - Add API Gateway logging
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 13.7_
 
-  - [ ]* 9.2 Write property test for JSON response format
+  - [ ] 9.2 Write property test for JSON response format
     - **Property 19: JSON Response Format**
     - **Validates: Requirements 12.5**
 
-  - [ ]* 9.3 Write property test for standardized error response format
+  - [ ] 9.3 Write property test for standardized error response format
     - **Property 20: Standardized Error Response Format**
     - **Validates: Requirements 12.6**
 
-  - [ ]* 9.4 Write integration tests for API Gateway
+  - [ ] 9.4 Write integration tests for API Gateway
     - Test CORS configuration
     - Test request validation
     - Test response formatting
@@ -307,7 +307,7 @@ This implementation plan breaks down the social media authentication feature int
     - Handle provider-specific errors gracefully
     - _Requirements: 10.1, 10.2, 12.6_
 
-  - [ ]* 10.4 Write unit tests for error handling
+  - [ ] 10.4 Write unit tests for error handling
     - Test all error codes
     - Test error response format
     - Test error logging

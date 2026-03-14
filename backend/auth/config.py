@@ -6,14 +6,19 @@ for the social media authentication system.
 """
 
 import os
+import sys
 from typing import List
+
+# Add config directory to path for global config import
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from config.global_config import global_config
 
 
 class AuthConfig:
     """Authentication service configuration."""
     
-    # AWS Configuration
-    AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+    # AWS Configuration - use global config
+    AWS_REGION = global_config.aws_region  # Now uses global config instead of hardcoded fallback
     USER_POOL_ID = os.environ.get("USER_POOL_ID", "")
     USER_POOL_CLIENT_ID = os.environ.get("USER_POOL_CLIENT_ID", "")
     
@@ -60,16 +65,16 @@ class AuthConfig:
     LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
     ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
     
-    # Redirect URI Whitelist
+    # Redirect URI Whitelist - use global config for domain
     ALLOWED_REDIRECT_URIS = os.environ.get(
         "ALLOWED_REDIRECT_URIS",
-        "https://app.example.com/callback"
+        f"https://app.{global_config.domain_root}/callback"
     ).split(",")
     
-    # CORS Configuration
+    # CORS Configuration - use global config for domain
     CORS_ALLOWED_ORIGINS = os.environ.get(
         "CORS_ALLOWED_ORIGINS",
-        "https://app.example.com"
+        f"https://app.{global_config.domain_root}"
     ).split(",")
     
     @classmethod

@@ -30,7 +30,7 @@ morgan.token('user-id', (req: Request) => {
 
 // Custom format with colors and user tracking
 app.use(morgan(':method :url :status :response-time ms - :res[content-length] bytes - User: :user-id', {
-  skip: (req) => req.url === '/health' // Skip health check logs to reduce noise
+  skip: (req: Request) => req.url === '/health' // Skip health check logs to reduce noise
 }));
 
 // Health check
@@ -64,7 +64,7 @@ app.post('/api/temples', async (req: Request, res: Response) => {
 // Get temple
 app.get('/api/temples/:id', async (req: Request, res: Response) => {
   try {
-    const temple = await templeService.getTemple(req.params.id);
+    const temple = await templeService.getTemple(req.params.id as string);
     res.json(temple);
   } catch (error: any) {
     res.status(error.statusCode || 404).json({ error: error.message });
@@ -95,7 +95,7 @@ app.get('/api/temples', async (req: Request, res: Response) => {
 app.put('/api/temples/:id', async (req: Request, res: Response) => {
   try {
     const userId = req.headers['x-user-id'] as string || 'local-admin';
-    const temple = await templeService.updateTemple(req.params.id, req.body, userId);
+    const temple = await templeService.updateTemple(req.params.id as string, req.body, userId);
     res.json(temple);
   } catch (error: any) {
     res.status(error.statusCode || 500).json({ error: error.message });
@@ -106,7 +106,7 @@ app.put('/api/temples/:id', async (req: Request, res: Response) => {
 app.delete('/api/temples/:id', async (req: Request, res: Response) => {
   try {
     const userId = req.headers['x-user-id'] as string || 'local-admin';
-    await templeService.deleteTemple(req.params.id, userId);
+    await templeService.deleteTemple(req.params.id as string, userId);
     res.status(204).send();
   } catch (error: any) {
     res.status(error.statusCode || 500).json({ error: error.message });
@@ -131,7 +131,7 @@ app.post('/api/temple-groups', async (req: Request, res: Response) => {
 // Get temple group
 app.get('/api/temple-groups/:id', async (req: Request, res: Response) => {
   try {
-    const group = await templeService.getTempleGroup(req.params.id);
+    const group = await templeService.getTempleGroup(req.params.id as string);
     res.json(group);
   } catch (error: any) {
     res.status(error.statusCode || 404).json({ error: error.message });
@@ -172,7 +172,7 @@ app.post('/api/artifacts', async (req: Request, res: Response) => {
 // Get artifact
 app.get('/api/artifacts/:id', async (req: Request, res: Response) => {
   try {
-    const artifact = await templeService.getArtifact(req.params.id);
+    const artifact = await templeService.getArtifact(req.params.id as string);
     res.json(artifact);
   } catch (error: any) {
     res.status(error.statusCode || 404).json({ error: error.message });
@@ -224,7 +224,7 @@ app.get('/api/pricing/:entityId', async (req: Request, res: Response) => {
       res.status(400).json({ error: 'entityType query parameter is required' });
       return;
     }
-    const priceConfig = await pricingService.getPriceConfiguration(entityType, entityId);
+    const priceConfig = await pricingService.getPriceConfiguration(entityType, entityId as string);
     res.json(priceConfig || { entityId, entityType, message: 'No price configuration found' });
   } catch (error: any) {
     res.status(error.statusCode || 404).json({ error: error.message });
@@ -245,7 +245,7 @@ app.get('/api/pricing/:entityId/history', async (req: Request, res: Response) =>
       return;
     }
     
-    const history = await pricingService.getPriceHistory(entityType, entityId, {
+    const history = await pricingService.getPriceHistory(entityType, entityId as string, {
       startDate,
       endDate,
       limit
@@ -328,7 +328,7 @@ app.get('/api/content/jobs', (req: Request, res: Response) => {
 app.get('/api/content/jobs/:id', (req: Request, res: Response) => {
   const job = contentJobs.find(j => j.jobId === req.params.id);
   if (!job) return res.status(404).json({ error: 'Job not found' });
-  res.json(job);
+  return res.json(job);
 });
 
 app.post('/api/content/generate', (req: Request, res: Response) => {
@@ -363,7 +363,7 @@ app.put('/api/content/jobs/:id', (req: Request, res: Response) => {
     updatedAt: new Date().toISOString()
   };
   
-  res.json(contentJobs[index]);
+  return res.json(contentJobs[index]);
 });
 
 app.delete('/api/content/jobs/:id', (req: Request, res: Response) => {
@@ -371,7 +371,7 @@ app.delete('/api/content/jobs/:id', (req: Request, res: Response) => {
   if (index === -1) return res.status(404).json({ error: 'Job not found' });
   
   contentJobs.splice(index, 1);
-  res.status(204).send();
+  return res.status(204).send();
 });
 
 app.get('/api/content', (req: Request, res: Response) => {
@@ -388,7 +388,7 @@ const adminUsers: any[] = [
   {
     userId: 'admin-1',
     name: 'System Administrator',
-    email: 'admin@sanaathana.org',
+    email: 'admin@charithra.org',
     role: 'admin',
     status: 'active',
     lastLogin: null,
@@ -420,7 +420,7 @@ app.get('/api/admin/users', (req: Request, res: Response) => {
 app.get('/api/admin/users/:id', (req: Request, res: Response) => {
   const user = adminUsers.find(u => u.userId === req.params.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
-  res.json(user);
+  return res.json(user);
 });
 
 app.post('/api/admin/users', (req: Request, res: Response) => {
@@ -442,7 +442,7 @@ app.post('/api/admin/users', (req: Request, res: Response) => {
   };
   
   adminUsers.push(newUser);
-  res.status(201).json(newUser);
+  return res.status(201).json(newUser);
 });
 
 app.put('/api/admin/users/:id', (req: Request, res: Response) => {
@@ -456,7 +456,7 @@ app.put('/api/admin/users/:id', (req: Request, res: Response) => {
     updatedAt: new Date().toISOString()
   };
   
-  res.json(adminUsers[index]);
+  return res.json(adminUsers[index]);
 });
 
 app.delete('/api/admin/users/:id', (req: Request, res: Response) => {
@@ -464,7 +464,7 @@ app.delete('/api/admin/users/:id', (req: Request, res: Response) => {
   if (index === -1) return res.status(404).json({ error: 'User not found' });
   
   adminUsers.splice(index, 1);
-  res.status(204).send();
+  return res.status(204).send();
 });
 
 app.get('/api/mobile/users', (req: Request, res: Response) => {
@@ -492,7 +492,7 @@ app.put('/api/mobile/users/:id/status', (req: Request, res: Response) => {
   mobileUsers[index].status = status;
   mobileUsers[index].updatedAt = new Date().toISOString();
   
-  res.json(mobileUsers[index]);
+  return res.json(mobileUsers[index]);
 });
 
 // ============================================================================
@@ -518,7 +518,7 @@ app.get('/api/defects', (req: Request, res: Response) => {
 app.get('/api/defects/:id', (req: Request, res: Response) => {
   const defect = defects.find(d => d.defectId === req.params.id);
   if (!defect) return res.status(404).json({ error: 'Defect not found' });
-  res.json(defect);
+  return res.json(defect);
 });
 
 app.post('/api/defects', (req: Request, res: Response) => {
@@ -559,7 +559,7 @@ app.put('/api/defects/:id', (req: Request, res: Response) => {
     defects[index].resolvedAt = new Date().toISOString();
   }
   
-  res.json(defects[index]);
+  return res.json(defects[index]);
 });
 
 app.delete('/api/defects/:id', (req: Request, res: Response) => {
@@ -567,7 +567,7 @@ app.delete('/api/defects/:id', (req: Request, res: Response) => {
   if (index === -1) return res.status(404).json({ error: 'Defect not found' });
   
   defects.splice(index, 1);
-  res.status(204).send();
+  return res.status(204).send();
 });
 
 app.post('/api/defects/:id/comments', (req: Request, res: Response) => {
@@ -585,7 +585,7 @@ app.post('/api/defects/:id/comments', (req: Request, res: Response) => {
   defect.comments.push(newComment);
   defect.updatedAt = new Date().toISOString();
   
-  res.status(201).json(newComment);
+  return res.status(201).json(newComment);
 });
 
 // ============================================================================

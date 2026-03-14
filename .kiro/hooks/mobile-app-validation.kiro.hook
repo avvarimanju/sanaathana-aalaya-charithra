@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Mobile App Quality Validation",
+  "description": "Validates React Native mobile app changes for QR scanning, offline capability, and cross-platform compatibility",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "mobile-app/**/*.tsx",
+      "mobile-app/**/*.ts",
+      "mobile-app/**/*.json",
+      "mobile-app/app.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Mobile app code has been modified. Please validate: 1) QR code scanning functionality and deep linking, 2) Offline data synchronization and caching, 3) Audio guide playback and Polly integration, 4) Cross-platform compatibility (Android/iOS), 5) Accessibility compliance (WCAG 2.1 AA), 6) Performance optimization for low-end devices, 7) Multilingual UI support across 10+ languages, 8) App store compliance and metadata. Ensure the mobile experience preserves temple heritage authentically while being accessible to diverse users."
+  }
+}

@@ -1,131 +1,119 @@
 # Project Structure
 
 ## Monorepo Organization
+The project follows a **monorepo pattern** with npm workspaces for code sharing and unified dependency management.
 
-Root workspace with three main applications plus shared infrastructure.
-
+## Root Level Structure
 ```
 Sanaathana-Aalaya-Charithra/
-├── admin-portal/          # React admin web app
-├── mobile-app/            # React Native mobile app
-├── backend/               # AWS Lambda backend
-├── scripts/               # Build and deployment scripts
-├── docs/                  # Documentation
-└── package.json           # Root workspace config
+├── .github/                   # CI/CD workflows and templates
+├── .kiro/                     # Kiro configuration and specs
+│   ├── hooks/                 # Agent hooks
+│   ├── specs/                 # Feature specifications
+│   └── steering/              # Project guidance documents
+├── .pre-generation/           # Content generation progress files
+├── admin-portal/              # React admin web application
+├── mobile-app/                # React Native mobile application  
+├── backend/                   # AWS Lambda serverless backend
+├── scripts/                   # Build, deployment, and utility scripts
+├── docs/                      # Project documentation
+├── package.json               # Root workspace configuration
+└── README.md                  # Project overview
 ```
 
-## Backend Structure
+## Application Structure
 
-```
-backend/
-├── src/
-│   ├── local-server/      # Local development server
-│   └── types/             # TypeScript type definitions
-├── lambdas/               # Lambda function handlers
-├── services/              # Business logic services
-├── repositories/          # Data access layer
-├── models/                # Data models and types
-├── utils/                 # Utility functions
-├── infrastructure/        # AWS CDK infrastructure code
-├── tests/                 # Integration tests
-├── admin/                 # Admin-specific handlers
-├── auth/                  # Authentication services
-├── dashboard/             # Dashboard backend
-├── defect-tracking/       # Defect tracking system
-├── state-management/      # State visibility service
-├── temple-pricing/        # Pricing calculator service
-├── pre-generation/        # Content pre-generation CLI
-└── template.yaml          # SAM template
-```
-
-### Key Backend Patterns
-
-- **Layered Architecture**: Handlers → Services → Repositories
-- **Feature Modules**: Self-contained features (temple-pricing, state-management, defect-tracking)
-- **Shared Utilities**: Common AWS clients, validation, logging in utils/
-- **Infrastructure as Code**: AWS CDK in infrastructure/
-
-## Admin Portal Structure
-
+### Admin Portal (`admin-portal/`)
 ```
 admin-portal/
 ├── src/
-│   ├── api/              # API client layer
-│   ├── components/       # Reusable React components
-│   ├── pages/            # Page-level components
-│   └── types/            # TypeScript interfaces
-├── coverage/             # Test coverage reports
-└── package.json
+│   ├── api/                   # API client layer and service calls
+│   ├── auth/                  # Authentication context and hooks
+│   ├── components/            # Reusable React components
+│   ├── pages/                 # Page-level components
+│   └── types/                 # TypeScript type definitions
+├── package.json
+└── README.md
 ```
 
-### Admin Portal Patterns
-
-- **API Layer**: Centralized API calls in src/api/
-- **Component-Based**: Reusable components in src/components/
-- **Type Safety**: Shared types in src/types/
-
-## Mobile App Structure
-
+### Mobile App (`mobile-app/`)
 ```
 mobile-app/
 ├── src/
-│   ├── components/       # React Native components
-│   ├── screens/          # Screen components
-│   ├── services/         # API and business logic
-│   ├── state/            # State management
-│   ├── config/           # Configuration
-│   ├── constants/        # App constants
-│   └── utils/            # Utility functions
-├── assets/               # Images, fonts, etc.
-├── android/              # Android native code
-└── app.json              # Expo configuration
+│   ├── components/            # React Native components
+│   ├── screens/               # Screen components
+│   ├── navigation/            # Navigation configuration
+│   ├── api/                   # API client
+│   └── types/                 # TypeScript types
+├── package.json
+└── README.md
 ```
 
-### Mobile App Patterns
+### Backend (`backend/`)
+```
+backend/
+├── src/                       # Source code
+├── lambdas/                   # Lambda function handlers
+├── infrastructure/            # AWS CDK infrastructure code
+├── models/                    # Data models and schemas
+├── repositories/              # Data access layer
+├── services/                  # Business logic services
+├── utils/                     # Utility functions
+├── tests/                     # Test files
+├── template.yaml              # SAM template
+├── cdk.json                   # CDK configuration
+└── package.json
+```
 
-- **Screen-Based Navigation**: Screens in src/screens/
-- **Service Layer**: API calls and business logic in src/services/
-- **State Management**: Centralized state in src/state/
-- **Platform-Specific**: Native code in android/ folder
-
-## Shared Conventions
+## Key Conventions
 
 ### File Naming
-- TypeScript files: kebab-case (e.g., `temple-pricing.ts`)
-- React components: PascalCase (e.g., `TempleCard.tsx`)
-- Test files: `*.test.ts` or `*.spec.ts`
-- Config files: lowercase with dots (e.g., `jest.config.js`)
+- **Components**: PascalCase (e.g., `TempleListPage.tsx`)
+- **Utilities**: camelCase (e.g., `apiClient.ts`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `API_ENDPOINTS.ts`)
+- **Types**: PascalCase with `.types.ts` suffix
+
+### Directory Organization
+- **Feature-based**: Group related files by feature/domain
+- **Layer separation**: API, components, pages, services in separate directories
+- **Test co-location**: `__tests__` directories alongside source code
 
 ### Import Patterns
-- Absolute imports with `@/` alias in admin portal
-- Relative imports in backend and mobile app
-- Index files for clean exports
+- **Absolute imports**: Use `@/` alias for src directory (admin portal)
+- **Barrel exports**: Use `index.ts` files for clean imports
+- **Type imports**: Use `import type` for TypeScript types
 
-### Environment Configuration
-- `.env.development` - Local development
-- `.env.staging` - Staging environment
-- `.env.production` - Production environment
-- `.env.example` - Template for required variables
+### Testing Structure
+- **Unit tests**: Co-located with source files in `__tests__/` directories
+- **Integration tests**: In dedicated `tests/` directory at workspace root
+- **Test naming**: `*.test.ts` or `*.spec.ts`
 
-## Documentation Location
+## Configuration Files
 
-- Feature docs: `docs/features/`
-- API docs: `docs/api/`
-- Deployment guides: `docs/deployment/`
-- Architecture: `docs/architecture/`
-- Getting started: `docs/getting-started/`
+### Root Level
+- `package.json`: Workspace configuration and scripts
+- `tsconfig.json`: Root TypeScript configuration
+- `docker-compose.yml`: LocalStack development environment
 
-## Spec Files
+### Workspace Level
+- Each workspace has its own `package.json`, `tsconfig.json`
+- Workspace-specific configuration (Jest, ESLint, Vite)
 
-Spec-driven development files in `.kiro/specs/{feature-name}/`:
-- `requirements.md` or `bugfix.md` - Requirements/bug description
-- `design.md` - Technical design
-- `tasks.md` - Implementation tasks
-- `.config.kiro` - Spec metadata
+## Scripts Organization
+The `scripts/` directory contains PowerShell and Bash scripts organized by purpose:
+- **Development**: `start-dev-environment.ps1`, `init-local-db.ps1`
+- **Testing**: `test-*.ps1`, `run-all-tests.ps1`
+- **Deployment**: `deploy-*.ps1`, `deploy-*.sh`
+- **Utilities**: Data seeding, content generation, troubleshooting
 
-## Testing Organization
+## Documentation Structure
+- **Getting Started**: Setup and quick start guides
+- **Architecture**: System design and infrastructure
+- **API**: Endpoint documentation
+- **Features**: Feature-specific documentation
+- **Deployment**: Environment-specific deployment guides
 
-- Backend: `backend/tests/` and co-located `*.test.ts` files
-- Admin Portal: Co-located `*.test.tsx` files
-- Mobile App: Co-located `*.test.tsx` files
-- Test utilities: `setupTests.ts` or `jest-setup.js`
+## Environment Files
+- `.env.development`: Local development configuration
+- `.env.production.example`: Production configuration template
+- Workspace-specific `.env` files for service-specific settings

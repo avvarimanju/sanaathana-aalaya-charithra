@@ -113,7 +113,11 @@ Write-Host "[3/7] Initializing DynamoDB Tables..." -ForegroundColor Yellow
 $env:AWS_ENDPOINT_URL = "http://localhost:4566"
 $env:AWS_ACCESS_KEY_ID = "test"
 $env:AWS_SECRET_ACCESS_KEY = "test"
-$env:AWS_DEFAULT_REGION = "ap-south-1"
+
+# Load AWS region from global config
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+$env:AWS_DEFAULT_REGION = $config.AWS_REGION
 
 # Check if tables already exist
 $existingTables = aws dynamodb list-tables --endpoint-url http://localhost:4566 --query 'TableNames' --output text 2>$null

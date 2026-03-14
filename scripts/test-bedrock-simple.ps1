@@ -30,7 +30,12 @@ try {
 Write-Host ""
 Write-Host "3. Testing Bedrock model access..." -ForegroundColor Yellow
 Write-Host "   Model: Claude 3 Haiku" -ForegroundColor Gray
-Write-Host "   Region: ap-south-1" -ForegroundColor Gray
+
+# Load AWS region from global config
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+$awsRegion = $config.AWS_REGION
+Write-Host "   Region: $awsRegion (loaded from global config)" -ForegroundColor Gray
 
 # Create request body
 $requestBody = @{
@@ -54,7 +59,7 @@ try {
     Write-Host "   Invoking model..." -ForegroundColor Gray
     
     $result = aws bedrock-runtime invoke-model `
-        --region ap-south-1 `
+        --region $awsRegion `
         --model-id anthropic.claude-3-haiku-20240307-v1:0 `
         --content-type "application/json" `
         --body "file://$tempFile" `

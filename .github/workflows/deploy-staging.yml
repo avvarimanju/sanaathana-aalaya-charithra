@@ -66,7 +66,7 @@ jobs:
               MOBILE_USERS_TABLE=Staging-MobileUsers,
               DEFECTS_TABLE=Staging-Defects,
               STATE_VISIBILITY_TABLE=Staging-StateVisibility,
-              API_URL=https://api-staging.sanaathana.org,
+              API_URL=https://api-staging.charithra.org,
               ENABLE_AI_CONTENT_GENERATION=true,
               ENABLE_ANALYTICS=true,
               ENABLE_CACHING=true,
@@ -105,7 +105,7 @@ jobs:
       - name: Create .env.staging file
         working-directory: admin-portal
         run: |
-          echo "VITE_API_URL=https://api-staging.sanaathana.org" > .env.staging
+          echo "VITE_API_URL=https://api-staging.charithra.org" > .env.staging
           echo "VITE_ENVIRONMENT=staging" >> .env.staging
       
       - name: Build for staging
@@ -151,7 +151,7 @@ jobs:
       - name: Create .env.staging file
         working-directory: mobile-app
         run: |
-          echo "EXPO_PUBLIC_API_URL=https://api-staging.sanaathana.org" > .env.staging
+          echo "EXPO_PUBLIC_API_URL=https://api-staging.charithra.org" > .env.staging
           echo "EXPO_PUBLIC_DEMO_MODE=false" >> .env.staging
           echo "EXPO_PUBLIC_ENVIRONMENT=staging" >> .env.staging
       

@@ -15,8 +15,12 @@ Write-Host "              LOCAL TEMPLE CONTENT GENERATION                       
 Write-Host "================================================================================" -ForegroundColor Cyan
 Write-Host ""
 
+# Import global configuration
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+
 # Configuration
-$REGION = "us-east-1"
+$REGION = $config.AWS_REGION
 $MODELS = @{
     "haiku" = @{
         id = "anthropic.claude-3-5-haiku-20241022-v1:0"

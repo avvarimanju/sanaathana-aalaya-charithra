@@ -13,7 +13,7 @@
     "test:all": "npm run test --workspaces --if-present",
     "clean:all": "npm run clean --workspaces --if-present",
     "lint:all": "npm run lint --workspaces --if-present",
-    "dev:backend": "npm run dev --workspace=backend",
+    "dev:backend": "npm run local:start --workspace=backend",
     "dev:admin": "npm run dev --workspace=admin-portal",
     "dev:mobile": "npm run start --workspace=mobile-app"
   },

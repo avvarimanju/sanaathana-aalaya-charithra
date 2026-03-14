@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Heritage Preservation Audit",
+  "description": "Audits changes for cultural accuracy, historical authenticity, and respectful representation of Hindu temple heritage",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "data/**/*.json",
+      "config/**/*.json",
+      "backend/pre-generation/**/*.ts",
+      "docs/**/*.md"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Heritage-related content or configuration has been modified. Please conduct a cultural preservation audit: 1) Verify historical accuracy against archaeological and scholarly sources, 2) Check cultural sensitivity and respectful representation, 3) Validate Sanskrit terminology and religious context, 4) Ensure proper attribution to trusted sources and institutions, 5) Review content for potential misrepresentation or cultural appropriation, 6) Verify compliance with heritage preservation guidelines, 7) Check that AI-generated content maintains authenticity, 8) Ensure educational value while respecting religious significance. Flag any content that could misrepresent Hindu temple heritage or offend religious sensibilities."
+  }
+}

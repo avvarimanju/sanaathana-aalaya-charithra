@@ -304,7 +304,7 @@ api.root.addMethod('GET', integration, {
 ```typescript
 // In CDK stack
 api.root.addCorsPreflight({
-  allowOrigins: ['https://admin.yourapp.com'],
+  allowOrigins: ['https://admin.charithra.org'],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization']
 });
@@ -444,7 +444,7 @@ curl https://xxxxx.execute-api.us-east-1.amazonaws.com/prod/health
 ### Frontend Health
 
 ```powershell
-curl https://admin.yourapp.com
+curl https://admin.charithra.org
 # Should return 200 OK
 ```
 

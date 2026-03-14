@@ -15,9 +15,12 @@ Thank you for your interest in contributing! This document provides guidelines a
 
 ```powershell
 # Fork the repository on GitHub, then clone your fork
-git clone https://github.com/YOUR-USERNAME/Sanaathana-Aalaya-Charithra.git
+# Repository URL loaded from global config
+git clone https://github.com/avvarimanju/sanaathana-aalaya-charithra.git
 cd Sanaathana-Aalaya-Charithra
 ```
+
+**Note**: The repository URL is configured in `.env.global` and can be accessed via the global configuration system.
 
 ### 2. Set Up Development Environment
 

@@ -16,7 +16,7 @@ AdminApplicationStack(
     description="Admin Backend Application Infrastructure",
     env=cdk.Environment(
         account=app.node.try_get_context("account"),
-        region=app.node.try_get_context("region") or "us-east-1",
+        region=app.node.try_get_context("region") or "ap-south-1",
     ),
 )
 

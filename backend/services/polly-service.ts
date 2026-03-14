@@ -2,6 +2,7 @@
 import { PollyClient, SynthesizeSpeechCommand, Engine, OutputFormat, VoiceId, TextType } from '@aws-sdk/client-polly';
 import { Language } from '../models/common';
 import { logger } from '../utils/logger';
+import { globalConfig } from '../../config/global-config';
 
 export interface TextToSpeechRequest {
   text: string;
@@ -34,9 +35,9 @@ export class PollyService {
   private readonly defaultVoice: VoiceInfo;
 
   constructor(region?: string) {
-    // Default to ap-south-1 (Mumbai) for optimal performance in India
+    // Use global config for region with optional override
     this.client = new PollyClient({ 
-      region: region || process.env.AWS_REGION || 'ap-south-1' 
+      region: region || globalConfig.aws.region
     });
 
     // Map languages to available Polly voices

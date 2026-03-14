@@ -115,7 +115,10 @@ print_success "AWS credentials valid. Account ID: $ACCOUNT_ID"
 # Set environment variables
 export ENVIRONMENT="$ENVIRONMENT"
 export CDK_DEFAULT_ACCOUNT="$ACCOUNT_ID"
-export CDK_DEFAULT_REGION="${AWS_REGION:-us-east-1}"
+
+# Load AWS region from global config
+source "$(dirname "$0")/../config/global-config.sh"
+export CDK_DEFAULT_REGION="${AWS_REGION}"
 
 print_info "Environment variables set:"
 print_info "  ENVIRONMENT=$ENVIRONMENT"

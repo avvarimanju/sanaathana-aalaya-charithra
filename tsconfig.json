@@ -1,15 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": [
-      "ES2020"
-    ],
+    "lib": ["ES2020"],
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -21,40 +17,20 @@
     "noFallthroughCasesInSwitch": false,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "strictPropertyInitialization": false,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@models/*": [
-        "src/models/*"
-      ],
-      "@services/*": [
-        "src/services/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@lambdas/*": [
-        "src/lambdas/*"
-      ]
-    }
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": [
-    "src/**/*",
-    "infrastructure/**/*"
+    "shared/**/*",
+    "scripts/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "coverage",
+    "admin-portal",
+    "mobile-app", 
+    "backend",
     "**/*.test.ts",
     "**/*.spec.ts"
-  ],
-  "extends": "expo/tsconfig.base"
+  ]
 }

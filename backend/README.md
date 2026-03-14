@@ -27,11 +27,43 @@ backend/
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 18+
+- AWS CLI configured
+- **AWS SAM CLI** (required for local development)
+  - Install from: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html
+  - Verify: `sam --version`
+
+### Installation
+
+```bash
+# From project root (workspace installation)
+cd Sanaathana-Aalaya-Charithra
+npm install --legacy-peer-deps
+
+# Or use the automated deployment script (recommended)
+.\scripts\start-dev-environment.ps1
+```
+
+### Local Development
+
+```bash
+# From project root
+npm run dev:backend
+
+# Or directly from backend directory
+cd backend
+npm run local:start
+```
+
+This starts the API locally using AWS SAM at `http://localhost:3000`
+
+### Building
+
 ```bash
 cd backend
-npm install
 npm run build
-npm run start:local
 ```
 
 ## Environment Variables

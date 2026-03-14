@@ -12,6 +12,10 @@ from typing import Dict, Any
 import boto3
 from datetime import datetime
 
+# Add config directory to path for global config import
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+from config.global_config import global_config
+
 # Add handlers directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -31,7 +35,7 @@ SYSTEM_CONFIG_TABLE = os.environ.get("SYSTEM_CONFIG_TABLE")
 AUDIT_LOG_TABLE = os.environ.get("AUDIT_LOG_TABLE")
 NOTIFICATIONS_TABLE = os.environ.get("NOTIFICATIONS_TABLE")
 CONTENT_MODERATION_TABLE = os.environ.get("CONTENT_MODERATION_TABLE")
-AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+AWS_REGION = global_config.aws_region  # Now uses global config instead of hardcoded fallback
 
 # AWS clients
 dynamodb = boto3.resource("dynamodb", region_name=AWS_REGION)

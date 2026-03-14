@@ -37,7 +37,7 @@ wrangler pages deploy . --project-name=charithra-landing
 3. **Add Custom Domain**:
    - In Cloudflare dashboard, go to your project
    - Click "Custom domains" → "Set up a custom domain"
-   - Enter: `charithra.org`
+   - Enter: `${DOMAIN_ROOT}` (loaded from global config)
    - DNS auto-configured (you're already on Cloudflare!)
 
 **Why Cloudflare Pages?**
@@ -72,7 +72,9 @@ Test with different URLs:
 Update API endpoint in `script.js`:
 
 ```javascript
-const API_BASE_URL = 'https://api.charithra.org';
+// API URL uses domain from global config
+const DOMAIN_ROOT = process.env.DOMAIN_ROOT || 'charithra.org';
+const API_BASE_URL = `https://api.${DOMAIN_ROOT}`;
 ```
 
 Update app store links in `index.html`:
@@ -86,7 +88,7 @@ Update app store links in `index.html`:
 - **Cloudflare Pages**: FREE
 - **Bandwidth**: FREE (unlimited)
 - **SSL Certificate**: FREE (automatic)
-- **Custom domain (charithra.org)**: $9.77/year (already purchased!)
+- **Custom domain**: $9.77/year (domain cost from global config)
 - **Total**: $9.77/year ($0.81/month)
 
 ## Performance

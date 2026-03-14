@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ContentGenerationPage.css';
-import { getContentJobs, generateContent, updateContentJob, deleteContentJob, ContentJob } from '../api/contentApi';
+import { getContentJobs, generateContent, deleteContentJob, ContentJob } from '../api/contentApi';
 import { getArtifacts } from '../api/templeApi';
 
 interface ContentSource {

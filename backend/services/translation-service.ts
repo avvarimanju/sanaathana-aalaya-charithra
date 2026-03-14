@@ -3,6 +3,7 @@ import { TranslateClient, TranslateTextCommand } from '@aws-sdk/client-translate
 import { ComprehendClient, DetectDominantLanguageCommand } from '@aws-sdk/client-comprehend';
 import { Language } from '../models/common';
 import { logger } from '../utils/logger';
+import { globalConfig } from '../../config/global-config';
 
 export interface TranslationRequest {
   text: string;
@@ -33,8 +34,8 @@ export class TranslationService {
   private readonly reverseLanguageMap: Record<string, Language>;
 
   constructor(region?: string) {
-    // Default to ap-south-1 (Mumbai) for optimal performance in India
-    const awsRegion = region || process.env.AWS_REGION || 'ap-south-1';
+    // Use global config for region with optional override
+    const awsRegion = region || globalConfig.aws.region;
     
     this.translateClient = new TranslateClient({ region: awsRegion });
     this.comprehendClient = new ComprehendClient({ region: awsRegion });

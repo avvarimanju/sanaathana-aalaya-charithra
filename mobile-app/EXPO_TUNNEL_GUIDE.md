@@ -111,7 +111,7 @@ Copy the ngrok URL: `https://xyz789.ngrok.io`
 ```typescript
 export const API_BASE_URL = __DEV__ 
   ? 'https://xyz789.ngrok.io'  // Your ngrok URL
-  : 'https://api.yourapp.com';  // Production URL
+  : 'https://api.charithra.org';  // Production URL
 ```
 
 **Update API calls to use this:**

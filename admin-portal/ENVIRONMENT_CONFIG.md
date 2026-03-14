@@ -110,7 +110,7 @@ npm run build -- --mode production
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `VITE_ENV` | Environment name | `development`, `staging`, `production` |
-| `VITE_API_BASE_URL` | Backend API URL | `https://api.example.com` |
+| `VITE_API_BASE_URL` | Backend API URL | `https://api.charithra.org` |
 | `VITE_API_TIMEOUT` | API request timeout (ms) | `30000` |
 
 ## Deployment Checklist

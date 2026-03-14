@@ -22,7 +22,7 @@ import {
 // Mock configuration
 const mockConfig: PreGenerationConfig = {
   aws: {
-    region: 'us-east-1',
+    region: 'ap-south-1',
     s3: {
       bucket: 'test-bucket',
       encryption: 'AES256',

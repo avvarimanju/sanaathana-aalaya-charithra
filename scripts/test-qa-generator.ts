@@ -5,9 +5,11 @@ import { QAKnowledgeBaseGenerator } from '../src/pre-generation/generators/qa-ge
 import { ArtifactMetadata, Language, PreGenerationConfig } from '../src/pre-generation/types';
 
 // Sample configuration
+import { globalConfig } from '../config/global-config';
+
 const config: PreGenerationConfig = {
   aws: {
-    region: process.env.AWS_REGION || 'us-east-1',
+    region: globalConfig.aws.region,
     s3: {
       bucket: 'test-bucket',
       encryption: 'AES256',

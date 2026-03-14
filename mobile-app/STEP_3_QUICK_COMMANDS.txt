@@ -25,7 +25,7 @@ git push origin main
 ENABLE GITHUB PAGES (Do this on GitHub.com):
 -----------------------------------------------------------------
 
-1. Go to: https://github.com/[your-username]/Sanaathana-Aalaya-Charithra
+1. Go to: https://github.com/avvarimanju/sanaathana-aalaya-charithra
 2. Click "Settings" tab
 3. Click "Pages" in left sidebar
 4. Under "Source":

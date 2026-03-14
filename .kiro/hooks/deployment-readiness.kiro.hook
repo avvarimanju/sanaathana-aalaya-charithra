@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Deployment Readiness Validation",
+  "description": "Comprehensive pre-deployment validation for the temple heritage platform including RTM tests, AI services, and infrastructure",
+  "version": "1.0.0",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["shell"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A deployment operation is about to be executed for Sanaathana-Aalaya-Charithra. Please validate deployment readiness: 1) Run RTM system quality gate checks (300+ tests), 2) Verify Bedrock model access and API quotas, 3) Test Polly TTS functionality across languages, 4) Validate CDK/SAM template syntax, 5) Check environment configurations (dev/staging/prod), 6) Verify temple data integrity and trusted sources, 7) Test mobile app build and signing, 8) Validate admin portal authentication, 9) Check AWS cost projections and service limits. Only proceed if all quality gates pass and heritage data integrity is maintained."
+  }
+}

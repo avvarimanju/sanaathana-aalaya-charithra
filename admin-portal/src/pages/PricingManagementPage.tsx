@@ -311,7 +311,7 @@ const PricingManagementPage: React.FC = () => {
             <div className="form-group">
               <label>Select Entities:</label>
               <div className="entity-checkboxes">
-                {mockEntities.map(entity => (
+                {entities.map((entity: any) => (
                   <label key={entity.id} className="checkbox-label">
                     <input type="checkbox" />
                     {entity.name} ({entity.type})

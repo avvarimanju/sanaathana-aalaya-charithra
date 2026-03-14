@@ -10,7 +10,7 @@ export interface RoundingRule {
   direction: 'nearest' | 'up' | 'down';
 }
 
-export interface PricingFormula {
+export interface CalculatorPricingFormula {
   category: string;
   basePrice: number;
   perQRCodePrice: number;

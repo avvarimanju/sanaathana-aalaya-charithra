@@ -4,9 +4,13 @@
 
 set -e
 
+#!/bin/bash
+
 # Configuration
 STACK_NAME="SanaathanaAalayaCharithra-Authentication"
-REGION="${AWS_REGION:-us-east-1}"
+# Load AWS region from global config
+source "$(dirname "$0")/../config/global-config.sh"
+REGION="${AWS_REGION}"
 
 echo "Deploying Lambda functions for authentication service..."
 echo "Stack: $STACK_NAME"

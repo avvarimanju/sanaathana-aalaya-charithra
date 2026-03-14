@@ -28,7 +28,7 @@
 #
 # Environment Variables:
 #   AWS_PROFILE     AWS profile to use (optional)
-#   AWS_REGION      AWS region to deploy to (default: us-east-1)
+#   Global configuration loaded from .env.global and config/global-config.sh
 #
 ###############################################################################
 
@@ -141,7 +141,11 @@ if ! aws sts get-caller-identity >/dev/null 2>&1; then
 fi
 
 AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
-AWS_REGION=${AWS_REGION:-us-east-1}
+
+# Load AWS region from global config
+source "$(dirname "$0")/../config/global-config.sh"
+AWS_REGION="${AWS_REGION}"
+
 log_success "AWS credentials configured (Account: $AWS_ACCOUNT, Region: $AWS_REGION)"
 
 # Verify only mode

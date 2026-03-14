@@ -30,7 +30,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement rate limiting (100 requests/minute per user)
     - _Requirements: 1.1, 1.2, 1.5, 1.6_
 
-  - [ ]* 2.2 Write property test for authentication (Hypothesis)
+  - [x] 2.2 Write property test for authentication (Hypothesis)
     - **Property 1: Authentication with valid credentials creates session**
     - **Property 2: Authentication with invalid credentials is rejected**
     - **Property 3: Expired sessions are rejected**
@@ -43,7 +43,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement audit logging helper functions using boto3
     - _Requirements: 1.7, 15.1, 18.5, 18.7_
 
-  - [ ]* 2.4 Write unit tests for authorization middleware (pytest)
+  - [x] 2.4 Write unit tests for authorization middleware (pytest)
     - Test permission checking logic
     - Test rate limiting behavior
     - Test session expiration handling
@@ -59,7 +59,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement DELETE /admin/temples/{siteId} (soft delete/archive)
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.7, 2.8_
 
-  - [ ]* 3.2 Write property tests for temple operations (Hypothesis)
+  - [x] 3.2 Write property tests for temple operations (Hypothesis)
     - **Property 4: Temple creation includes all required fields**
     - **Property 5: Temple updates are persisted correctly**
     - **Property 6: Temple deletion is soft delete**
@@ -74,7 +74,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Generate and return S3 URLs
     - _Requirements: 2.6, 18.3_
 
-  - [ ]* 3.4 Write property test for image uploads (Hypothesis)
+  - [x] 3.4 Write property test for image uploads (Hypothesis)
     - **Property 8: Temple image uploads result in S3 URLs**
     - **Validates: Requirements 2.6**
 
@@ -84,7 +84,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement progress tracking for bulk operations
     - _Requirements: 14.1, 14.3, 14.4, 14.5, 14.6_
 
-  - [ ]* 3.6 Write property tests for bulk operations (Hypothesis)
+  - [x] 3.6 Write property tests for bulk operations (Hypothesis)
     - **Property 35: Bulk operations report accurate results**
     - **Property 36: Bulk operation validation rejects invalid operations**
     - **Validates: Requirements 14.6, 14.7**
@@ -98,7 +98,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement DELETE /admin/artifacts/{artifactId} (soft delete/archive)
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.8, 3.10_
 
-  - [ ]* 4.2 Write property tests for artifact operations
+  - [x] 4.2 Write property tests for artifact operations
     - **Property 10: Artifact creation includes all required fields**
     - **Property 11: QR codes are globally unique**
     - **Property 12: Artifact deletion is soft delete**
@@ -117,7 +117,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Support configurable size and error correction level
     - _Requirements: 3.2, 3.9_
 
-  - [ ]* 4.5 Write property test for QR code generation
+  - [x] 4.5 Write property test for QR code generation
     - **Property 14: QR code generation supports multiple formats**
     - **Validates: Requirements 3.9**
 
@@ -142,7 +142,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement GET /admin/content-jobs/stats (job statistics)
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.8, 4.9_
 
-  - [ ]* 6.2 Write property tests for content job operations
+  - [ ] 6.2 Write property tests for content job operations
     - **Property 15: Content jobs have valid status values**
     - **Property 16: Job retry creates new job**
     - **Property 17: Job cancellation updates status**
@@ -161,7 +161,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement GET /admin/analytics/qa-interactions (Q&A stats)
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8_
 
-  - [ ]* 7.2 Write property test for analytics accuracy
+  - [ ] 7.2 Write property test for analytics accuracy
     - **Property 20: Analytics counts match actual data**
     - **Validates: Requirements 5.1**
 
@@ -171,7 +171,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Generate pre-signed S3 URLs for downloads
     - _Requirements: 5.9, 13.3_
 
-  - [ ]* 7.4 Write property test for CSV export
+  - [ ] 7.4 Write property test for CSV export
     - **Property 21: CSV export format is valid**
     - **Validates: Requirements 5.9, 13.3**
 
@@ -186,7 +186,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement GET /admin/users/{userId}/activity (user activity log)
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.8, 6.9_
 
-  - [ ]* 8.2 Write property tests for user management
+  - [ ] 8.2 Write property tests for user management
     - **Property 22: User creation includes required fields**
     - **Property 23: User emails are unique**
     - **Property 24: User deactivation terminates sessions**
@@ -207,7 +207,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement POST /admin/config/validate (validate config values)
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.9_
 
-  - [ ]* 9.2 Write property tests for configuration management
+  - [ ] 9.2 Write property tests for configuration management
     - **Property 26: Configuration validation rejects invalid values**
     - **Property 27: Configuration history tracks changes**
     - **Validates: Requirements 7.7, 7.9**
@@ -228,7 +228,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement GET /admin/moderation/stats (moderation statistics)
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9_
 
-  - [ ]* 10.2 Write property tests for content moderation
+  - [ ] 10.2 Write property tests for content moderation
     - **Property 28: Content approval publishes to mobile app**
     - **Property 29: Content rejection stores feedback**
     - **Property 30: Content filtering returns matching results**
@@ -252,7 +252,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement GET /admin/costs/resources (resource usage metrics)
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9_
 
-  - [ ]* 11.3 Write property test for cost alerts
+  - [ ] 11.3 Write property test for cost alerts
     - **Property 31: Cost alerts trigger when thresholds exceeded**
     - **Validates: Requirements 9.8**
 
@@ -272,7 +272,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement POST /admin/payments/export (export transactions)
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9_
 
-  - [ ]* 12.2 Write property tests for payment operations
+  - [ ] 12.2 Write property tests for payment operations
     - **Property 32: Transaction filtering returns matching results**
     - **Property 33: Refund updates transaction status**
     - **Validates: Requirements 10.2, 10.4, 10.5**
@@ -299,7 +299,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement POST /admin/logs/export (export logs)
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.6, 11.7, 11.8_
 
-  - [ ]* 13.3 Write property test for log filtering
+  - [ ] 13.3 Write property test for log filtering
     - **Property 34: Log filtering returns matching results**
     - **Validates: Requirements 11.2, 11.3**
 
@@ -309,7 +309,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement POST /admin/audit/export (export audit logs)
     - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7_
 
-  - [ ]* 13.5 Write property tests for audit trail
+  - [ ] 13.5 Write property tests for audit trail
     - **Property 37: All administrative actions create audit logs**
     - **Property 38: Audit logs are chronologically ordered**
     - **Property 39: Audit logs for updates include before/after values**
@@ -346,7 +346,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement SessionManager for timeout handling
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.7_
 
-  - [ ]* 15.4 Write unit tests for authentication components
+  - [ ] 15.4 Write unit tests for authentication components
     - Test LoginPage rendering and form submission
     - Test ProtectedRoute authorization logic
     - Test SessionManager timeout handling
@@ -368,7 +368,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement notification polling or WebSocket connection
     - _Requirements: 17.1, 17.2, 17.3, 17.4, 17.5, 17.6, 17.7, 17.8_
 
-  - [ ]* 16.3 Write property tests for notifications
+  - [ ] 16.3 Write property tests for notifications
     - **Property 42: Notifications are created for critical events**
     - **Property 43: Notification read status can be updated**
     - **Validates: Requirements 17.1, 17.2, 17.3, 17.4, 17.6**
@@ -383,7 +383,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement bulk selection for bulk operations
     - _Requirements: 2.7, 14.1, 16.1, 16.3, 16.7, 19.6_
 
-  - [ ]* 17.2 Write property test for temple search
+  - [ ] 17.2 Write property test for temple search
     - **Property 41: Search returns matching results**
     - **Validates: Requirements 16.1**
 
@@ -394,7 +394,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement multi-image upload with progress bars
     - _Requirements: 2.1, 2.2, 2.6, 18.1, 18.2, 18.3, 19.3_
 
-  - [ ]* 17.4 Write property tests for form validation
+  - [ ] 17.4 Write property tests for form validation
     - **Property 44: Required field validation rejects missing fields**
     - **Property 45: Format validation rejects invalid formats**
     - **Property 46: File validation rejects invalid files**
@@ -676,7 +676,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement request/response logging
     - _Requirements: 18.5, 18.6, 18.7_
 
-  - [ ]* 28.4 Write property tests for error handling
+  - [ ] 28.4 Write property tests for error handling
     - **Property 47: Network errors trigger retry with backoff**
     - **Property 48: Errors are logged to CloudWatch**
     - **Validates: Requirements 18.6, 18.7**
@@ -687,7 +687,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Configure cache TTLs for different data types
     - _Requirements: 19.5_
 
-  - [ ]* 28.6 Write property test for caching
+  - [ ] 28.6 Write property test for caching
     - **Property 49: Caching reduces redundant API calls**
     - **Validates: Requirements 19.5**
 
@@ -715,7 +715,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Implement tree shaking
     - _Requirements: 19.1_
 
-  - [ ]* 29.4 Write property test for pagination
+  - [ ] 29.4 Write property test for pagination
     - **Property 50: Pagination returns correct page size**
     - **Validates: Requirements 19.6**
 
@@ -860,62 +860,62 @@ The implementation follows an incremental approach: infrastructure setup → bac
 
 
 - [ ] 37. Write comprehensive integration tests
-  - [ ]* 37.1 Write integration tests for authentication flow
+  - [ ] 37.1 Write integration tests for authentication flow
     - Test complete login flow with MFA
     - Test session expiration and renewal
     - Test logout and session termination
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.7_
 
-  - [ ]* 37.2 Write integration tests for temple management
+  - [ ] 37.2 Write integration tests for temple management
     - Test complete CRUD operations for temples
     - Test image upload and retrieval
     - Test bulk operations
     - Test search and filtering
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 14.1_
 
-  - [ ]* 37.3 Write integration tests for artifact management
+  - [ ] 37.3 Write integration tests for artifact management
     - Test complete CRUD operations for artifacts
     - Test QR code generation and download
     - Test media upload
     - Test bulk operations
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.7, 3.9, 14.2_
 
-  - [ ]* 37.4 Write integration tests for content monitoring
+  - [ ] 37.4 Write integration tests for content monitoring
     - Test job listing and filtering
     - Test job retry and cancellation
     - Test job statistics
     - _Requirements: 4.1, 4.5, 4.6, 4.8, 4.9_
 
-  - [ ]* 37.5 Write integration tests for analytics
+  - [ ] 37.5 Write integration tests for analytics
     - Test analytics data retrieval
     - Test analytics export
     - _Requirements: 5.1, 5.9_
 
-  - [ ]* 37.6 Write integration tests for user management
+  - [ ] 37.6 Write integration tests for user management
     - Test user CRUD operations
     - Test user activation/deactivation
     - Test session termination on deactivation
     - _Requirements: 6.1, 6.4, 6.8_
 
-  - [ ]* 37.7 Write integration tests for configuration management
+  - [ ] 37.7 Write integration tests for configuration management
     - Test configuration updates
     - Test configuration validation
     - Test configuration history
     - _Requirements: 7.7, 7.9_
 
-  - [ ]* 37.8 Write integration tests for content moderation
+  - [ ] 37.8 Write integration tests for content moderation
     - Test content approval flow
     - Test content rejection flow
     - Test content editing
     - _Requirements: 8.2, 8.3, 8.4_
 
-  - [ ]* 37.9 Write integration tests for payment management
+  - [ ] 37.9 Write integration tests for payment management
     - Test transaction retrieval
     - Test refund processing
     - Test subscription management
     - _Requirements: 10.1, 10.4, 10.7_
 
-  - [ ]* 37.10 Write integration tests for logging and audit
+  - [ ] 37.10 Write integration tests for logging and audit
     - Test log retrieval and filtering
     - Test audit log creation
     - Test audit log immutability
@@ -1012,14 +1012,14 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - _Requirements: All code repositories_
 
 - [ ] 42. Perform end-to-end testing
-  - [ ]* 42.1 Test complete authentication workflow
+  - [ ] 42.1 Test complete authentication workflow
     - Test login with valid credentials
     - Test MFA verification
     - Test session timeout
     - Test logout
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.7_
 
-  - [ ]* 42.2 Test temple management workflow
+  - [ ] 42.2 Test temple management workflow
     - Create new temple with images
     - Update temple information
     - Search and filter temples
@@ -1027,7 +1027,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Perform bulk operations
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 14.1_
 
-  - [ ]* 42.3 Test artifact management workflow
+  - [ ] 42.3 Test artifact management workflow
     - Create new artifact with QR code
     - Upload artifact media
     - Download QR code in different formats
@@ -1035,7 +1035,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Delete artifact (verify soft delete)
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.7, 3.9_
 
-  - [ ]* 42.4 Test content generation monitoring workflow
+  - [ ] 42.4 Test content generation monitoring workflow
     - View content generation jobs
     - Filter jobs by status and date
     - Retry failed job
@@ -1043,42 +1043,42 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - View job statistics
     - _Requirements: 4.1, 4.2, 4.5, 4.6, 4.8, 4.9_
 
-  - [ ]* 42.5 Test analytics workflow
+  - [ ] 42.5 Test analytics workflow
     - View analytics summary
     - View QR scan statistics
     - View content generation statistics
     - Export analytics data to CSV
     - _Requirements: 5.1, 5.3, 5.4, 5.9_
 
-  - [ ]* 42.6 Test user management workflow
+  - [ ] 42.6 Test user management workflow
     - Create new admin user
     - Assign role and permissions
     - Deactivate user (verify session termination)
     - View user activity log
     - _Requirements: 6.1, 6.2, 6.4, 6.8_
 
-  - [ ]* 42.7 Test system configuration workflow
+  - [ ] 42.7 Test system configuration workflow
     - Update language configuration
     - Update Bedrock configuration
     - View configuration history
     - Test configuration validation
     - _Requirements: 7.1, 7.2, 7.7, 7.9_
 
-  - [ ]* 42.8 Test content moderation workflow
+  - [ ] 42.8 Test content moderation workflow
     - View pending content
     - Approve content
     - Reject content with feedback
     - Edit and approve content
     - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-  - [ ]* 42.9 Test cost monitoring workflow
+  - [ ] 42.9 Test cost monitoring workflow
     - View current month costs
     - View cost trends
     - Set cost alert threshold
     - View resource usage metrics
     - _Requirements: 9.1, 9.2, 9.8, 9.9_
 
-  - [ ]* 42.10 Test payment management workflow
+  - [ ] 42.10 Test payment management workflow
     - View transactions
     - Filter transactions by status and date
     - Issue refund
@@ -1086,7 +1086,7 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Export transactions to CSV
     - _Requirements: 10.1, 10.2, 10.4, 10.8, 10.9_
 
-  - [ ]* 42.11 Test logging and audit workflow
+  - [ ] 42.11 Test logging and audit workflow
     - View system logs
     - Filter logs by severity and source
     - View API Gateway logs
@@ -1095,28 +1095,28 @@ The implementation follows an incremental approach: infrastructure setup → bac
     - Export audit logs
     - _Requirements: 11.1, 11.2, 11.3, 11.7, 15.1, 15.7_
 
-  - [ ]* 42.12 Test notification workflow
+  - [ ] 42.12 Test notification workflow
     - Trigger notification (simulate job failure)
     - View notification in notification panel
     - Mark notification as read
     - Configure notification preferences
     - _Requirements: 17.1, 17.5, 17.6, 17.8_
 
-  - [ ]* 42.13 Test responsive design
+  - [ ] 42.13 Test responsive design
     - Test all pages on desktop (1920x1080)
     - Test all pages on laptop (1440x900)
     - Test all pages on tablet (1024x768)
     - Verify touch-friendly controls on tablet
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.6_
 
-  - [ ]* 42.14 Test error handling
+  - [ ] 42.14 Test error handling
     - Test form validation errors
     - Test network error handling with retry
     - Test API error responses
     - Test file upload validation
     - _Requirements: 18.1, 18.2, 18.3, 18.4, 18.5, 18.6_
 
-  - [ ]* 42.15 Test performance
+  - [ ] 42.15 Test performance
     - Verify initial page load < 3 seconds
     - Verify API response time < 500ms (p95)
     - Verify large dataset pagination works smoothly

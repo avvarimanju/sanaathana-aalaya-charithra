@@ -50,9 +50,9 @@ VITE_API_BASE_URL=http://localhost:4000
 
 ### Architecture
 ```
-Admin Portal (staging.yourapp.com)
+Admin Portal (admin-staging.charithra.org)
     ↓ HTTPS
-    VITE_API_BASE_URL=https://api-staging.yourapp.com
+    VITE_API_BASE_URL=https://api-staging.charithra.org
     ↓
 AWS API Gateway (REST API)
     ↓
@@ -82,10 +82,11 @@ AWS S3 (staging bucket)
 
 ### Configuration
 ```env
-# .env.staging
-VITE_API_BASE_URL=https://api-staging.yourapp.com
-VITE_AWS_REGION=us-east-1
-VITE_COGNITO_USER_POOL_ID=us-east-1_xxxxx
+# .env.staging - References global configuration
+# AWS region is loaded from .env.global (currently: ap-south-1)
+VITE_API_BASE_URL=https://api-staging.charithra.org
+VITE_AWS_REGION=${AWS_REGION:-ap-south-1}
+VITE_COGNITO_USER_POOL_ID=${AWS_REGION:-ap-south-1}_xxxxx
 ```
 
 ---
@@ -94,9 +95,9 @@ VITE_COGNITO_USER_POOL_ID=us-east-1_xxxxx
 
 ### Architecture
 ```
-Admin Portal (admin.yourapp.com)
+Admin Portal (admin.charithra.org)
     ↓ HTTPS
-    VITE_API_BASE_URL=https://api.yourapp.com
+    VITE_API_BASE_URL=https://api.charithra.org
     ↓
 AWS API Gateway (REST API)
     ├── Rate Limiting (100 req/min)
@@ -136,10 +137,11 @@ AWS S3 (production bucket)
 
 ### Configuration
 ```env
-# .env.production
-VITE_API_BASE_URL=https://api.yourapp.com
-VITE_AWS_REGION=us-east-1
-VITE_COGNITO_USER_POOL_ID=us-east-1_xxxxx
+# .env.production - References global configuration
+# AWS region is loaded from .env.global (currently: ap-south-1)
+VITE_API_BASE_URL=https://api.charithra.org
+VITE_AWS_REGION=${AWS_REGION:-ap-south-1}
+VITE_COGNITO_USER_POOL_ID=${AWS_REGION:-ap-south-1}_xxxxx
 VITE_ENABLE_ANALYTICS=true
 ```
 
@@ -184,9 +186,9 @@ const temples = await templeApi.listTemples();
 | Component | Dev | Staging | Production |
 |-----------|-----|---------|------------|
 | API Clients | ✅ Same | ✅ Same | ✅ Same |
-| API Base URL | localhost:4000 | api-staging.yourapp.com | api.yourapp.com |
+| API Base URL | localhost:4000 | api-staging.charithra.org | api.charithra.org |
 | Deployment | Local (npm run dev) | S3 + CloudFront | S3 + CloudFront |
-| Domain | localhost:5173 | staging.yourapp.com | admin.yourapp.com |
+| Domain | localhost:5173 | admin-staging.charithra.org | admin.charithra.org |
 
 ### Backend
 | Component | Dev | Staging | Production |
@@ -260,10 +262,11 @@ VITE_ENVIRONMENT=development
 admin-portal/.env.staging
 ```
 ```env
-VITE_API_BASE_URL=https://api-staging.yourapp.com
+# Staging Environment Configuration - References global config
+VITE_API_BASE_URL=https://api-staging.charithra.org
 VITE_ENVIRONMENT=staging
-VITE_AWS_REGION=us-east-1
-VITE_COGNITO_USER_POOL_ID=us-east-1_xxxxx
+VITE_AWS_REGION=${AWS_REGION:-ap-south-1}
+VITE_COGNITO_USER_POOL_ID=${AWS_REGION:-ap-south-1}_xxxxx
 VITE_COGNITO_CLIENT_ID=xxxxx
 ```
 
@@ -272,10 +275,11 @@ VITE_COGNITO_CLIENT_ID=xxxxx
 admin-portal/.env.production
 ```
 ```env
-VITE_API_BASE_URL=https://api.yourapp.com
+# Production Environment Configuration - References global config
+VITE_API_BASE_URL=https://api.charithra.org
 VITE_ENVIRONMENT=production
-VITE_AWS_REGION=us-east-1
-VITE_COGNITO_USER_POOL_ID=us-east-1_xxxxx
+VITE_AWS_REGION=${AWS_REGION:-ap-south-1}
+VITE_COGNITO_USER_POOL_ID=${AWS_REGION:-ap-south-1}_xxxxx
 VITE_COGNITO_CLIENT_ID=xxxxx
 VITE_ENABLE_ANALYTICS=true
 VITE_SENTRY_DSN=https://xxxxx@sentry.io/xxxxx
@@ -316,16 +320,16 @@ GET  http://localhost:4000/api/temples/:id
 
 ### Staging
 ```
-POST https://api-staging.yourapp.com/api/temples
-GET  https://api-staging.yourapp.com/api/temples
-GET  https://api-staging.yourapp.com/api/temples/:id
+POST https://api-staging.charithra.org/api/temples
+GET  https://api-staging.charithra.org/api/temples
+GET  https://api-staging.charithra.org/api/temples/:id
 ```
 
 ### Production
 ```
-POST https://api.yourapp.com/api/temples
-GET  https://api.yourapp.com/api/temples
-GET  https://api.yourapp.com/api/temples/:id
+POST https://api.charithra.org/api/temples
+GET  https://api.charithra.org/api/temples
+GET  https://api.charithra.org/api/temples/:id
 ```
 
 **Same API client code works for all!** Just change the base URL.

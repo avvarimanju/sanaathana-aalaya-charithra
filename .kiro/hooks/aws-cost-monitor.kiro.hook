@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "AWS Cost Monitoring - Temple Heritage Platform",
+  "description": "Monitors AWS costs for AI services (Bedrock, Polly, Comprehend), serverless infrastructure, and ensures cost optimization for the temple heritage platform",
+  "version": "1.0.0",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": ["shell"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Check AWS costs for Sanaathana-Aalaya-Charithra project deployment. Run 'aws ce get-cost-and-usage --time-period Start=2026-03-01,End=2026-03-11 --granularity DAILY --metrics BlendedCost --group-by Type=DIMENSION,Key=SERVICE' to get current costs. Alert if daily costs exceed $5 or monthly projection exceeds $50. Focus on Lambda, DynamoDB, S3, CloudFront, and Bedrock services."
+  }
+}

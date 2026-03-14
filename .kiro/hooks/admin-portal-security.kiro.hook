@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Admin Portal Security Validation",
+  "description": "Validates admin portal security, authentication, and access controls for temple management and pricing systems",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "admin-portal/**/*.tsx",
+      "admin-portal/**/*.ts",
+      "backend/auth/**/*.ts",
+      "backend/lambdas/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Admin portal or authentication code has been modified. Please validate: 1) Role-based access control (temple managers, super admins), 2) Secure authentication and session management, 3) Input validation and XSS protection, 4) API endpoint authorization, 5) Sensitive data encryption (pricing, temple details), 6) Audit logging for admin actions, 7) HTTPS enforcement and security headers, 8) Protection against unauthorized temple data modifications. Ensure temple heritage data remains secure and only authorized personnel can make changes."
+  }
+}

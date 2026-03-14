@@ -39,13 +39,16 @@ def test_bedrock():
     print()
     print("2. Testing Bedrock model access...")
     print("   Model: Claude 3 Haiku")
-    print("   Region: ap-south-1")
+    
+    # Load AWS region from global config or environment
+    aws_region = os.environ.get('AWS_REGION', 'ap-south-1')
+    print(f"   Region: {aws_region} (loaded from global config)")
     
     try:
         # Create Bedrock client
         bedrock = boto3.client(
             service_name='bedrock-runtime',
-            region_name='ap-south-1'
+            region_name=aws_region
         )
         
         # Prepare request
@@ -114,7 +117,7 @@ def test_bedrock():
         elif error_code == 'ValidationException':
             print("Model ID or region may be incorrect")
             print("  • Verify model ID: anthropic.claude-3-haiku-20240307-v1:0")
-            print("  • Verify region: ap-south-1")
+            print(f"  • Verify region: {aws_region} (from global config)")
             
         elif error_code == 'ThrottlingException':
             print("Too many requests - wait and retry")

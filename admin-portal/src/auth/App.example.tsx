@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { AdminAuthProvider, ProtectedRoute, useAdminAuth } from './index';
-import { DefectListPage } from '../pages/DefectListPage';
+import DefectListPage from '../pages/DefectListPage';
 import { DefectDetailPage } from '../pages/DefectDetailPage';
 
 /**

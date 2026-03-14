@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "name": "Multilingual Content Consistency",
+  "description": "Validates consistency and accuracy across 10+ Indian languages for temple descriptions, audio guides, and UI text",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "shared/constants/**/*.ts",
+      "mobile-app/src/**/*.tsx",
+      "admin-portal/src/**/*.tsx",
+      "backend/services/**/*.ts",
+      "data/**/*.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Multilingual content or UI text has been modified. Please validate: 1) Translation completeness across all 10+ supported Indian languages, 2) Cultural appropriateness and regional variations, 3) Sanskrit terminology accuracy and proper transliteration, 4) Audio guide script quality for text-to-speech, 5) UI text consistency between mobile app and admin portal, 6) Religious and cultural sensitivity in all languages, 7) Font and rendering support for Devanagari and regional scripts. Ensure temple heritage is respectfully represented in all languages while maintaining technical functionality."
+  }
+}

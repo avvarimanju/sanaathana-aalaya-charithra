@@ -57,20 +57,32 @@ admin-portal/
 - npm or yarn package manager
 - Admin authentication credentials
 
+### Important: Workspace Architecture
+
+This project uses **npm workspaces** as part of a monorepo structure. All dependencies for admin-portal, mobile-app, and backend are managed from the root directory.
+
+**Do NOT run `npm install` in this directory.** Instead, install from the project root.
+
 ### Installation
 
-1. Clone the repository and navigate to the Admin Portal:
+1. Navigate to the project root:
 ```bash
-cd admin-portal
+cd Sanaathana-Aalaya-Charithra
 ```
 
-2. Install dependencies:
+2. Install all workspace dependencies:
 ```bash
-npm install
+npm install --legacy-peer-deps
+```
+
+Or use the automated deployment script (recommended):
+```bash
+.\scripts\start-dev-environment.ps1
 ```
 
 3. Create environment configuration:
 ```bash
+cd admin-portal
 cp .env.example .env
 ```
 
@@ -79,39 +91,72 @@ cp .env.example .env
 REACT_APP_API_BASE_URL=https://your-api-url.com
 ```
 
+### TypeScript Configuration
+
+The project uses TypeScript with automatic type discovery. The `tsconfig.json` is configured to:
+- Auto-discover type definitions from `node_modules/@types`
+- Support path aliases (`@/*` maps to `src/*`)
+- Enable strict type checking
+- Generate source maps and declaration files
+
+After running `npm install`, TypeScript will automatically find all type definitions including testing libraries.
+
 ### Development
 
-Start the development server:
+**Important:** All npm scripts should be run from the project root using workspace commands.
+
+Start the admin portal development server:
 ```bash
-npm run dev
+# From project root
+cd Sanaathana-Aalaya-Charithra
+npm run dev:admin
+```
+
+Or start all services:
+```bash
+npm run dev:backend   # Start backend API
+npm run dev:admin     # Start admin portal
+npm run dev:mobile    # Start mobile app
 ```
 
 The dashboard will be available at `http://localhost:5173` (default Vite port).
 
 ### Building for Production
 
-Build the production bundle:
+Build the production bundle (from project root):
 ```bash
-npm run build
+cd Sanaathana-Aalaya-Charithra
+npm run build --workspace=admin-portal
+```
+
+Or build all workspaces:
+```bash
+npm run build:all
 ```
 
 Preview the production build:
 ```bash
-npm run preview
+npm run preview --workspace=admin-portal
 ```
 
 ### Type Checking
 
-Run TypeScript type checking:
+Run TypeScript type checking (from project root):
 ```bash
-npm run type-check
+cd Sanaathana-Aalaya-Charithra
+npm run type-check --workspace=admin-portal
 ```
 
 ### Linting
 
-Run ESLint:
+Run ESLint (from project root):
 ```bash
-npm run lint
+npm run lint --workspace=admin-portal
+```
+
+Or lint all workspaces:
+```bash
+npm run lint:all
 ```
 
 ## API Client Usage
@@ -273,6 +318,8 @@ This Admin Portal implements the following requirements from the defect tracking
 - **Vite**: Build tool and dev server
 - **React Router**: Client-side routing (to be integrated)
 - **Fetch API**: HTTP client
+
+**Note:** This is a web application using Vite + React. It does not use Expo or React Native, which are for mobile apps.
 
 ## Future Enhancements
 

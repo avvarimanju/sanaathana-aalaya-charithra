@@ -6,6 +6,7 @@ Handles analytics queries and data export for the admin application.
 
 import json
 import os
+import sys
 from typing import Dict, Any, List, Optional
 import boto3
 from datetime import datetime, timedelta
@@ -14,9 +15,13 @@ from collections import defaultdict
 import csv
 import io
 
-# AWS clients
-dynamodb = boto3.resource("dynamodb")
-s3_client = boto3.client("s3")
+# Add config directory to path for global config import
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+from config.global_config import global_config
+
+# AWS clients - use global configuration
+dynamodb = boto3.resource("dynamodb", region_name=global_config.aws_region)
+s3_client = boto3.client("s3", region_name=global_config.aws_region)
 
 # DynamoDB tables
 analytics_table = dynamodb.Table("SanaathanaAalayaCharithra-Analytics")
@@ -25,9 +30,9 @@ artifacts_table = dynamodb.Table("SanaathanaAalayaCharithra-Artifacts")
 content_cache_table = dynamodb.Table("SanaathanaAalayaCharithra-ContentCache")
 progress_table = dynamodb.Table("SanaathanaAalayaCharithra-PreGenerationProgress")
 
-# Environment variables
+# Environment variables - use global configuration with fallbacks
 CONTENT_BUCKET = os.environ.get("CONTENT_BUCKET", "sanaathana-aalaya-charithra-content")
-AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+AWS_REGION = global_config.aws_region  # Now uses global config instead of hardcoded fallback
 
 
 class DecimalEncoder(json.JSONEncoder):

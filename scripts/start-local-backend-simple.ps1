@@ -13,7 +13,11 @@ Write-Host ""
 # Set environment variables
 $env:PORT = "4000"
 $env:NODE_ENV = "development"
-$env:AWS_REGION = "ap-south-1"
+
+# Load AWS region from global config
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+$env:AWS_REGION = $config.AWS_REGION
 
 # Navigate to local-server directory
 $localServerPath = "src/local-server"

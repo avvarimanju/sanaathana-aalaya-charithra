@@ -32,7 +32,7 @@ git push origin main
 
 **2. Enable GitHub Pages**
 
-1. Go to your repository on GitHub: `https://github.com/[your-username]/Sanaathana-Aalaya-Charithra`
+1. Go to your repository on GitHub: `https://github.com/avvarimanju/sanaathana-aalaya-charithra`
 2. Click on "Settings" tab
 3. Scroll down to "Pages" section (in the left sidebar under "Code and automation")
 4. Under "Source", select:

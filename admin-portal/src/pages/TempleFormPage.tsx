@@ -82,7 +82,10 @@ const TempleFormPage: React.FC = () => {
       
       setFormData({
         name: temple.name,
-        location: temple.location,
+        location: {
+          ...temple.location,
+          district: temple.location.district || ''
+        },
         deity: (temple as any).deity || '',
         description: temple.description,
         historicalSignificance: (temple as any).historicalSignificance || '',

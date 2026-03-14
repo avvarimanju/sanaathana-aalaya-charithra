@@ -1,96 +1,127 @@
 # Technology Stack
 
 ## Architecture
+**Monorepo** with npm workspaces containing three main applications and shared infrastructure.
 
-Monorepo structure with three main workspaces: admin-portal, mobile-app, backend
+## Frontend Technologies
 
-## Backend
-
-- **Runtime**: Node.js 18+ (TypeScript) + Python (Lambda handlers)
-- **Cloud**: AWS Serverless (Lambda, DynamoDB, API Gateway, S3, CloudFront)
-- **AI Services**: Amazon Bedrock (content generation), Amazon Polly (TTS), Amazon Translate
-- **Infrastructure**: AWS CDK, SAM (Serverless Application Model)
-- **Local Dev**: Docker + LocalStack for DynamoDB
-- **Testing**: Jest (TypeScript), pytest (Python), fast-check (property-based testing)
-- **Key Libraries**: Zod (validation), Joi, uuid, razorpay
-
-## Admin Portal
-
+### Admin Portal
 - **Framework**: React 18 + TypeScript
 - **Build Tool**: Vite
+- **Routing**: React Router DOM v6
 - **Testing**: Jest + React Testing Library
-- **Styling**: TailwindCSS (implied from structure)
+- **Linting**: ESLint + TypeScript ESLint
 
-## Mobile App
-
-- **Framework**: React Native + Expo SDK 55
-- **Platform**: iOS and Android
+### Mobile App
+- **Framework**: React Native + Expo
+- **Navigation**: React Navigation v6
+- **UI Components**: React Native Paper
 - **Testing**: Jest + React Native Testing Library
-- **Build**: EAS Build, Gradle (Android)
+- **Platform**: Cross-platform (iOS/Android)
+
+## Backend Technologies
+
+### Core Stack
+- **Runtime**: Node.js 18+
+- **Language**: TypeScript
+- **Architecture**: AWS Serverless (Lambda + API Gateway)
+- **Database**: Amazon DynamoDB
+- **Storage**: Amazon S3 + CloudFront
+
+### AWS Services
+- **Amazon Bedrock**: AI content generation
+- **Amazon Polly**: Text-to-speech synthesis
+- **Amazon Translate**: Language detection
+- **Amazon Comprehend**: Text analysis
+- **AWS CDK**: Infrastructure as Code
+
+### Development Tools
+- **Local Development**: LocalStack + Docker
+- **API Framework**: Express.js (local server)
+- **Testing**: Jest + AWS SDK Client Mock
+- **Bundling**: esbuild
+- **Validation**: Zod + Joi
 
 ## Common Commands
 
-### Root Level (Monorepo)
-```bash
-npm run build:all          # Build all workspaces
-npm run test:all           # Run all tests
-npm run lint:all           # Lint all workspaces
-npm run dev:backend        # Start backend server
-npm run dev:admin          # Start admin portal
-npm run dev:mobile         # Start mobile app
-```
-
-### Backend
-```bash
-cd backend
-npm run build              # Compile TypeScript
-npm test                   # Run Jest tests (sequential)
-npm run test:coverage      # Generate coverage report
-npm run cdk deploy         # Deploy to AWS
-npm start                  # Start local server (port 4000)
-```
-
-### Admin Portal
-```bash
-cd admin-portal
-npm run dev                # Start Vite dev server (port 5173)
-npm run build              # Build for production
-npm test                   # Run Jest tests
-npm run type-check         # TypeScript validation
-```
-
-### Mobile App
-```bash
-cd mobile-app
-npx expo start             # Start Expo dev server
-npx expo start --tunnel    # Use tunnel for remote testing
-npm test                   # Run Jest tests
-```
-
-## Development Environment
-
-### Prerequisites
-- Docker Desktop (for LocalStack)
-- Node.js 18+
-- npm 9+
-
-### Quick Start
+### Development Environment
 ```powershell
+# Start complete development environment
 .\scripts\start-dev-environment.ps1
+
+# Start individual services
+npm run dev:backend    # Backend API (port 4000)
+npm run dev:admin      # Admin Portal (port 5173)
+npm run dev:mobile     # Mobile App (Expo)
 ```
 
-This script:
-1. Starts LocalStack container
-2. Initializes DynamoDB tables
-3. Starts backend API (port 4000)
-4. Starts admin portal (port 5173)
+### Building
+```powershell
+# Build all workspaces
+npm run build:all
 
-### Important Startup Order
-Backend server MUST start before admin portal to avoid connection errors. The startup script handles this automatically.
+# Build individual components
+cd admin-portal && npm run build
+cd backend && npm run build
+cd mobile-app && npm run build
+```
 
-## Testing Strategy
+### Testing
+```powershell
+# Run all tests
+npm run test:all
 
-- Backend: 118 tests (Jest + pytest)
-- Admin Portal: 7 tests (Jest + React Testing Library)
-- Mobile App: 6 tests (Jest + React Native Testing Library)
-- Property-based testing with fast-check for correctness properties
+# Run workspace-specific tests
+cd admin-portal && npm test
+cd backend && npm test
+cd mobile-app && npm test
+
+# Coverage reports
+npm run test:coverage
+```
+
+### Linting & Type Checking
+```powershell
+# Lint all workspaces
+npm run lint:all
+
+# Type check
+cd admin-portal && npm run type-check
+cd backend && tsc --noEmit
+```
+
+### Local Development Setup
+```powershell
+# Prerequisites: Docker Desktop must be running
+# Initialize LocalStack and DynamoDB
+.\scripts\init-local-db.ps1
+
+# Start backend server
+cd backend && npm start
+
+# Start admin portal
+cd admin-portal && npm run dev
+```
+
+## Key Dependencies
+
+### Shared
+- **zod**: Schema validation
+- **uuid**: Unique identifier generation
+
+### Backend Specific
+- **AWS SDK v3**: All AWS service clients
+- **express**: Local development server
+- **cors**: Cross-origin resource sharing
+- **joi**: Request validation
+
+### Frontend Specific
+- **axios**: HTTP client (mobile app)
+- **react-router-dom**: SPA routing (admin portal)
+- **@react-navigation**: Navigation (mobile app)
+
+## Environment Requirements
+- **Node.js**: >=18.0.0
+- **npm**: >=9.0.0
+- **Docker Desktop**: Required for LocalStack
+- **AWS CLI**: For deployment (optional for local dev)

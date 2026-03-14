@@ -6,7 +6,7 @@
  * <Route path="/api-test" element={<ApiTestPage />} />
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { apiClient, templeApi, pricingApi, calculatorApi } from '../api';
 
 export default function ApiTestPage() {

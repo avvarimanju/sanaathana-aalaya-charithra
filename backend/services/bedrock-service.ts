@@ -2,6 +2,7 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 import { logger } from '../utils/logger';
 import { Language } from '../models/common';
+import { globalConfig } from '../../config/global-config';
 
 export interface BedrockConfig {
   modelId: string;
@@ -39,8 +40,8 @@ export class BedrockService {
   private defaultConfig: BedrockConfig;
 
   constructor(config?: Partial<BedrockConfig>) {
-    // Default to ap-south-1 (Mumbai) for optimal performance in India
-    const region = config?.region || process.env.AWS_REGION || 'ap-south-1';
+    // Use global config for region with optional override
+    const region = config?.region || globalConfig.aws.region;
     
     this.client = new BedrockRuntimeClient({ region });
     

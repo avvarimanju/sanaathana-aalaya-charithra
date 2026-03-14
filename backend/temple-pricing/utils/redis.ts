@@ -23,7 +23,7 @@ class RedisCache {
         },
       });
 
-      this.client.on('error', (err) => {
+      this.client.on('error', (err: Error) => {
         logger.error('Redis client error', err);
       });
 

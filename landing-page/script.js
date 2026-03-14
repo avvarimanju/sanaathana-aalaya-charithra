@@ -19,7 +19,9 @@ function getArtifactIdFromURL() {
 async function fetchArtifactData(artifactId) {
     try {
         // API endpoint for Sanaathana Aalaya Charithra
-        const API_BASE_URL = 'https://api.charithra.org';
+        // Domain loaded from global config or environment
+        const DOMAIN_ROOT = window.DOMAIN_ROOT || 'charithra.org';
+        const API_BASE_URL = `https://api.${DOMAIN_ROOT}`;
         const response = await fetch(`${API_BASE_URL}/artifacts/${artifactId}`);
         
         if (!response.ok) {

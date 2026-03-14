@@ -3,7 +3,7 @@
 # MVP Deployment Script - 2 Environment Setup
 # Deploys minimal backend with full mobile app features
 # Usage: ./scripts/deploy-mvp.sh [staging|prod]
-# Default Region: ap-south-1 (Mumbai) for Indian users
+# Uses global configuration from .env.global and config/global-config.sh
 
 set -e
 
@@ -190,7 +190,7 @@ STACK_NAME="TempleApp-$ENVIRONMENT"
 # Get API URL
 API_URL=$(aws cloudformation describe-stacks \
     --stack-name $STACK_NAME \
-    --region ${AWS_REGION:-ap-south-1} \
+    --region ${AWS_REGION} \
     --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" \
     --output text 2>/dev/null || echo "Not found")
 
@@ -286,7 +286,8 @@ STAGE=$ENVIRONMENT
 API_URL=$API_URL
 USER_POOL_ID=$USER_POOL_ID
 USER_POOL_CLIENT_ID=$USER_POOL_CLIENT_ID
-AWS_REGION=${AWS_REGION:-ap-south-1}
+# AWS region loaded from global config
+AWS_REGION=${AWS_REGION}
 EOF
 
 print_success "Environment variables saved to $OUTPUT_FILE"

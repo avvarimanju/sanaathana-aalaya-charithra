@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Amazon Bedrock Usage Monitor",
+  "description": "Monitors Bedrock API usage, token consumption, and model performance to optimize AI content generation costs and quality",
+  "version": "1.0.0",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": ["shell"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Monitor Amazon Bedrock usage for the temple heritage platform. Check: 1) Token consumption rates and costs, 2) Model performance metrics (Claude, Titan), 3) Content generation success rates, 4) Rate limiting and throttling issues, 5) Regional availability and latency. Recommend model switching or optimization if costs exceed budget or quality degrades. Ensure AI-generated temple content maintains high accuracy while staying cost-effective."
+  }
+}

@@ -115,7 +115,8 @@ Create `.env.development`:
 
 ```env
 VITE_API_BASE_URL=http://localhost:4000
-VITE_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+VITE_AWS_REGION=${AWS_REGION}
 VITE_ENVIRONMENT=development
 ```
 
@@ -184,7 +185,8 @@ Create `.env.development`:
 
 ```env
 EXPO_PUBLIC_API_BASE_URL=http://localhost:4000
-EXPO_PUBLIC_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+EXPO_PUBLIC_AWS_REGION=${AWS_REGION}
 EXPO_PUBLIC_ENVIRONMENT=development
 ```
 
@@ -371,7 +373,8 @@ npm run type-check
 ### Backend (.env)
 
 ```env
-AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+AWS_REGION=${AWS_REGION}
 DYNAMODB_ENDPOINT=http://localhost:4566
 LOG_LEVEL=debug
 ```
@@ -380,7 +383,8 @@ LOG_LEVEL=debug
 
 ```env
 VITE_API_BASE_URL=http://localhost:4000
-VITE_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+VITE_AWS_REGION=${AWS_REGION}
 VITE_ENVIRONMENT=development
 ```
 
@@ -388,7 +392,8 @@ VITE_ENVIRONMENT=development
 
 ```env
 EXPO_PUBLIC_API_BASE_URL=http://localhost:4000
-EXPO_PUBLIC_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+EXPO_PUBLIC_AWS_REGION=${AWS_REGION}
 EXPO_PUBLIC_ENVIRONMENT=development
 ```
 

@@ -199,7 +199,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: staging
-      url: https://staging-api.example.com
+      url: https://api-staging.charithra.org
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -245,7 +245,7 @@ jobs:
     if: github.ref == 'refs/heads/production' && github.event_name == 'push'
     environment:
       name: production
-      url: https://api.example.com
+      url: https://api.charithra.org
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

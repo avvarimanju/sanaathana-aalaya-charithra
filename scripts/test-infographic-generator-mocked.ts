@@ -199,7 +199,7 @@ async function testInfographicGeneratorMocked() {
     console.log('\n1. Creating mock configuration...');
     const config: PreGenerationConfig = {
       aws: {
-        region: 'us-east-1',
+        region: globalConfig.aws.region,
         s3: {
           bucket: 'test-bucket',
           encryption: 'AES256',

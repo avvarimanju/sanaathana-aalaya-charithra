@@ -9,8 +9,8 @@ export interface DeepLinkParams {
 /**
  * Parse a deep link URL and extract the type and ID
  * Supports URLs like:
- * - https://charithra.org/temple/tirupati-balaji
- * - https://charithra.org/artifact/ancient-sculpture-123
+ * - https://${DOMAIN_ROOT}/temple/tirupati-balaji (domain loaded from global config)
+ * - https://${DOMAIN_ROOT}/artifact/ancient-sculpture-123 (domain loaded from global config)
  */
 export function parseDeepLink(url: string): DeepLinkParams {
   try {

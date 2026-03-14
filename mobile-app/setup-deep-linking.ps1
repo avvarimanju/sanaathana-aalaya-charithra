@@ -48,7 +48,13 @@ Write-Host "1. Test locally:" -ForegroundColor Yellow
 Write-Host "   npx expo start" -ForegroundColor White
 Write-Host ""
 Write-Host "2. Test deep link:" -ForegroundColor Yellow
-Write-Host "   npx uri-scheme open `"https://charithra.org/temple/test`" --android" -ForegroundColor White
+
+# Load domain from global config
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+$domain = $config.DOMAIN_ROOT
+
+Write-Host "   npx uri-scheme open `"https://$domain/temple/test`" --android" -ForegroundColor White
 Write-Host ""
 Write-Host "3. Build for testing:" -ForegroundColor Yellow
 Write-Host "   eas build --platform android --profile preview" -ForegroundColor White

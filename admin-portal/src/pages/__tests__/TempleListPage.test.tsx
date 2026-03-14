@@ -3,7 +3,6 @@
  * Tests temple list display, filtering, and API integration
  */
 
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import TempleListPage from '../TempleListPage';

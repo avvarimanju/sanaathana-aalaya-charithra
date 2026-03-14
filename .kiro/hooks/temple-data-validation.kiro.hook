@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Temple Data Quality Validation",
+  "description": "Validates temple data integrity, geographic accuracy, historical information, and artifact metadata for heritage preservation",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "data/**/*.json",
+      "backend/repositories/**/*.ts",
+      "scripts/**/*.ps1",
+      "scripts/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Temple data or data processing scripts have been modified. Please validate: 1) Geographic coordinates accuracy (latitude/longitude within India), 2) Temple naming consistency and proper transliteration, 3) Historical dates and period accuracy, 4) Artifact metadata completeness and accuracy, 5) State and district mappings correctness, 6) Image URL validity and accessibility, 7) Trusted source attribution and verification. Ensure all temple data meets heritage preservation standards and cultural authenticity requirements."
+  }
+}

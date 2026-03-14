@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "AI Content Quality Validation",
+  "description": "Validates AI-generated temple content for accuracy, cultural sensitivity, and multilingual consistency across 10+ Indian languages",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "backend/pre-generation/**/*.ts",
+      "backend/services/**/*.ts",
+      "data/**/*.json",
+      "config/**/*.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "AI content generation or temple data has been modified. Please validate: 1) Cultural accuracy and sensitivity of temple descriptions, 2) Proper Sanskrit terminology and transliteration, 3) Historical fact verification against trusted sources, 4) Multilingual consistency across all 10+ supported languages, 5) Audio guide script quality for Polly TTS, 6) Content appropriateness for heritage preservation. Flag any culturally insensitive content or factual inaccuracies that could misrepresent Hindu temple heritage."
+  }
+}

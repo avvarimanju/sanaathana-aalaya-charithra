@@ -22,7 +22,6 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "strictPropertyInitialization": false,
-    "types": ["node"],
     "typeRoots": [
       "./node_modules/@types"
     ],

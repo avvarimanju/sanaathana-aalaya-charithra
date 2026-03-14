@@ -34,7 +34,8 @@ docker-compose up -d
 
 **Backend (.env):**
 ```env
-AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+AWS_REGION=${AWS_REGION}
 DYNAMODB_ENDPOINT=http://localhost:4566
 S3_ENDPOINT=http://localhost:4566
 LOG_LEVEL=debug
@@ -44,7 +45,8 @@ ENVIRONMENT=development
 **Admin Portal (.env.development):**
 ```env
 VITE_API_BASE_URL=http://localhost:4000
-VITE_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+VITE_AWS_REGION=${AWS_REGION}
 VITE_ENVIRONMENT=development
 VITE_ENABLE_ANALYTICS=false
 ```
@@ -52,7 +54,8 @@ VITE_ENABLE_ANALYTICS=false
 **Mobile App (.env.development):**
 ```env
 EXPO_PUBLIC_API_BASE_URL=http://localhost:4000
-EXPO_PUBLIC_AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+EXPO_PUBLIC_AWS_REGION=${AWS_REGION}
 EXPO_PUBLIC_ENVIRONMENT=development
 ```
 
@@ -98,7 +101,8 @@ cdk deploy --profile staging --context environment=staging
 
 **Backend (AWS Lambda environment variables):**
 ```env
-AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+AWS_REGION=${AWS_REGION}
 ENVIRONMENT=staging
 LOG_LEVEL=info
 ENABLE_CACHING=true
@@ -109,16 +113,18 @@ JWT_SECRET=<staging-secret>
 
 **Admin Portal (.env.staging):**
 ```env
-VITE_API_BASE_URL=https://api-staging.yourapp.com
-VITE_AWS_REGION=us-east-1
+# API URL and AWS region loaded from global config (.env.global)
+VITE_API_BASE_URL=https://api-staging.${DOMAIN_ROOT}
+VITE_AWS_REGION=${AWS_REGION}
 VITE_ENVIRONMENT=staging
 VITE_ENABLE_ANALYTICS=true
 ```
 
 **Mobile App (.env.staging):**
 ```env
-EXPO_PUBLIC_API_BASE_URL=https://api-staging.yourapp.com
-EXPO_PUBLIC_AWS_REGION=us-east-1
+# API URL and AWS region loaded from global config (.env.global)
+EXPO_PUBLIC_API_BASE_URL=https://api-staging.${DOMAIN_ROOT}
+EXPO_PUBLIC_AWS_REGION=${AWS_REGION}
 EXPO_PUBLIC_ENVIRONMENT=staging
 ```
 
@@ -162,7 +168,8 @@ cdk deploy --profile production --context environment=production
 
 **Backend (AWS Lambda environment variables):**
 ```env
-AWS_REGION=us-east-1
+# AWS region loaded from global config (.env.global)
+AWS_REGION=${AWS_REGION}
 ENVIRONMENT=production
 LOG_LEVEL=warn
 ENABLE_CACHING=true
@@ -175,8 +182,9 @@ ENABLE_ALARMS=true
 
 **Admin Portal (.env.production):**
 ```env
-VITE_API_BASE_URL=https://api.yourapp.com
-VITE_AWS_REGION=us-east-1
+# API URL and AWS region loaded from global config (.env.global)
+VITE_API_BASE_URL=https://api.${DOMAIN_ROOT}
+VITE_AWS_REGION=${AWS_REGION}
 VITE_ENVIRONMENT=production
 VITE_ENABLE_ANALYTICS=true
 VITE_SENTRY_DSN=<sentry-dsn>
@@ -184,8 +192,9 @@ VITE_SENTRY_DSN=<sentry-dsn>
 
 **Mobile App (.env.production):**
 ```env
-EXPO_PUBLIC_API_BASE_URL=https://api.yourapp.com
-EXPO_PUBLIC_AWS_REGION=us-east-1
+# API URL and AWS region loaded from global config (.env.global)
+EXPO_PUBLIC_API_BASE_URL=https://api.${DOMAIN_ROOT}
+EXPO_PUBLIC_AWS_REGION=${AWS_REGION}
 EXPO_PUBLIC_ENVIRONMENT=production
 EXPO_PUBLIC_SENTRY_DSN=<sentry-dsn>
 ```
@@ -380,8 +389,9 @@ curl http://localhost:4000/health
 ### Staging/Production
 
 ```powershell
-curl https://api-staging.yourapp.com/health
-curl https://api.yourapp.com/health
+# Health check URLs using global config
+curl https://api-staging.${DOMAIN_ROOT}/health
+curl https://api.${DOMAIN_ROOT}/health
 ```
 
 **Expected response:**

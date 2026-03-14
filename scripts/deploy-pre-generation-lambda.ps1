@@ -26,7 +26,7 @@
 #
 # Environment Variables:
 #   AWS_PROFILE     AWS profile to use (optional)
-#   AWS_REGION      AWS region to deploy to (default: us-east-1)
+#   Global configuration loaded from .env.global and config/global-config.ps1
 #
 ###############################################################################
 
@@ -111,7 +111,12 @@ Write-Info "Checking AWS credentials..."
 try {
     $callerIdentity = aws sts get-caller-identity --output json | ConvertFrom-Json
     $awsAccount = $callerIdentity.Account
-    $awsRegion = if ($env:AWS_REGION) { $env:AWS_REGION } else { "us-east-1" }
+    
+    # Load AWS region from global config
+    . "$PSScriptRoot\..\config\global-config.ps1"
+    $config = Get-GlobalConfig
+    $awsRegion = $config.AWS_REGION
+    
     Write-Success "AWS credentials configured (Account: $awsAccount, Region: $awsRegion)"
 }
 catch {

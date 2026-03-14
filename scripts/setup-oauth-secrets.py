@@ -259,8 +259,8 @@ def main():
     )
     parser.add_argument(
         "--region",
-        default="us-east-1",
-        help="AWS region (default: us-east-1)"
+        default=os.environ.get('AWS_REGION', 'ap-south-1'),
+        help="AWS region (loaded from global config or environment, default: ap-south-1)"
     )
     
     args = parser.parse_args()

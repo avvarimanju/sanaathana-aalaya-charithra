@@ -13,8 +13,12 @@ Write-Host "                    BEDROCK MODEL COMPARISON TEST                   
 Write-Host "================================================================================" -ForegroundColor Cyan
 Write-Host ""
 
+# Import global configuration
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+
 # Configuration
-$REGION = "us-east-1"
+$REGION = $config.AWS_REGION
 $HAIKU_MODEL = "anthropic.claude-3-5-haiku-20241022-v1:0"  # Using newer ACTIVE model
 $SONNET_MODEL = "anthropic.claude-3-sonnet-20240229-v1:0"
 

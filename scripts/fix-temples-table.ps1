@@ -10,7 +10,11 @@ $ENDPOINT = if ($env:DYNAMODB_ENDPOINT) { $env:DYNAMODB_ENDPOINT } else { "http:
 $env:AWS_ENDPOINT_URL = $ENDPOINT
 $env:AWS_ACCESS_KEY_ID = if ($env:AWS_ACCESS_KEY_ID) { $env:AWS_ACCESS_KEY_ID } else { "test" }
 $env:AWS_SECRET_ACCESS_KEY = if ($env:AWS_SECRET_ACCESS_KEY) { $env:AWS_SECRET_ACCESS_KEY } else { "test" }
-$env:AWS_DEFAULT_REGION = if ($env:AWS_REGION) { $env:AWS_REGION } else { "ap-south-1" }
+
+# Load AWS region from global config
+. "$PSScriptRoot\..\config\global-config.ps1"
+$config = Get-GlobalConfig
+$env:AWS_DEFAULT_REGION = $config.AWS_REGION
 
 # Check if table already exists
 Write-Host "Checking if Temples table exists..." -ForegroundColor Cyan

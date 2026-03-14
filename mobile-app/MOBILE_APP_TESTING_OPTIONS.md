@@ -215,7 +215,9 @@ Choose a platform:
 
 **Step 2: Update Mobile App**
 ```typescript
-export const API_BASE_URL = 'https://api-staging.yourapp.com';
+// Load API URL from global config
+import { globalConfig } from '../config/global-config';
+export const API_BASE_URL = globalConfig.getApiUrl('staging');
 ```
 
 **Step 3: Start Expo**

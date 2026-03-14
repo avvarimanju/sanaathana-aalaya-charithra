@@ -11,8 +11,10 @@
 
 import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 
+import { globalConfig } from '../config/global-config';
+
 // Configuration
-const REGION = 'ap-south-1'; // Mumbai region
+const REGION = globalConfig.aws.region; // Mumbai region
 const MODELS = {
   haiku: 'anthropic.claude-3-haiku-20240307-v1:0',
   sonnet: 'anthropic.claude-3-sonnet-20240229-v1:0',

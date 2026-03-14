@@ -28,7 +28,8 @@ export default function LoginScreen({ navigation }: any) {
 
   const handleDevLogin = () => {
     // Quick dev login - auto-fill and login
-    setEmail('dev@sanaathana.org');
+    // Email uses domain from global config
+    setEmail(`dev@${process.env.EXPO_PUBLIC_DOMAIN_ROOT || 'charithra.org'}`);
     setPassword('dev123');
     // Auto-login after a brief moment
     setTimeout(() => {

@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "name": "RTM System Integration",
+  "description": "Integrates with the Requirements Traceability Matrix system to run automated tests and update traceability reports",
+  "version": "1.0.0",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": ["write"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "echo 'RTM integration disabled - scripts not available'"
+  }
+}
